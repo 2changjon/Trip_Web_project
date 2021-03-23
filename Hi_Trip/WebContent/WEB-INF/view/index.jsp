@@ -3,13 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <title>Insert title here</title>
 
 <!-- 기본 -->
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.min.js"></script>
 <!-- d3 사용을 위해 -->
 <script type="text/javascript" src="/resources/d3/d3.v3.min.js"></script>
-<!-- d3 퀵 사용을 위해 -->
+<!-- d3 큐 사용을 위해 -->
 <script type="text/javascript" src="/resources/d3/queue.v1.min.js"></script>
 <!-- topojson 사용하기 위해 -->
 <script type="text/javascript" src="/resources/geo/topojson.v1.min.js"></script>
@@ -22,7 +23,7 @@
 
 </head>
 <body>
-<div id="back"></div>
 <div id="map"></div>
+
 </body>
 </html>

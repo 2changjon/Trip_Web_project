@@ -1,0 +1,179 @@
+/* all */
+
+body{
+	margin: 0;
+}
+	
+/**/
+svg {
+	background-color: transparent;
+  pointer-events: all;
+}
+	
+#map {
+	position: relative;
+	z-index: 3;
+  	magin: 0;
+  	padding: 0;
+}
+
+/**/
+.infoLabel span {
+  margin: 0px 5px;
+}
+/**/
+.mapData {
+  fill: #a5f0ce;
+  stroke: #ffffff;
+  stroke-width: 1px;
+}
+	
+/**/
+.ortho {
+  fill: #a5f0ce;
+  stroke: #ffffff;
+  stroke-width: 1px;  
+}
+/**/
+.mapData:hover {
+  fill: #66C2FF;
+}
+/**/
+.focused {
+  fill: #FF7519;
+}
+
+/* web */
+@media screen and (min-width: 450px) {	
+	
+	#globeSvg {
+	  position: relative;
+	  border-radius: 50%;
+	  top: 50%;
+	  left: 50%;
+	  transform: translateX(-50%) translateY(-50%);
+	  background-color: #0080ff;
+	  transition: left 0.4s ease;
+	}
+	/**/
+	#planeSvg {
+	  position: relative;
+	  top: 50%;
+	  left: 50%;
+	  transform: translateX(-50%) translateY(-50%);
+	}
+	
+	/**/
+	.zone {
+	  stroke-width: .5px;
+	  stroke-linejoin: round;
+	  cursor: pointer;
+	}
+	/**/
+	.zoneTooltip {
+	  position: absolute;
+	  overflow: hidden;
+	  display: none;
+	  pointer-events: none;
+	  background: #fff;
+	  padding: 3px;
+	  text-align: left;
+	  border: solid #ccc 1px;
+	  color: #666;
+	  font-size: 1.2rem;
+	  font-family: sans-serif;
+	  -webkit-border-radius: 5px;
+	  -moz-border-radius: 5px;
+	  border-radius: 5px;
+	}
+	/**/
+	.infoLabel {   
+	  position: absolute;
+   	  left: 90%;
+      bottom: 15%;
+	  display: none;
+	  border: solid #ccc 1px;
+	  color: #666;
+	  background: #FFFFFF;    
+	  -webkit-border-radius: 3px;
+	  -moz-border-radius: 3px;
+	  border-radius: 3px;
+	  -webkit-box-shadow: 0px 0px 3px #66C2FF;
+	  -moz-box-shadow: 0px 0px 3px #66C2FF;
+	  box-shadow: 0px 0px 3px #66C2FF;
+	  text-align: left;            
+	  padding: 2px;      
+	  font-size: 1.2rem;
+	  font-family: sans-serif; 
+	  pointer-events: none;   
+	}
+}
+
+@media screen and (max-width: 500px) {
+
+	#globeSvg {
+	  position: absolute;
+	  border-radius: 50%;
+	  left: 50%;
+	  top: 50%;
+	  transform: translateX(-50%) translateY(-50%);
+	  background-color: #0080ff;
+	}
+	/**/
+	#planeSvg {
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translateX(-50%) translateY(-50%);
+	}
+	/**/
+	.zone {
+	  stroke-width: .5px;
+	  stroke-linejoin: round;
+	  cursor: pointer;
+	}
+	/**/
+	.zoneTooltip {
+	  position: absolute;
+	  display: none;
+	  pointer-events: none;
+	  background: #fff;
+	  padding: 3px;
+	  text-align: left;
+	  border: solid #ccc 1px;
+	  color: #666;
+	  font-size: 1.2rem;
+	  font-family: sans-serif;
+	  -webkit-border-radius: 5px;
+	  -moz-border-radius: 5px;
+	  border-radius: 5px; 
+	}
+	/**/
+	.infoLabel {   
+	  position: absolute;
+	  bottom: 20%;
+	  display: none;
+	  border: solid #ccc 1px;
+	  color: #666;
+	  background: #FFFFFF;    
+	  -webkit-border-radius: 3px;
+	  -moz-border-radius: 3px;
+	  border-radius: 3px;
+	  -webkit-box-shadow: 0px 0px 3px #66C2FF;
+	  -moz-box-shadow: 0px 0px 3px #66C2FF;
+	  box-shadow: 0px 0px 3px #66C2FF;
+	  text-align: left;            
+	  padding: 2px;      
+	  font-size: 1.2rem;
+	  font-family: sans-serif; 
+	  pointer-events: none;     
+	}
+	
+	.country-label {
+    fill: #777;
+    fill-opacity: .5;
+    font-size: 5px;
+    font-weight: 300;
+    text-anchor: middle;
+	}
+}

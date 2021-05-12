@@ -23,14 +23,14 @@ init();
 	}
 	//국가 시간
 	function getCountryTime() {
-		var country = parseFloat(document.getElementById("country_number").value);
+		var country_utc_time = parseFloat(document.getElementById("country_number").value);
 	
-		console.log(country);
+		console.log(country_utc_time);
 		
 		const days = document.getElementById("country_day");
 		const times = document.getElementById("country_time");
 		var now = new Date();
-		var tz = now.getTime() + (now.getTimezoneOffset() * 60000) + (country * 3600000);
+		var tz = now.getTime() + (now.getTimezoneOffset() * 60000) + (country_utc_time * 3600000);
 		now.setTime(tz);
 		
 		var day =

@@ -140,7 +140,7 @@
 		</div>
 		<b class="top_logo">Travel'News</b>
 		<div class="country_serch_area">
-			<input type="text" id="country_serch" onkeyup="country_serch_focus()" autocomplete="off" placeholder="국가를 입력해주세요">
+			<input type="text" id="country_serch" onkeyup="country_serch_focus()" onKeypress="map_change()" autocomplete="off" placeholder="국가를 입력해주세요">
 			<ul id="serch_list_area"></ul> <!-- 검색리스트가 나타나는 영역 -->
 		</div>
 	</div>

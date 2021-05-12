@@ -36,14 +36,14 @@ function country_serch_focus(){
 				console.log("끝");
 			}
 		})
-		map_change(country_serch.value); //지도변경
 	}
 }
-function map_change(country_serch) {
+
+function map_change() {
+	var	country_serch = document.getElementById('country_serch').value;
+	
 	/*	Javascript의 for-in문을 사용해 key를 뽑아낼 수 있다.
     	key 변수에는 obj가 가진 key가 하나씩 들어온다. */
-
-
 	if(eng.test(country_serch)){
 		for (var key in countryById) {
 			

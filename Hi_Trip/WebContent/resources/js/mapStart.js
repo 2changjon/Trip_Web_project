@@ -159,7 +159,8 @@ $(document).ready(function() {
 				select_country_name.textContent = koreanById[d.id];
 				country_number_time.value = utcById[d.id];
 				$(".basic_time").addClass("show");
-
+				$("#country_serch").val(koreanById[d.id]);
+				country_serch_focus();
 			//지구본을 평면지도로 변환 및 svg 공간크기 변경 
 			if (ortho === true) {
 				//평명지도용 svg 공간 직사각형으로 변경
@@ -242,7 +243,8 @@ function reset() {
    	zoneTooltip.style("display", "none");
 	contents_country_name.style.display = 'none';
    	select_country.style.display = 'none';
-		
+	$("#country_serch").val("");
+	
 	//평면지도를 지구본으로 변환
 	projection = projectionGlobe;
    	path.projection(projection);

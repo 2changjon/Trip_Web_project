@@ -3,6 +3,8 @@ package poly.persistance.mongo;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
+
 public interface IMongoMapper {
 
 	/**
@@ -14,6 +16,8 @@ public interface IMongoMapper {
 	 * @throws Exception 
 	 */
 	public boolean insertMongo(Map<String, Map<String, ArrayList<Map<String, String>>>> api_Data, String colNm, String collectTime) throws Exception;
+
+	public JSONObject getcountry_data(String country_nm);
 
 }
 

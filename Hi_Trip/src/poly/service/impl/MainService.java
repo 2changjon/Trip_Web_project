@@ -1,16 +1,16 @@
 package poly.service.impl;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.regex.Pattern;
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
 
@@ -23,7 +23,7 @@ public class MainService implements IMainService {
 
 	@Override
 	public ArrayList<String> getserch_list(String keyWord) throws Exception {
-		log.info(this.getClass()+"getserch_list start");
+//		log.info(this.getClass()+"getserch_list start");
 		
 		String eng = "^[a-zA-Z]*$"; //영어를 찾아내는 정규식
 		boolean check = Pattern.matches(eng, keyWord); // 입력값에 영어가 있으면 영문 리스트에서 찾기
@@ -37,11 +37,11 @@ public class MainService implements IMainService {
 		TsvParser parser = new TsvParser(settings);
 		
 		// tsv 파일 내용 전체 가져오기
-		List<String[]> country_data = parser.parseAll(new FileInputStream(employeesFile));
+		List<String[]> file_data = parser.parseAll(new FileInputStream(employeesFile));
 		//첫번째 줄은 목록이기 때문에 삭제를 해준다
-		country_data.remove(0);
+		file_data.remove(0);
 
-		Iterator<String[]> list = country_data.iterator(); 
+		Iterator<String[]> list = file_data.iterator(); 
 		
 		ArrayList<String> serch_list = new ArrayList<String>();
 		
@@ -63,10 +63,9 @@ public class MainService implements IMainService {
 			}
 		}
 		
-		log.info(this.getClass()+"getserch_list end");
+//		log.info(this.getClass()+"getserch_list end");
 		
 		return serch_list;
 	}
-
 	
 }

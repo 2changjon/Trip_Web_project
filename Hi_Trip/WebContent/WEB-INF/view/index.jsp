@@ -19,20 +19,22 @@
 <link rel="stylesheet" href="/resources/css/mapStyle.css">
 <!-- 이미지 스타일적용 -->
 <link rel="stylesheet" href="/resources/css/Main.css">
+<!-- 국가 검색에 대한 스크립트 -->
+<script type="text/javascript" src="/resources/js/country_serch.js"></script>
+<!-- Clock 작동 -->
+<script type="text/javascript" src="/resources/js/Clock.js"></script>
 <!-- Side bar 작동 -->
 <script type="text/javascript" src="/resources/js/Side_bar.js"></script>
 <!-- Side bar 스타일적용 -->
 <link rel="stylesheet" href="/resources/css/Side_bar.css">
-<!-- Clock 작동 -->
-<script type="text/javascript" src="/resources/js/Clock.js"></script>
-<!-- 국가 검색에 대한 스크립트 -->
-<script type="text/javascript" src="/resources/js/country_serch.js"></script>
+<!-- 상세메뉴 클릭시 데이터 삽입 -->
+<script type="text/javascript" src="/resources/js/news_maun.js"></script>
 <!-- d3 이미지 생성 및 작동 스크립트 적용 -->
 <script type="text/javascript" src="/resources/js/mapStart.js"></script>
 <!-- 화면 크기 변경에 따른 자바스크립트 -->
 <script type="text/javascript" src="/resources/js/reSize.js"></script>
 <!-- 이쁜 경고창 가져오기 -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 	<input type="text" id="country_number" value="+1">
@@ -78,12 +80,6 @@
 		<div class="contents" id="contents_area">
 			<div class="country_name">국가명</div>
 			<div class="basic">Welcome <br>&nbsp;&nbsp;&nbsp;Earth&nbsp;&nbsp;&nbsp;</div>
-			<div class="title">
-				<b>News</b>
-				<br>
-				<br>
-				<b>-뉴스목록에 대한 설명이 있는 곳입니다-</b>
-			</div>
 			<div class="manual">
 				<div class="manual_dangerous">
 					<b class="go_Dangerous" title="클릭시 Dangerous로 이동">Dangerous</b>
@@ -109,6 +105,10 @@
 					<br>
 					해당 국가에 대하여 여권 분실 등 해외 여행 중 도움이 필요한 경우 해외 국가의 현지 대사관 연락처 등 연락처 목록 및 상세정보를 제공하는 게시판 입니다.
 				</div>
+			</div>
+			<div class="title_area">
+				<div class="title"></div>
+				<div class="news_title"></div>
 			</div>
 			<div class="content_area">
 				<div class="content">

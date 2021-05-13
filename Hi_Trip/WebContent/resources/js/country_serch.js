@@ -1,9 +1,10 @@
 var eng = /^[a-zA-Z]*$/;
- 
+var country_datas;
+var news_title="해당 국가 해당 항목 뉴스기사 제목";
 function country_serch_focus(){
 	var	country_serch = document.getElementById('country_serch');
 	var serch_list_area = document.getElementById("serch_list_area");
-	
+
 	if( !country_serch.value ){
 		console.log("country_serch : null check");
 		$('.serch_List').remove();
@@ -26,8 +27,6 @@ function country_serch_focus(){
 				console.log("첫번째 결과 : "+data[0]);
 				/*for-of 문을 사용해 arraylist의 요소값을 하나 하나 가져온다*/
 				for(var i of data){
-					/*$('#serch_list_area').append( "<li class='serch_List'">+i+"</li>");*/
-					
 					var li = document.createElement("li");
 					li.className = 'serch_List'
 					li.appendChild(document.createTextNode(i));
@@ -40,15 +39,44 @@ function country_serch_focus(){
 }
 
 function map_change() {
-	var	country_serch = document.getElementById('country_serch').value;
+	console.clear();
+	var	country_nm = document.getElementById('country_serch').value;
+	$.ajax({
+			url : "/country_Data_Select.do",
+			type : "get",
+			dataType : "json",
+			error : function(err) {
+				console.log("실행중 오류가 발생하였습니다."); 
+			},
+			data : {
+				"country_nm" : country_nm
+			},
+			success : function(data) {
+				/*for (var i in data) {
+					console.log(i);	
+				}*/
+				country_datas = data;
+				
+					/*console.log("accident_type_news"+JSON.stringify(data["accident_type_news"]));*/
+					/*console.log(data["dangerous_News"].length+" "+"dangerous_News"+data["dangerous_News"]);
+					console.log(data["local_contact_news"].length+" "+"local_contact_news"+data["local_contact_news"]);
+					console.log(data["safety_notice_news"].length+" "+"safety_notice_news"+data["safety_notice_news"]);
+					console.log(data["special_travel"].length+" "+"special_travel"+data["special_travel"]);
+					console.log(data["travel_alert"].length+" "+"travel_alert"+data["travel_alert"]);
+					console.log(data["travel_prohibited"].length+" "+"travel_prohibited"+data["travel_prohibited"]);
+					
+					console.log(country_datas["local_contact_news"].length+" "+"dddd"+JSON.stringify(country_datas["local_contact_news"]));*/
+				console.log("map_change 끝");
+			}
+		})
 	
 	/*	Javascript의 for-in문을 사용해 key를 뽑아낼 수 있다.
     	key 변수에는 obj가 가진 key가 하나씩 들어온다. */
-	if(eng.test(country_serch)){
+	if(eng.test(country_nm)){
 		for (var key in countryById) {
 			
-			if(country_serch.toUpperCase() === countryById[key].toUpperCase()){	
-				console.log("동일 국가 있음");
+			if(country_nm.toUpperCase() === countryById[key].toUpperCase()){	
+				console.log("동일 국 있음");
 				console.log("key "+key);	
 				    g.selectAll(".focused").classed("focused", false);
 				    d3.select("[id='"+key+"']").classed("focused", focused = key);
@@ -98,7 +126,7 @@ function map_change() {
 	}else{
 		for (var key in koreanById) {
 			
-			if(country_serch === koreanById[key]){	
+			if(country_nm === koreanById[key]){	
 				console.log("동일 국가 있음");
 				console.log("key "+key);	
 				    g.selectAll(".focused").classed("focused", false);

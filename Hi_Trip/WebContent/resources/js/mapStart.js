@@ -59,7 +59,7 @@ $(document).ready(function() {
 		//div를 d3를 사용하기 위해 svg로 변환
 		svgMap = d3.select("div#map").append("svg")
 			.attr('id', 'globeSvg')
-			.attr("overflow", "scroll")
+			.attr("overflow", "hidden")
 			.attr("width", height*0.8)//정사각형으로 공간을 잡기 위해 높이로 맞춤
 			.attr("height", height*0.8);
 			
@@ -161,6 +161,7 @@ $(document).ready(function() {
 				$(".basic_time").addClass("show");
 				$("#country_serch").val(koreanById[d.id]);
 				country_serch_focus();
+				map_change();
 			//지구본을 평면지도로 변환 및 svg 공간크기 변경 
 			if (ortho === true) {
 				//평명지도용 svg 공간 직사각형으로 변경

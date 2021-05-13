@@ -28,16 +28,22 @@ public class ApiParser {
 	//	Côte D'Ivoire	코트디부아르 조심	
 //	public static void main(String[] args) {
 //		ApiParser api = new ApiParser();
-//		System.out.println("중국 "+api.Special_Travel_Alert("남극"));
-//		System.out.println("리비아 "+api.Travel_Alert("리비아"));
-//		System.out.println("리비아"+api.Travel_Prohibited("리비아"));
+//		System.out.println("Dangerous_News "+api.Dangerous_News("프랑스"));
+//		System.out.println("Safety_Notice_News "+api.Safety_Notice_News("남극"));
+//		System.out.println("Accident_Type_News "+api.Accident_Type_News("프랑스"));
+//		System.out.println("Local_Contact_News "+api.Local_Contact_News("프랑스"));
+		
+		//xml
+//		System.out.println("Special_Travel_Alert "+api.Special_Travel_Alert("남극"));
+//		System.out.println("Travel_Alert "+api.Travel_Alert("리비아"));
+//		System.out.println("Travel_Prohibited"+api.Travel_Prohibited("리비아"));
 //	}
 //	
 	//위험 경보 뉴스	
-	public ArrayList<Map<String, String>> Alert_News(String country_nm) {
+	public ArrayList<Map<String, String>> Dangerous_News(String country_nm) {
 		
-		ArrayList<Map<String, String>> alert_News_List = new ArrayList<Map<String,String>>();
-		Map<String, String> alert_News_Map = new HashMap<String, String>();
+		ArrayList<Map<String, String>> dangerous_News_List = new ArrayList<Map<String,String>>();
+		Map<String, String> dangerous_News_Map = new HashMap<String, String>();
 		
 		try {
 			/* 
@@ -72,7 +78,7 @@ public class ApiParser {
 			 */
 			JSONObject jsonObj = (JSONObject) jsonParse.parse(response.getBody().toString());
 			JSONArray personArray = (JSONArray) jsonObj.get("data");
-			
+
 			//null 체크
 			if(personArray == null) {
 				personArray = new JSONArray();
@@ -80,26 +86,31 @@ public class ApiParser {
 			}
 			
 			for(int i=0; i < personArray.size(); i++) { 
-				alert_News_Map = new HashMap<String, String>();
+				dangerous_News_Map = new HashMap<String, String>();
 				JSONObject personObject = (JSONObject) personArray.get(i);
 				
 				if(country_nm.equals((String) personObject.get("country_nm"))) {
-					alert_News_Map.put("title", (String) personObject.get("title"));
-//					alert_News_Map.put("txt_origin_cn", (String) personObject.get("txt_origin_cn"));
-					alert_News_Map.put("wrt_dt", (String) personObject.get("wrt_dt"));
-					alert_News_List.add(alert_News_Map);
-					alert_News_Map = null;
+					dangerous_News_Map.put("title", (String) personObject.get("title"));
+//					dangerous_News_Map.put("txt_origin_cn", (String) personObject.get("txt_origin_cn"));
+					dangerous_News_Map.put("wrt_dt", (String) personObject.get("wrt_dt"));
+					dangerous_News_List.add(dangerous_News_Map);
+					dangerous_News_Map = null;
 				}
 			}
-			
+			// 사용이 완료된 객체는 메모리에서 강제로 비우기
+			response = null;
+			jsonParse = null;
+			jsonObj = null;
+			personArray = null;
+			dangerous_News_Map = null;
 		}catch (Exception e) {
 			log.info("Alert_News 에러 국가 ="+country_nm+" 에러 종류 : "+e);		
 			return null;
 		}finally {
-			log.info("Alert_News 국가 : "+country_nm+" 데이터 수 :"+alert_News_List.size()+" 종료");
+			log.info("Alert_News 국가 : "+country_nm+" 데이터 수 :"+dangerous_News_List.size()+" 종료");
 		}
 		
-		return alert_News_List;
+		return dangerous_News_List;
 
 	}
 	
@@ -142,8 +153,14 @@ public class ApiParser {
 					safety_Notice_List.add(safety_Notice_Map);
 					safety_Notice_Map = null;
 				}
-					
 			}
+			// 사용이 완료된 객체는 메모리에서 강제로 비우기
+			response = null;
+			jsonParse = null;
+			jsonObj = null;
+			personArray = null;
+			safety_Notice_Map = null;
+			
 		}catch (Exception e) {
 			log.info("Safety_Notice_News 에러 국가 ="+country_nm+" 에러 종류 : "+e);
 			return null;
@@ -187,14 +204,19 @@ public class ApiParser {
 				JSONObject personObject = (JSONObject) personArray.get(i);
 				
 				if(country_nm.equals((String) personObject.get("country_nm"))) {
-					accident_Type_Map.put("title", (String) personObject.get("title"));
+					accident_Type_Map.put("news", (String) personObject.get("news"));
 //					accident_Type_Map.put("txt_origin_cn", (String) personObject.get("txt_origin_cn"));
 					accident_Type_Map.put("wrt_dt", (String) personObject.get("wrt_dt"));
 					accident_Type_List.add(accident_Type_Map);
 					accident_Type_Map = null;
-				}
-				
+				}	
 			}
+			// 사용이 완료된 객체는 메모리에서 강제로 비우기
+			response = null;
+			jsonParse = null;
+			jsonObj = null;
+			personArray = null;
+			accident_Type_Map = null;
 		}catch (Exception e) {
 			log.info("Accident_Type_News 에러 국가 ="+country_nm+" 에러 종류 : "+e);
 			return null;
@@ -238,12 +260,18 @@ public class ApiParser {
 				contact_News_Map = new HashMap<String, String>();
 				
 				if(country_nm.equals((String) personObject.get("country_nm"))) {
-					contact_News_Map.put("title", (String) personObject.get("title"));
+					contact_News_Map.put("contact_remark", (String) personObject.get("contact_remark"));
 					contact_News_Map.put("wrt_dt", (String) personObject.get("wrt_dt"));
 					contact_News_List.add(contact_News_Map);
 					contact_News_Map = null;
 				}
 			}
+			// 사용이 완료된 객체는 메모리에서 강제로 비우기
+			response = null;
+			jsonParse = null;
+			jsonObj = null;
+			personArray = null;
+			contact_News_Map = null;
 		}catch (Exception e) {
 			log.info("Local_Contact_News 에러 국가 ="+country_nm+" 에러 종류 : "+e);
 			return null;
@@ -297,6 +325,7 @@ public class ApiParser {
 				if(country_nm.equals((String) personObject.get("countryName"))) {
 					if(personObject.has("limitaPartial")) {
 						travel_Alert_Map.put("limitaPartial", (String) personObject.get("limitaPartial"));
+						travel_Alert_Map.put("limitaNote", (String) personObject.get("limitaNote"));
 						travel_Alert_Map.put("wrtDt", (String) personObject.get("wrtDt"));
 						travel_Alert_List.add(travel_Alert_Map);
 						travel_Alert_Map = null;
@@ -307,7 +336,15 @@ public class ApiParser {
 					}
 				}
 			}
-
+			// 사용이 완료된 객체는 메모리에서 강제로 비우기
+			response = null;
+			joObject = null;
+			xmlresponse = null;
+			body = null;
+			items = null;
+			personArray = null;
+			travel_Alert_Map = null;
+			
 		}catch (Exception e) {
 			log.info("Travel_Alert 에러 국가 ="+country_nm+" 에러 종류 : "+e);  
 			return null;
@@ -365,13 +402,21 @@ public class ApiParser {
 					}else if(personObject.has("splimitPartial")) {
 						special_Travel_Map.put("splimitPartial", (String) personObject.get("splimitPartial"));
 					}
+					special_Travel_Map.put("splimitNote", (String) personObject.get("splimitNote"));
 					special_Travel_Map.put("wrtDt", (String) personObject.get("wrtDt"));
 					special_Travel_List.add(special_Travel_Map);
 					special_Travel_Map = null;
 				}
-				
 			}
-	
+			// 사용이 완료된 객체는 메모리에서 강제로 비우기
+			response = null;
+			joObject = null;
+			xmlresponse = null;
+			body = null;
+			items = null;
+			personArray = null;
+			special_Travel_Map = null;
+
 		}catch (Exception e) {
 			log.info("Special_Travel_Alert 에러 국가 ="+country_nm+" 에러 종류 : "+e); 
 			System.out.println(e);
@@ -427,17 +472,31 @@ public class ApiParser {
 				if(country_nm.equals((String) personObject.get("countryName"))) {
 					if(personObject.has("banPartial")) {
 						travel_Prohibited_Map.put("banPartial", (String) personObject.get("banPartial"));
+						travel_Prohibited_Map.put("banNote", (String) personObject.get("banNote"));
+						travel_Prohibited_Map.put("imgUrl2", (String) personObject.get("imgUrl2"));
 						travel_Prohibited_Map.put("wrtDt", (String) personObject.get("wrtDt"));
 						travel_Prohibited_List.add(travel_Prohibited_Map);
 						travel_Prohibited_Map = null;
 					}else {
+						travel_Prohibited_Map.put("ban", (String) personObject.get("ban"));
+						travel_Prohibited_Map.put("banNote", (String) personObject.get("banNote"));
+						travel_Prohibited_Map.put("imgUrl2", (String) personObject.get("imgUrl2"));
 						travel_Prohibited_Map.put("wrtDt", (String) personObject.get("wrtDt"));
 						travel_Prohibited_List.add(travel_Prohibited_Map);
 						travel_Prohibited_Map = null;
 					}
 				}
 			}
-	
+			
+			// 사용이 완료된 객체는 메모리에서 강제로 비우기
+			response = null;
+			joObject = null;
+			xmlresponse = null;
+			body = null;
+			items = null;
+			personArray = null;
+			travel_Prohibited_Map = null;
+			
 		}catch (Exception e) {
 			log.info("Travel_Prohibited 에러 국가 ="+country_nm+" 에러 종류 : "+e);  
 			return null;

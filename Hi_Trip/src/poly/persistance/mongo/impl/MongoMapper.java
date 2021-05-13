@@ -2,14 +2,19 @@ package poly.persistance.mongo.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.bson.Document;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 
 import poly.persistance.mongo.IMongoMapper;
@@ -57,6 +62,55 @@ public class MongoMapper extends AbstractMongoDBComon implements IMongoMapper {
 		
 		log.info(this.getClass().getName() + ".insertSong End!");
 		return success;
+	}
+
+	@Override
+	public JSONObject getcountry_data(String country_nm) {
+		log.info(this.getClass().getName() + ".getcountr_data Start!");
+		
+		JSONObject country_data= new JSONObject();
+		
+		try (MongoClient client = new MongoClient("localhost", 27017)) {
+            
+			MongoCollection<Document> collection = mongodb.getCollection("country_datas");
+            
+            Document projection = new Document();
+
+            projection.append(country_nm, "$"+country_nm);
+            projection.append("_id", 0);
+            
+            FindIterable<Document> rs = collection.find(new Document()).projection(projection);
+            
+            Iterator<Document> cursor = rs.iterator();
+            
+            JSONParser jsonParse = new JSONParser();
+            
+            while (cursor.hasNext()) {
+    			Document doc = cursor.next();
+    			
+    			if (doc == null) {
+    				doc = new Document();
+    			}
+    			//json으로 만듬
+    			country_data = (JSONObject) jsonParse.parse(doc.toJson());
+    			log.info(country_data);
+    			
+    			doc = null;
+            }
+            
+            // 사용이 완료된 객체는 메모리에서 강제로 비우기
+    		cursor = null;
+    		rs = null;
+    		collection = null;
+    		projection = null;
+    		jsonParse = null;
+    		
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+		
+		log.info(this.getClass().getName() + ".getcountr_data End!");
+		return country_data;
 	}
 
 

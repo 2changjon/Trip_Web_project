@@ -36,9 +36,10 @@ public class SchedulController {
 	private IMongoService mongoService;
 	
 	ArrayList<String> country_List = new ArrayList<String>();
+	ArrayList<String> country_En_List = new ArrayList<String>();
 	
 	@ResponseBody
-	@Scheduled(cron="0 0 3 * * ?")  
+	@Scheduled(cron="0 27 * * * ?")  
 	public void run() throws Exception {
 		Map<String, Map<String, ArrayList<Map<String, String>>>> api_Data = new HashMap<>();
 		Map<String, ArrayList<Map<String, String>>> country_Datas = new HashMap<>();
@@ -62,16 +63,26 @@ public class SchedulController {
 			while(list.hasNext()) {
 				String[] serch = list.next();
 				country_List.add(serch[2].replace(" ", ""));
+				country_En_List.add(serch[1].replace(" ", ""));
 			}
+			// 사용이 완료된 객체는 메모리에서 강제로 비우기
+			readFile = null;
+			settings = null;
+			parser = null;
+			country_Data = null;
+			list = null;
+			
 		}
 		log.info("country_List: "+country_List);
 		
 		Iterator<String> countrys = country_List.iterator();
+		Iterator<String> countryEns = country_En_List.iterator();
 		
 		while(countrys.hasNext()) {
 			String country_nm = countrys.next();
+			String country_En_nm = countryEns.next();
 			country_Datas = new HashMap<>();
-			country_Datas.put("alert_new", apiParser.Alert_News(country_nm)); //위험 경보 뉴스
+			country_Datas.put("dangerous_News", apiParser.Dangerous_News(country_nm)); //위험 경보 뉴스
 			country_Datas.put("safety_notice_news", apiParser.Safety_Notice_News(country_nm)); //안전 공지 뉴스
 			country_Datas.put("accident_type_news", apiParser.Accident_Type_News(country_nm)); //사건사고 유형 뉴스
 			country_Datas.put("local_contact_news", apiParser.Local_Contact_News(country_nm)); //현지 연락처 뉴스
@@ -79,11 +90,18 @@ public class SchedulController {
 			country_Datas.put("special_travel", apiParser.Special_Travel_Alert(country_nm)); //특별여행 위험 경보
 			country_Datas.put("travel_prohibited", apiParser.Travel_Prohibited(country_nm)); //여행금지 경보
 			
-			api_Data.put(country_nm, country_Datas);
+			api_Data.put(country_En_nm, country_Datas);
 			country_Datas = null;
 		}
+		
 		boolean success = mongoService.insertMongo(api_Data);
-	
+
+		// 사용이 완료된 객체는 메모리에서 강제로 비우기
+		countrys = null;
+		countryEns = null;
+		api_Data = null;
+		country_Datas = null;
+		
 		if(success) {
 			log.info("Mongo Insert End");
 		}else {

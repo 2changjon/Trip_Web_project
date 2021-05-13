@@ -15,6 +15,7 @@ svg {
 	z-index: 3;
   	magin: 0;
   	padding: 0;
+  	overflow: hidden;
 }
 
 /**/

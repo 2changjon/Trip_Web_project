@@ -213,7 +213,7 @@
 	
 	.sidebar .contents div {
 		display: none;
-		word-break: keep-all;
+		word-break: keep-all; /* 문자 단위로 줄넘기기 */
 	}
 	
 	.sidebar .contents .country_name {
@@ -239,17 +239,20 @@
 	.sidebar .contents.news {
 		grid-template-rows: 2fr 8fr;
 	}
-	.sidebar .contents.news .title {
+	.sidebar .contents.news .title_area {
 	/* 	grid-area:title; */
 		grid-row: 1;
 		display: inline-block;
 		text-align: center;
 		margin-top: 2%;
 	}
-		.sidebar .contents.news .title b:first-child{
+		.sidebar .contents.news .title_area .title{
+			display: block;
+			font-weight: bold;
 			font-size: 5rem;
 		}
-		.sidebar .contents.news .title b:not(:first-child){
+		.sidebar .contents.news .title_area .news_title {
+			display: inline-block;
 			font-size: 1.7rem;
 			color: red;
 		}
@@ -286,18 +289,21 @@
 		display: block;
 		text-align: center;
 	}
-	
-	.sidebar .contents.insert .title {
+	/* 상세 게시판 */
+	.sidebar .contents.insert .title_area {
 	/* 	grid-area:title; */
 		grid-row: 1;
 		display: inline-block;
 		text-align: center;
 		margin-top: 2%;
 	}
-		.sidebar .contents.insert .title b:first-child{
+		.sidebar .contents.insert .title_area .title{
+			display: block;
+			font-weight: bold;
 			font-size: 5rem;
 		}
-		.sidebar .contents.insert .title b:not(:first-child){
+		.sidebar .contents.insert .title_area .news_title{
+			display: inline-block;
 			font-size: 1.7rem;
 			color: red;
 		}
@@ -333,15 +339,19 @@
     	margin: 0 25%;
 	}
 	
-	.sidebar .contents.ticket .title {
+	.sidebar .contents.ticket .title_area {
 		grid-row: 1;
 		display: inline-block;
 		text-align: center;
 		margin: auto;
+		font-size: 5rem;
 	}
-		.sidebar .contents.ticket .title b{
+		.sidebar .contents.ticket .title_area .title {
+			display: block;
+			font-weight: bold;			
 			font-size: 5rem;
 		}
+		
 	.sidebar .contents.ticket .ticket_area{
 		grid-row: 2;
 		display: grid;
@@ -355,6 +365,7 @@
 			". serch_btn serch_btn serch_btn ."
 			". . . . ."
 	}
+	
 	.sidebar .contents.ticket .ticket_area .start_area{
 		display: inline-block;
 		grid-area: start_area;
@@ -388,6 +399,7 @@
 /*  *//*  *//*  *//*  *//*  */
 /*  *//*  *//*  *//*  *//*  */
 @media screen and (max-width: 500px) {
+	
 	#country_number{
 		display: none;
 	}

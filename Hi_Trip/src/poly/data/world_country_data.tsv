@@ -14,7 +14,7 @@ id	english_name	korean_name	utc_time
 056	Belgium	벨기에	2
 064	Bhutan	부탄	6
 068	Bolivia	볼리비아	-4
-070	Bosnia-Herzegovina	보스니아헤르체고비나	1
+070	Bosnia Herzegovina	보스니아헤르체고비나	1
 072	Botswana	보츠와나	2
 076	Brazil	브라질	-3
 084	Belize	벨리즈	-6
@@ -40,7 +40,7 @@ id	english_name	korean_name	utc_time
 191	Croatia	크로아티아	1
 192	Cuba	쿠바	-5
 196	Cyprus	사이프러스	2
-198	N. Cyprus	북 키프로스	2
+198	N_Cyprus	북 키프로스	2
 203	Czech	체코	1
 204	Benin	베냉	1
 208	Denmark	덴마크	1
@@ -51,7 +51,7 @@ id	english_name	korean_name	utc_time
 231	Ethiopia	에티오피아	3
 232	Eritrea	에리트레아	3
 233	Estonia	에스토니아	2
-238	Falkland Islands (Malvinas)	포클랜드 제도 (말비나스)	-3
+238	Falkland Islands	포클랜드 제도 (말비나스)	-3
 242	Fiji	피지	12
 246	Finland	핀란드	3
 250	France	프랑스	1
@@ -60,7 +60,7 @@ id	english_name	korean_name	utc_time
 266	Gabon	가봉	1
 268	Georgia	조지아	4
 270	Gambia	감비아	0
-275	Palestinian Territory, Occupied	팔레스타인	2
+275	Palestinian Territory	팔레스타인	2
 276	Germany	독일	1
 288	Ghana	가나	0
 300	Greece	그리스	2
@@ -79,7 +79,7 @@ id	english_name	korean_name	utc_time
 372	Ireland	아일랜드	0
 376	Israel	이스라엘	2
 380	Italia	이탈리아	2
-384	C?te D'Ivoire	코트디부아르	0
+384	Cote D'Ivoire	코트디부아르	0
 388	Jamaica	자메이카	-5
 392	Japan	일본	9
 398	Kazakhstan	카자흐스탄	6
@@ -120,16 +120,16 @@ id	english_name	korean_name	utc_time
 562	Niger	니제르	1
 566	Nigeria	나이지리아	1
 578	Norway	노르웨이	1
-586	Pakistan	파키스탄	5
+586	Pakistanf	파키스탄	5
 591	Panama	파나마	-5
-598	Papua New Guinea :PNG	파푸아뉴기니	10
+598	Papua New Guinea	파푸아뉴기니	10
 600	Paraguay	파라과이	-4
 604	Peru	페루	-5
 608	Philippines	필리핀	8
 616	Poland	폴란드	1
 620	Portugal	포르투갈	0
-624	Guinea-Bissau	기니비사우	0
-626	Timor-Leste	동티모르	9
+624	Guinea Bissau	기니비사우	0
+626	Timor Leste	동티모르	9
 630	Puerto Rico	푸에르토리코	-4
 634	Qatar	카타르	3
 642	Romania	루마니아	2
@@ -158,8 +158,8 @@ id	english_name	korean_name	utc_time
 762	Tajikistan	타지키스탄	5
 764	Thailand	태국	7
 768	Togo	토고	0
-780	Trinidad & Tobago	트리니다드토바고	-4
-784	United Arab Emirates : UAE	아랍에미리트	4
+780	Trinidad Tobago	트리니다드토바고	-4
+784	United Arab Emirates	아랍에미리트	4
 788	Tunisia	튀니지	1
 792	Turkey	터키	3
 795	Turkmenistan	투르크메니스탄	5

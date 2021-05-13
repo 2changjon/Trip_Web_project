@@ -6,5 +6,4 @@ public interface IMainService {
 
 	ArrayList<String> getserch_list(String keyWord) throws Exception;
 
-
 }

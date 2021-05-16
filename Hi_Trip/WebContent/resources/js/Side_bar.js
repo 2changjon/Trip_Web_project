@@ -45,7 +45,52 @@ window.onload = function(){
 			$('.news_title').text("-뉴스목록에 대한 설명이 있는 곳입니다-");
 			
 			$('.country_serch_area').css("display","inline-block");
-			
+			if(focused != false){
+				if(country_datas["travel_prohibited"].length > 0){
+					
+					if(country_datas["travel_prohibited"][0].hasOwnProperty('banPartial')){
+						console.log("travel_prohibited if :"+country_datas["travel_prohibited"][0].banPartial);
+						swal.fire({
+							title: country_datas["travel_prohibited"][0].banPartial, 
+							text: country_datas["travel_prohibited"][0].banNote,
+							width: 600,
+							imageUrl: country_datas["travel_prohibited"][0].imgUrl2,
+							imageWidth: 600,
+	  						imageHeight: 300,
+							customClass: {
+								 title: 'swal_title'
+							}
+							});	
+					}else{
+						console.log("travel_prohibited else "+country_datas["travel_prohibited"][0].ban);
+						swal.fire({
+							title: country_datas["travel_prohibited"][0].ban, 
+							text: country_datas["travel_prohibited"][0].banNote,
+							width: 600,
+							imageUrl: country_datas["travel_prohibited"][0].imgUrl2,
+							imageWidth: 600,
+	  						imageHeight: 300,
+							customClass: {
+								 title: 'swal_title'
+							}
+							});
+					}
+				}else if(country_datas["travel_alert"].length > 0){
+						
+					if(country_datas["travel_alert"][0].hasOwnProperty('limitaPartial')){
+						console.log("travel_alert if "+country_datas["travel_alert"][0].limitaPartial);
+						swal.fire(country_datas["travel_alert"][0].limitaPartial, country_datas["travel_alert"][0].limitaNote,"error");
+					}
+				}else if(country_datas["special_travel"].length > 0){
+					if(country_datas["special_travel"][0].hasOwnProperty('splimit')){
+						console.log("special_travel if "+country_datas["special_travel"][0].splimit);
+						swal.fire(country_datas["special_travel"][0].splimit, country_datas["special_travel"][0].splimitNote,"error");
+					}else{
+						console.log("special_travel else "+country_datas["special_travel"][0].splimitPartial);
+						swal.fire(country_datas["special_travel"][0].splimitPartial, country_datas["special_travel"][0].splimitNote,"error");
+					}
+				}
+			}
 	    });
 	
 		/* 티켓 클릭시 뉴스-상세 리스트 해제 및 상세 클릭 해제 */

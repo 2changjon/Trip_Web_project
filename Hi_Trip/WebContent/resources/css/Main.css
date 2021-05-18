@@ -116,6 +116,7 @@ html {
     	top: 35%;
     	right: 7%;
     	width: 30rem;
+    	max-width: 200px;
 		/* position: absolute;
 		display: inline-block;
 		right: 7%;
@@ -129,10 +130,12 @@ html {
     	border-bottom: 1px solid;
     	outline: none;
     	width: inherit;
+    	max-width: 200px;
 		/* height: 100%;
 		width: 20rem;
 		font-size: 1rem; */
 	}
+	/* 미리입력된값에 대한 css */
 	#country_serch::-webkit-input-placeholder {
    		text-align: center;
 	}
@@ -141,6 +144,7 @@ html {
    	 	overflow: auto;
    		max-height: 15rem;
    		width: inherit;
+   		max-width: 200px;
 	}
 	.serch_List{
 	    font-size: 1rem;

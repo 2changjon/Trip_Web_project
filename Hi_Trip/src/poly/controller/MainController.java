@@ -16,7 +16,6 @@ import poly.service.IMainService;
 import poly.service.IMongoService;
 import poly.util.CmmUtil;
 
-
 @Controller
 public class MainController {
 	
@@ -63,4 +62,16 @@ public class MainController {
 		log.info(this.getClass()+".country_Data_Select end");
 		return country_data;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getplace_List", method = RequestMethod.GET)
+	public ArrayList<String> getplace_List(HttpServletRequest request){
+		
+		String country_nm = CmmUtil.nvl(request.getParameter("country_nm"));
+		
+		ArrayList<String> place_List = mainService.getplace_List(country_nm);
+		
+	return place_List;
+	}
+	
 }

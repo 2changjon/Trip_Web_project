@@ -103,7 +103,8 @@ hs_err_pid*
 ## ignoring target file
 target/
 
-/Hi_Trip/src/poly/data/IApiKeys.java
+/Hi_Trip/src/poly/data/ApiKeys.java
+/Hi_Trip/src/poly/data/Test.java
 /Hi_Trip/src/config
 /Hi_Trip/WebContent/WEB-INF/classes
 /Servers

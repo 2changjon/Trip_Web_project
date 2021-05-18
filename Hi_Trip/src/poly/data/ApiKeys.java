@@ -18,4 +18,6 @@ public class ApiKeys {
 	//여행 금지
 	String travel_Prohibited_Key = "beBygLcpPjkumsekp0oNS%2BPqEAP%2BV8bAP2Vyp4Wlg7qhHE63JCOJOcDHolv7ZZnIXm08QPMWz9l9nhsGa0znmw%3D%3D";
 	
+	public String rapidapi_key = "d424301350mshbea8b761854fc09p106d9cjsnd3dd91f8a1bb";
+	
 }

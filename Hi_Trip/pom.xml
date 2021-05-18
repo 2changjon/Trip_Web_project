@@ -28,6 +28,14 @@
 	
 	<dependencies>
 		
+		<!-- 셀레니움을 위해 selenium-java 추가-->
+		<dependency>
+    		<groupId>org.seleniumhq.selenium</groupId>
+    		<artifactId>selenium-java</artifactId>
+    		<version>3.141.59</version>
+		</dependency>
+		
+		
 		<!-- 웹 크롤링을 위해 jsoup 외부라이브러리 추가 -->
 		<dependency>
 			<groupId>org.jsoup</groupId>

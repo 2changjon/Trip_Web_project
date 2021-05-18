@@ -17,7 +17,6 @@ import org.apache.log4j.Logger;
 
 //import poly.persistance.mongo.IMongoMapper;
 
-
 public class ApiParser {
 	// 로그 파일 생성 및 로그 출력을 위한 log4j 프레임워크의 자바 객체 private
 	private Logger log = Logger.getLogger(this.getClass());
@@ -96,6 +95,7 @@ public class ApiParser {
 					dangerous_News_List.add(dangerous_News_Map);
 					dangerous_News_Map = null;
 				}
+				personObject = null;
 			}
 			// 사용이 완료된 객체는 메모리에서 강제로 비우기
 			response = null;
@@ -153,6 +153,7 @@ public class ApiParser {
 					safety_Notice_List.add(safety_Notice_Map);
 					safety_Notice_Map = null;
 				}
+				personObject = null;
 			}
 			// 사용이 완료된 객체는 메모리에서 강제로 비우기
 			response = null;
@@ -209,6 +210,7 @@ public class ApiParser {
 					accident_Type_List.add(accident_Type_Map);
 					accident_Type_Map = null;
 				}	
+				personObject = null;
 			}
 			// 사용이 완료된 객체는 메모리에서 강제로 비우기
 			response = null;
@@ -264,6 +266,7 @@ public class ApiParser {
 					contact_News_List.add(contact_News_Map);
 					contact_News_Map = null;
 				}
+				personObject = null;
 			}
 			// 사용이 완료된 객체는 메모리에서 강제로 비우기
 			response = null;
@@ -334,6 +337,7 @@ public class ApiParser {
 						travel_Alert_Map = null;
 					}
 				}
+				personObject = null;
 			}
 			// 사용이 완료된 객체는 메모리에서 강제로 비우기
 			response = null;
@@ -406,6 +410,7 @@ public class ApiParser {
 					special_Travel_List.add(special_Travel_Map);
 					special_Travel_Map = null;
 				}
+				personObject = null;
 			}
 			// 사용이 완료된 객체는 메모리에서 강제로 비우기
 			response = null;
@@ -425,8 +430,7 @@ public class ApiParser {
 		}
 		return special_Travel_List;
 	}
-	
-	
+		
 	//여행금지 경보	
 	public ArrayList<Map<String, String>> Travel_Prohibited(String country_nm) {
 		
@@ -485,6 +489,7 @@ public class ApiParser {
 						travel_Prohibited_Map = null;
 					}
 				}
+				personObject = null;
 			}
 			
 			// 사용이 완료된 객체는 메모리에서 강제로 비우기

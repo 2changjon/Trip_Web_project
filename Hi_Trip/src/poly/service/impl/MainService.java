@@ -5,22 +5,32 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.regex.Pattern;
+
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
 
+import poly.data.ApiKeys;
 import poly.service.IMainService;
 
 @Service("MainService")
 public class MainService implements IMainService {
 	
 	private Logger log =Logger.getLogger(this.getClass());
-
+	
+	//api 키 가져오기
+	ApiKeys apiKeys = new ApiKeys();
+	
 	@Override
 	public ArrayList<String> getserch_list(String keyWord) throws Exception {
 //		log.info(this.getClass()+"getserch_list start");
@@ -66,6 +76,54 @@ public class MainService implements IMainService {
 //		log.info(this.getClass()+"getserch_list end");
 		
 		return serch_list;
+	}
+	
+	@Override
+	public ArrayList<String> getplace_List(String country_nm) {
+		
+		ArrayList<String> place_List = new ArrayList<String>();
+		
+		try {
+			Unirest.setTimeouts(0, 0);
+			HttpResponse<String> response = Unirest.get("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+country_nm)
+					.header("x-rapidapi-key", apiKeys.rapidapi_key)
+					.header("x-rapidapi-host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
+					.asString();
+			//null 체크
+			if(response == null) {
+				response = new HttpResponse<String>(null, null);
+			}
+			
+			JSONParser jsonParse = new JSONParser();
+			
+			JSONObject jsonObj = (JSONObject) jsonParse.parse(response.getBody().toString());
+			JSONArray personArray = (JSONArray) jsonObj.get("Places");
+
+			//null 체크
+			if(personArray == null) {
+				personArray = new JSONArray();
+				log.info("personArray null");
+			}else {
+				personArray.remove(0);
+			}
+			for(int i=0; i < personArray.size(); i++) { 
+				JSONObject personObject = (JSONObject) personArray.get(i);
+				place_List.add(personObject.get("PlaceName").toString()+"  ("+personObject.get("PlaceId").toString().replace("-sky", "")+")");
+				personObject = null;
+			}
+			
+			// 사용이 완료된 객체는 메모리에서 강제로 비우기
+			response = null;
+			jsonParse = null;
+			jsonObj = null;
+			personArray = null;
+			
+			return place_List;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return place_List;
 	}
 	
 }

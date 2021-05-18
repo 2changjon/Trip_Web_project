@@ -91,7 +91,7 @@ public class ApiParser {
 				
 				if(country_nm.equals((String) personObject.get("country_nm"))) {
 					dangerous_News_Map.put("title", (String) personObject.get("title"));
-//					dangerous_News_Map.put("txt_origin_cn", (String) personObject.get("txt_origin_cn"));
+					dangerous_News_Map.put("html_origin_cn", (String) personObject.get("html_origin_cn"));
 					dangerous_News_Map.put("wrt_dt", (String) personObject.get("wrt_dt"));
 					dangerous_News_List.add(dangerous_News_Map);
 					dangerous_News_Map = null;
@@ -148,7 +148,7 @@ public class ApiParser {
 				
 				if(country_nm.equals((String) personObject.get("country_nm"))) {
 					safety_Notice_Map.put("title", (String) personObject.get("title"));
-//					safety_Notice_Map.put("txt_origin_cn", (String) personObject.get("txt_origin_cn"));
+					safety_Notice_Map.put("txt_origin_cn", (String) personObject.get("txt_origin_cn"));
 					safety_Notice_Map.put("wrt_dt", (String) personObject.get("wrt_dt"));
 					safety_Notice_List.add(safety_Notice_Map);
 					safety_Notice_Map = null;
@@ -205,7 +205,6 @@ public class ApiParser {
 				
 				if(country_nm.equals((String) personObject.get("country_nm"))) {
 					accident_Type_Map.put("news", (String) personObject.get("news"));
-//					accident_Type_Map.put("txt_origin_cn", (String) personObject.get("txt_origin_cn"));
 					accident_Type_Map.put("wrt_dt", (String) personObject.get("wrt_dt"));
 					accident_Type_List.add(accident_Type_Map);
 					accident_Type_Map = null;

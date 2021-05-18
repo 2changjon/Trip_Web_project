@@ -80,13 +80,13 @@ public class MongoService implements IMongoService {
 			//serch[0] = number
 			if(check) {
 				//영어로 검색시 country_nm가 serch[1]에  contains(포함) 되어있으면
-				if(serch[1].toUpperCase().contains(country_nm.toUpperCase())) {
+				if(serch[1].toUpperCase().equals(country_nm.toUpperCase())) {
 					country_datas = mongoMapper.getcountry_data(serch[1].replaceAll(" ", ""));
 					country_data = (JSONObject) country_datas.get(serch[1].replaceAll(" ", ""));
 				}		
 			} else {
 				//한글로 검색시
-				if(serch[2].contains(country_nm)) {
+				if(serch[2].equals(country_nm)) {
 					country_datas = mongoMapper.getcountry_data(serch[1].replaceAll(" ", ""));
 					country_data = (JSONObject) country_datas.get(serch[1].replaceAll(" ", ""));
 				}

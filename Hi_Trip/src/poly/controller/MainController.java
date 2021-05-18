@@ -52,8 +52,8 @@ public class MainController {
 	
 	//국가 검색됬을시 관련 데이터 가져오기
 	@ResponseBody
-	@RequestMapping(value = "/country_Data_Select", method = RequestMethod.GET)
-	public Object country_Data_Select(HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/getcountry_Data", method = RequestMethod.GET)
+	public Object getcountry_Data(HttpServletRequest request) throws Exception {
 		log.info(this.getClass()+".country_Data_Select start");
 		
 		String country_nm = CmmUtil.nvl(request.getParameter("country_nm"));

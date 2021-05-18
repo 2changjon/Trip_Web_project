@@ -45,7 +45,7 @@ svg {
 }
 
 /* web */
-@media screen and (min-width: 450px) {	
+@media screen and (min-width: 501px) {	
 	
 	#globeSvg {
 	  position: relative;

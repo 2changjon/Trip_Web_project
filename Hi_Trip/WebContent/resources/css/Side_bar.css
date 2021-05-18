@@ -208,7 +208,7 @@
 	/* 내용이 들어갈 공간  default*/
 	.sidebar .contents {
 		display: grid;
-		grid-template-rows: 2fr 8fr;
+		grid-template-rows: 1fr 8fr;
 	}
 	
 	.sidebar .contents div {
@@ -324,8 +324,7 @@
 		grid-area:content;
 		display: block;
 		overflow: auto;
-		background-color: red;
-		color: white;
+		background-color: aliceblue;
 		width: 80%;
 		margin: 0 10%;
 	}
@@ -407,7 +406,7 @@
 	.sidebar_btn{
 		z-index: 5;
 		position: relative;
-		top: 65%;
+		top: 62%;
 		text-align: center;
 		background: #ffffff;
 		border: 1px solid #1b1b1b;

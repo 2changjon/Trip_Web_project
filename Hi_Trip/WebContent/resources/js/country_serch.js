@@ -1,6 +1,6 @@
 var eng = /^[a-zA-Z]*$/;
 var country_datas;
-var news_title="해당 국가 해당 항목 뉴스기사 제목";
+
 function country_serch_focus(){
 	var	country_serch = document.getElementById('country_serch');
 	var serch_list_area = document.getElementById("serch_list_area");
@@ -42,7 +42,7 @@ function map_change() {
 	console.clear();
 	var	country_nm = document.getElementById('country_serch').value;
 	$.ajax({
-			url : "/country_Data_Select.do",
+			url : "/getcountry_Data.do",
 			type : "get",
 			dataType : "json",
 			error : function(err) {
@@ -55,8 +55,47 @@ function map_change() {
 				/*for (var i in data) {
 					console.log(i);	
 				}*/
-				country_datas = data;
-				
+				console.log("data[travel_prohibited].length ::"+data["travel_prohibited"].length);
+				if(data["travel_prohibited"].length > 0){
+					if(data["travel_prohibited"][0].hasOwnProperty('banPartial')){
+						console.log("travel_prohibited if :"+data["travel_prohibited"][0].banPartial);
+						swal.fire({
+							title: data["travel_prohibited"][0].banPartial, 
+							text: data["travel_prohibited"][0].banNote,
+							width: 600,
+							imageUrl: data["travel_prohibited"][0].imgUrl2,
+							imageWidth: 600,
+							imageHeight: 300
+							});	
+					}else{
+						console.log("travel_prohibited else "+data["travel_prohibited"][0].ban);
+						swal.fire({
+							title: data["travel_prohibited"][0].ban, 
+							text: data["travel_prohibited"][0].banNote,
+							width: 600,
+							imageUrl: data["travel_prohibited"][0].imgUrl2,
+							imageWidth: 600,
+							imageHeight: 300
+						});
+					}
+				}
+				console.log("data[travel_alert].length ::"+data["travel_alert"].length);
+				if(data["travel_alert"].length > 0){
+					if(data["travel_alert"][0].hasOwnProperty('limitaPartial')){
+						console.log("travel_alert if "+data["travel_alert"][0].limitaPartial);
+						swal.fire(data["travel_alert"][0].limitaPartial, data["travel_alert"][0].limitaNote,"error");
+					}
+				}
+				console.log("data[special_travel].length ::"+data["special_travel"].length);
+				if(data["special_travel"].length > 0){
+					if(data["special_travel"][0].hasOwnProperty('splimit')){
+						console.log("special_travel if "+data["special_travel"][0].splimit);
+						swal.fire(data["special_travel"][0].splimit, data["special_travel"][0].splimitNote,"error");
+					}else{
+						console.log("special_travel else "+data["special_travel"][0].splimitPartial);
+						swal.fire(data["special_travel"][0].splimitPartial, data["special_travel"][0].splimitNote,"error");
+					}
+				}
 					/*console.log("accident_type_news"+JSON.stringify(data["accident_type_news"]));*/
 					/*console.log(data["dangerous_News"].length+" "+"dangerous_News"+data["dangerous_News"]);
 					console.log(data["local_contact_news"].length+" "+"local_contact_news"+data["local_contact_news"]);
@@ -66,6 +105,7 @@ function map_change() {
 					console.log(data["travel_prohibited"].length+" "+"travel_prohibited"+data["travel_prohibited"]);
 					
 					console.log(country_datas["local_contact_news"].length+" "+"dddd"+JSON.stringify(country_datas["local_contact_news"]));*/
+				country_datas = data;
 				console.log("map_change 끝");
 			}
 		})
@@ -177,4 +217,6 @@ function map_change() {
 			}//if
 		}//for
 	}//if(영문체크)
+	
+			
 }

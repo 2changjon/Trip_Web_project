@@ -61,7 +61,7 @@ html {
 	user-select: none;
 	box-sizing: border-box;
 }
-.swal_title{
+#swal2-title {
 		color: red;
 }
 	
@@ -109,13 +109,13 @@ html {
 			display : none;
 		}
 	.country_serch_area{	
-		font-size: 10px;
+		font-size: 1rem;
     	z-index: 5;
     	position: absolute;
     	display: inline-block;
     	top: 35%;
     	right: 7%;
-    	width: 150px;
+    	width: 30rem;
 		/* position: absolute;
 		display: inline-block;
 		right: 7%;
@@ -124,6 +124,7 @@ html {
 	}
 	#country_serch{
 		border: 0;
+		font-size: 1.5rem;
     	background-color: unset;
     	border-bottom: 1px solid;
     	outline: none;
@@ -138,7 +139,7 @@ html {
 	#serch_list_area{	
 		z-index: 6;
    	 	overflow: auto;
-   		max-height: 150px;
+   		max-height: 15rem;
    		width: inherit;
 	}
 	.serch_List{
@@ -191,13 +192,14 @@ html {
 		display: inline-block;
 	    right: 2%;
 	    top: 15%;
-	    width: 170px;
+	    width: 20rem;
 	}
 	#country_serch{
 		border: 0;
     	background-color: unset;
     	outline: none;
     	border-bottom: 1px solid;
+    	font-size: 1.5rem;
      	width: inherit;	
 	}
 	#country_serch::-webkit-input-placeholder {
@@ -206,7 +208,7 @@ html {
 	#serch_list_area{	
 		z-index: 6;
 		max-width: inherit;
-	    max-height: 150px;
+	    max-height: 15rem;
 	    overflow: auto;
 	}
 	.serch_List{

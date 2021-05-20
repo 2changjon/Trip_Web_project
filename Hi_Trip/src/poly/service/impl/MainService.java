@@ -103,12 +103,14 @@ public class MainService implements IMainService {
 			if(personArray == null) {
 				personArray = new JSONArray();
 				log.info("personArray null");
-			}else {
-				personArray.remove(0);
 			}
+			
 			for(int i=0; i < personArray.size(); i++) { 
 				JSONObject personObject = (JSONObject) personArray.get(i);
-				place_List.add(personObject.get("PlaceName").toString()+"  ("+personObject.get("PlaceId").toString().replace("-sky", "")+")");
+				//국가 검색 제한
+				if(personObject.get("PlaceId") != personObject.get("CountryId")) {
+					place_List.add(personObject.get("PlaceName").toString()+"  ("+personObject.get("PlaceId").toString().replace("-sky", "")+")");
+				}
 				personObject = null;
 			}
 			

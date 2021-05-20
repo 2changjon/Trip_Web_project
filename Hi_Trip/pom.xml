@@ -27,7 +27,12 @@
 	</repositories> -->
 	
 	<dependencies>
-		
+		 <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+		<dependency>
+    		<groupId>io.github.bonigarcia</groupId>
+    		<artifactId>webdrivermanager</artifactId>
+    		<version>3.8.1</version>
+		</dependency>
 		<!-- 셀레니움을 위해 selenium-java 추가-->
 		<dependency>
     		<groupId>org.seleniumhq.selenium</groupId>
@@ -35,6 +40,11 @@
     		<version>3.141.59</version>
 		</dependency>
 		
+		<dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>3.141.59</version>
+        </dependency>
 		
 		<!-- 웹 크롤링을 위해 jsoup 외부라이브러리 추가 -->
 		<dependency>

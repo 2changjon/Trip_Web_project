@@ -332,6 +332,9 @@
 		width: 80%;
 		margin: 0 10%;
 	}
+	.sidebar .contents.insert .content_area .content div{
+		display: block;
+	}
 	.sidebar .contents.insert .content_area .next_btn{
 		display: inline-block;
 		grid-area:next_btn;

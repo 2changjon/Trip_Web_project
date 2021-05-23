@@ -224,6 +224,8 @@ function reset() {
 	$(".basic_time").removeClass("show");
 	var	country_serch = document.getElementById('country_serch');
 	country_serch.value = "";
+	country_datas = null;
+	
 	$('.serch_List').remove();
 	contents_basic.innerHTML = "Welcome"+'<br>&nbsp;&nbsp;&nbsp;'+"Earth"+'&nbsp;&nbsp;&nbsp;';
 	//지구본용 svg 공간 원으로 변경

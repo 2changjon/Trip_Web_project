@@ -111,27 +111,16 @@
 				<div class="news_title"></div>
 			</div>
 			<div class="content_area">
-				<div class="content">
-				content공간
-				content공간content공간
-				content공간content공간content공간
-				content공간content공간content공간content공간
-				content공간content공간content공간content공간content공간
-				content공간content공간content공간content공간content공간content공간
-				content공간content공간content공간content공간content공간content공간content공간
-				content공간content공간content공간content공간content공간content공간content공간content공간
-				content공간content공간content공간content공간content공간content공간content공간content공간content공간
-				</div>
+				<div class="content"></div>
 				<div class="next_btn">버튼 공간</div>
 			</div>
-			<div class="ticket_area">
+			<form action="" class="ticket_area">
 				<div class="start_area"></div>
 				<div class="end_area"></div>
 				<div class="start_time"></div>
 				<div class="end_time"></div>
 				<div class="serch_btn"></div>
-			</div>
-			
+			</form>			
 		</div>
 	</nav>
 	<div class="top">

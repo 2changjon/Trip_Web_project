@@ -1,5 +1,5 @@
-
 window.onload = function(){
+	
 	var sidebar_btn = document.querySelector(".sidebar_btn"),
 		basic = document.querySelector(".basic");
 
@@ -121,7 +121,7 @@ window.onload = function(){
 				$('.contents').addClass("insert");
 				
 			}else{
-				swal.fire("국가 미선택","국가를 선택해주세요","warning")
+				swal.fire("<b style="+"color:red"+">국가 미선택</b>","국가를 선택해주세요","warning");
 			}
 	    });
 		
@@ -158,4 +158,5 @@ window.onload = function(){
 			$('#contents_area').removeClass().addClass("contents");
 			$('.contents').addClass("insert");
 		});
+		
 }//window.onload

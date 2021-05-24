@@ -60,7 +60,7 @@ function map_change() {
 					if(data["travel_prohibited"][0].hasOwnProperty('banPartial')){
 						console.log("travel_prohibited if :"+data["travel_prohibited"][0].banPartial);
 						swal.fire({
-							title: data["travel_prohibited"][0].banPartial, 
+							title: "<b style="+"color:red"+">"+data["travel_prohibited"][0].banPartial+"</b>", 
 							text: data["travel_prohibited"][0].banNote,
 							width: 600,
 							imageUrl: data["travel_prohibited"][0].imgUrl2,
@@ -70,7 +70,7 @@ function map_change() {
 					}else{
 						console.log("travel_prohibited else "+data["travel_prohibited"][0].ban);
 						swal.fire({
-							title: data["travel_prohibited"][0].ban, 
+							title: "<b style="+"color:red"+">"+data["travel_prohibited"][0].ban+"</b>", 
 							text: data["travel_prohibited"][0].banNote,
 							width: 600,
 							imageUrl: data["travel_prohibited"][0].imgUrl2,
@@ -83,17 +83,17 @@ function map_change() {
 				if(data["travel_alert"].length > 0){
 					if(data["travel_alert"][0].hasOwnProperty('limitaPartial')){
 						console.log("travel_alert if "+data["travel_alert"][0].limitaPartial);
-						swal.fire(data["travel_alert"][0].limitaPartial, data["travel_alert"][0].limitaNote,"error");
+						swal.fire("<b style="+"color:red"+">"+data["travel_alert"][0].limitaPartial+"</b>", data["travel_alert"][0].limitaNote,"error");
 					}
 				}
 				console.log("data[special_travel].length ::"+data["special_travel"].length);
 				if(data["special_travel"].length > 0){
 					if(data["special_travel"][0].hasOwnProperty('splimit')){
 						console.log("special_travel if "+data["special_travel"][0].splimit);
-						swal.fire(data["special_travel"][0].splimit, data["special_travel"][0].splimitNote,"error");
+						swal.fire("<b style="+"color:red"+">"+data["special_travel"][0].splimit+"</b>", data["special_travel"][0].splimitNote,"error");
 					}else{
 						console.log("special_travel else "+data["special_travel"][0].splimitPartial);
-						swal.fire(data["special_travel"][0].splimitPartial, data["special_travel"][0].splimitNote,"error");
+						swal.fire("<b style="+"color:red"+">"+data["special_travel"][0].splimitPartial+"</b>", data["special_travel"][0].splimitNote,"error");
 					}
 				}
 					/*console.log("accident_type_news"+JSON.stringify(data["accident_type_news"]));*/

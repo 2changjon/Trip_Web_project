@@ -16,28 +16,30 @@
 <!-- topojson 사용하기 위해 -->
 <script type="text/javascript" src="/resources/geo/topojson.v1.min.js"></script>
 <!-- d3 이미지 스타일적용 -->
-<link rel="stylesheet" href="/resources/css/mapStyle.css">
+<link rel="stylesheet" href="/resources/css/map_style.css">
 <!-- 이미지 스타일적용 -->
-<link rel="stylesheet" href="/resources/css/Main.css">
+<link rel="stylesheet" href="/resources/css/main.css">
 <!-- 국가 검색에 대한 스크립트 -->
 <script type="text/javascript" src="/resources/js/country_serch.js"></script>
 <!-- Clock 작동 -->
-<script type="text/javascript" src="/resources/js/Clock.js"></script>
+<script type="text/javascript" src="/resources/js/clock.js"></script>
 <!-- Side bar 작동 -->
-<script type="text/javascript" src="/resources/js/Side_bar.js"></script>
+<script type="text/javascript" src="/resources/js/side_bar.js"></script>
 <!-- Side bar 스타일적용 -->
-<link rel="stylesheet" href="/resources/css/Side_bar.css">
+<link rel="stylesheet" type="" href="/resources/css/side_bar.css">
 <!-- 상세메뉴 클릭시 데이터 삽입 -->
 <script type="text/javascript" src="/resources/js/news_maun.js"></script>
+<!-- 티켓 검색 -->
+<script type="text/javascript" src="/resources/js/ticket_option.js"></script>
 <!-- d3 이미지 생성 및 작동 스크립트 적용 -->
-<script type="text/javascript" src="/resources/js/mapStart.js"></script>
+<script type="text/javascript" src="/resources/js/map_start.js"></script>
 <!-- 화면 크기 변경에 따른 자바스크립트 -->
 <script type="text/javascript" src="/resources/js/reSize.js"></script>
 <!-- 이쁜 경고창 가져오기 -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-	<input type="text" id="country_number" value="+1">
+	<input type="hidden" id="country_number" value="+1">
 	<nav class="sidebar">
 		<div class="maun">
 			<div class="sidebar_logo"><b>Travel'News</b></div>
@@ -114,13 +116,20 @@
 				<div class="content"></div>
 				<div class="next_btn">버튼 공간</div>
 			</div>
-			<form action="" class="ticket_area">
-				<div class="start_area"></div>
-				<div class="end_area"></div>
-				<div class="start_time"></div>
-				<div class="end_time"></div>
-				<div class="serch_btn"></div>
-			</form>			
+			<div class="ticket_area">
+				<div class="start_area">Departure Place<input type="text" id="Departure_Place"></input></div>
+				<div class="end_area">Arrival Place<input type="text" id="Arrival_Place"></input></div>
+				<div class="start_time">Departure Date<input type="date" id="Departure_Date"></input></div>
+				<div class="end_time">Arrival Date<input type="date" id="Arrival_Date"></input></div>
+				<button class="ticket_option">Ticket Option</button>
+				<input type="hidden" id="cabinclass" value="1"></input>
+				<input type="hidden" id="quantity" value="1"></input>
+				<input type="hidden" id="childqty" value="0"></input>
+				<input type="hidden" id="babyqty" value="0"></input>
+				<input type="hidden" id="classty" value="1"></input>
+				<div class="serch_btn"><button id="serch_bt">검색</button></div>
+				<div class="serch_ticket"></div>
+			</div>			
 		</div>
 	</nav>
 	<div class="top">

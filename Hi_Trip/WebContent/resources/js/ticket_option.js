@@ -1,4 +1,4 @@
-window.addEventListener('load', function ticket() {
+window.addEventListener('load', function ticket_option() {
 	
 	setToday();
 	function setToday(){
@@ -14,22 +14,25 @@ window.addEventListener('load', function ticket() {
 	}
 	
 	$('.ticket_option').click(function(){
-		var cabinclass_kr = cabinclass_change(document.getElementById('cabinclass').value);
-		var quantity = document.getElementById('quantity').value;
-		var childqty = document.getElementById('childqty').value;
-		var babyqty = document.getElementById('babyqty').value;
+		var flightType_kr = flightType_change(document.getElementById('flightType').value);
+		var adult = document.getElementById('adult').value;
+		var teenager = document.getElementById('teenager').value;
+		var child = document.getElementById('child').value;
+		var baby = document.getElementById('baby').value;
 		var classty_kr = classty_change(document.getElementById('classty').value);
 		
-		var sum_mem = parseInt(quantity)+parseInt(childqty)+parseInt(babyqty);
-		var max_mem = 9-sum_mem;
-		
+		var sum_minority = parseInt(teenager)+parseInt(child)+parseInt(baby); //미성년
+		var max_minority = 7-sum_minority //남은 탑승 가능 미성년 수 
+		var sum_mem = parseInt(adult)+parseInt(teenager)+parseInt(child)+parseInt(baby); //현재 탑승인원
+		var max_mem = 16-sum_mem; 
 		swal.fire({
 			title: '현재 티켓 옵션',
-  			html: "여행구분 : "+cabinclass_kr
+  			html: "여행구분 : "+flightType_kr
 			+"<br>"+"-----탑승인원-----"
-			+"<br>"+"성인 : "+quantity+"명"
-			+"<br>"+"어린이 : "+childqty+"명"
-			+"<br>"+"유아 : "+babyqty+"명"
+			+"<br>"+"성인 : "+adult+"명"
+			+"<br>"+"청소년 : "+teenager+"명"
+			+"<br>"+"어린이 : "+child+"명"
+			+"<br>"+"유아 : "+baby+"명"
 			+"<br>"+"--- 총 인원 "+sum_mem+"명---"
 			+"<br>"+"좌석등급 : "+classty_kr,
 			confirmButtonColor: '#3085d6',
@@ -45,10 +48,11 @@ window.addEventListener('load', function ticket() {
 					input: 'radio',
 					inputOptions:{
 						'1':'여행구분',
-						'2':'어른 인원',
-						'3':'어린이 인원',
-						'4':'유아 인원',
-						'5':'좌석등급'
+						'2':'성인 탑승인원',
+						'3':'청소년 탑승인원',
+						'4':'어린이 탑승인원',
+						'5':'유아 탑승인원',
+						'6':'좌석등급'
 					},
 					inputValidator: function (value) {
 						//여행구분
@@ -57,73 +61,96 @@ window.addEventListener('load', function ticket() {
 								title:"여행구분",
 								input: 'radio',
 								inputOptions:{
-									'1':'편도',
-									'2':'왕복'
+									'OW':'편도',
+									'RT':'왕복'
 								},
+								inputValue: document.getElementById('flightType').value,
 								inputValidator: function (value) {
-									document.getElementById('cabinclass').value = value;
+									document.getElementById('flightType').value = value;
+									if(value === "OW"){
+										$(".end_time").addClass("none");
+									}else{
+										$(".end_time").removeClass().addClass("end_time");
+									}
 								}
 							})
 						
 						//어른 인원
 						}else if(value==2){
 							swal.fire({
-								title:"어른 인원",
+								title:"성인 탑승인원",
 								input: "range",
 								inputAttributes: {
     								min: 1,
-    								max: max_quanti(max_mem),
+    								max: max_mem,
     								step: 1
   								},
-  								inputValue: parseInt(quantity),
+  								inputValue: parseInt(adult),
 								inputValidator: function (value) {
-									document.getElementById('quantity').value = value;
+									document.getElementById('adult').value = value;
+								}
+							})
+						
+						//청소년 인원
+						}else if(value==2){
+							swal.fire({
+								title:"청소년(만 12~17세) 탑승인원",
+								input: "range",
+								inputAttributes: {
+    								min: 1,
+    								max: max_minority,
+    								step: 1
+  								},
+  								inputValue: parseInt(teenager),
+								inputValidator: function (value) {
+									document.getElementById('teenager').value = value;
 								}
 							})
 						
 						//어린이 인원
-						}else if(value==3){
+						}else if(value==4){
 							swal.fire({
-								title:"어린이 인원",
+								title:"어린이(2~11세) 탑승인원",
 								input: "range",
 								inputAttributes: {
     								min: 0,
-    								max: max_child(max_mem),
+    								max: max_minority,
     								step: 1
   								},
-  								inputValue: parseInt(childqty),
+  								inputValue: parseInt(child),
 								inputValidator: function (value) {
-									document.getElementById('childqty').value = value;
+									document.getElementById('child').value = value;
 								}
 							})
 						
 						//유아 인원
-						}else if(value==4){
+						}else if(value==5){
 							swal.fire({
-								title:"유아 인원",
+								title:"유아(2세 미만) 탑승인원",
 								input: "range",
 								inputAttributes: {
     								min: 0,
-    								max: max_baby(max_mem),
+    								max: max_minority,
     								step: 1
   								},
-  								inputValue: parseInt(babyqty),
+  								inputValue: parseInt(baby),
 								inputValidator: function (value) {
-									document.getElementById('babyqty').value = value;
+									document.getElementById('baby').value = value;
 								}
 							})
 						
 						//좌석등급
-						}else if(value==5){
+						}else if(value==6){
 							swal.fire({
 								title:"좌석등급",
-								input: 'select',
+								input: 'radio',
   								inputOptions: {
-									"1" : "이코노미",
-									"3" : "프리미엄 이코노미",
-									"5" : "비지니스",
-									"6" : "퍼스트"
+									"Normal" : "이코노미",
+									"premium" : "프리미엄 이코노미",
+									"business" : "비지니스",
+									"first" : "퍼스트"
 								},
+								inputValue: document.getElementById('classty').value,
 								inputValidator: function (value) {
 									document.getElementById('classty').value = value;
 								}
@@ -137,80 +164,28 @@ window.addEventListener('load', function ticket() {
 		
 	})//Ticket_options
 	
-	function cabinclass_change(cabinclass){
+	function flightType_change(flightType){
 		
-		if(cabinclass == 1){
-			cabinclass = "편도";
-		}else if(cabinclass == 2){
-			cabinclass = "왕복";
+		if(flightType === "OW"){
+			flightType = "편도";
+		}else if(flightType === "RT"){
+			flightType = "왕복";
 		}
 		
-		return cabinclass;
+		return flightType;
 	}
 	function classty_change(classty){
 		
-		if(classty == 1){
+		if(classty === "Normal"){
 			classty = "이코노미";
-		}else if(classty == 3){
+		}else if(classty === "premium"){
 			classty = "프리미엄 이코노미";
-		}else if(classty == 5){
+		}else if(classty === "business"){
 			classty = "비지니스";
-		}else if(classty == 6){
+		}else if(classty === "first"){
 			classty = "퍼스트";
 		}
 		return classty;
 	}
-	function max_quanti(max_mem){
-		var quantity = document.getElementById('quantity').value;
 
-		if(max_mem > 0){
-			return max_mem;
-		}else {
-			return parseInt(quantity);						
-		}
-	}
-	function max_child(max_mem){
-		var quantity = document.getElementById('quantity').value;
-		var childqty = document.getElementById('childqty').value;
-
-		if(max_mem > 0 && max_mem < parseInt(quantity)*2){
-			return max_mem;
-		}else if( parseInt(quantity)*2 < max_mem){
-			return parseInt(quantity)*2;
-		}else if(max_mem == 0){
-			return parseInt(childqty);						
-		}
-	}
-	function max_baby(max_mem){
-		var quantity = document.getElementById('quantity').value;
-		var babyqty = document.getElementById('babyqty').value;
-		
-		if(max_mem > 0 && max_mem < quantity){
-			return max_mem;
-		}else if(max_mem == 0){
-			return parseInt(babyqty);						
-		}else {
-			return parseInt(quantity);
-		}
-	}
-	
-			/*swal.fire({
-			title: '변경할 옵션을 선택해주세요',
-  			input: 'radio',
-			inputOptions:{
-				'1':'여행구분',
-				'2':'어른 인원',
-				'3':'어린이 인원',
-				'4':'유아 인원',
-				'5':'좌석구분'
-			},
-			inputValidator: function (value) {
-				
-			}
-			
-		});*/
-	
-	
-	
-	
-})
+})//window.addEventListener('load', function ticket_option() {

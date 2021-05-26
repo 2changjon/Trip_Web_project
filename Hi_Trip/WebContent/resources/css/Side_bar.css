@@ -405,6 +405,9 @@
 		display: inline-block;
 		grid-area: end_time;
 	}
+		.sidebar .contents.ticket .ticket_area .end_time.none{
+			display:none;
+		}
 	.sidebar .contents.ticket .ticket_area .serch_btn{
 		display: inline-block;
 		grid-area: serch_btn;
@@ -412,7 +415,7 @@
 	.sidebar .contents.ticket .ticket_area .serch_ticket{
 		display: none;
 	}
-	.sidebar .contents.ticket .ticket_area #Departure_Place{
+	.sidebar .contents.ticket .ticket_area #departure_Place{
 		text-align: center;
 		margin: auto;
     	height: 50%;
@@ -420,7 +423,7 @@
     	border-radius: 20px;
     	font-size: 2rem;
 	}
-	.sidebar .contents.ticket .ticket_area #Arrival_Place{
+	.sidebar .contents.ticket .ticket_area #arrival_Place{
 		text-align: center;
 		margin: auto;
     	height: 50%;
@@ -428,14 +431,14 @@
     	border-radius: 20px;
     	font-size: 2rem;
 	}
-	.sidebar .contents.ticket .ticket_area #Departure_Date{
+	.sidebar .contents.ticket .ticket_area #departure_Date{
     	text-align: center;
     	height: 50%;
     	width: 100%;
     	border-radius: 5px;
     	font-size: 2rem;
 	}
-	.sidebar .contents.ticket .ticket_area #Arrival_Date{
+	.sidebar .contents.ticket .ticket_area #arrival_Date{
 		text-align: center;
     	height: 50%;
     	width: 100%;

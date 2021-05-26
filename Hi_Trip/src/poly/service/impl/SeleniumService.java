@@ -21,7 +21,7 @@ public class SeleniumService  implements ISeleniumService  {
 	// 1. 드라이버 설치 경로
 	public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
 	public static String WEB_DRIVER_PATH = "./src/poly/data/chromedriver.exe";
-	public static String TESTURL = "https://kr.trip.com/";
+
 	
 	
 	//출발지가 미리 입력된 값이 있는지 유무 

@@ -13,7 +13,7 @@ public abstract class AbstractMongoDBComon {
 
 	@Autowired
 	private MongoTemplate mongodb;
-
+//protected하위클래스에서 사용가능하게함
 	protected boolean createCollection(String colNm) throws Exception {
 		return createCollection(colNm, "");
 	}

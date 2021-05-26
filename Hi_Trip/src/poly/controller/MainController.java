@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import poly.service.IMainService;
 import poly.service.IMongoService;
+import poly.service.ISeleniumService;
 import poly.util.CmmUtil;
 
 @Controller
@@ -24,6 +25,9 @@ public class MainController {
 	
 	@Resource(name = "MongoService")
 	private IMongoService mongoService;
+	
+	@Resource(name = "SeleniumService")
+	private ISeleniumService SeleniumService;
 	
 	private Logger log = Logger.getLogger(this.getClass());
 	
@@ -72,6 +76,12 @@ public class MainController {
 		ArrayList<String> place_List = mainService.getplace_List(country_nm);
 		
 	return place_List;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/getTicket", method = RequestMethod.GET)
+	public ArrayList<String> getTicket(HttpServletRequest request){
+		
+		return null;
 	}
 	
 }

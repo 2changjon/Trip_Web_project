@@ -117,7 +117,7 @@ input:focus {
     	display: inline-block;
     	top: 35%;
     	right: 7%;
-    	width: 30rem;
+    	/* width: 30rem; */
     	max-width: 200px;
 		/* position: absolute;
 		display: inline-block;

@@ -1,6 +1,7 @@
 package poly.controller;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import poly.dto.TicketDTO;
 import poly.service.IMainService;
 import poly.service.IMongoService;
 import poly.service.ISeleniumService;
@@ -36,6 +38,13 @@ public class MainController {
 		log.info(this.getClass());
 		
 		return "/index";
+	}
+	
+	@RequestMapping(value="test")
+	public String Test() {
+		log.info(this.getClass());
+		
+		return "/test";
 	}
 	
 	//연관 검색
@@ -77,11 +86,42 @@ public class MainController {
 		
 	return place_List;
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/getTicket", method = RequestMethod.GET)
-	public ArrayList<String> getTicket(HttpServletRequest request){
+	public ArrayList<Map<String, String>> getTicket(HttpServletRequest request){
+		String departure_Place = CmmUtil.nvl(request.getParameter("departure_Place"));	//출발지
+		String arrival_Place = CmmUtil.nvl(request.getParameter("arrival_Place"));	//도착지
+		String departure_Date = CmmUtil.nvl(request.getParameter("departure_Date"));	//출발일
+		String arrival_Date = CmmUtil.nvl(request.getParameter("arrival_Date"));	//반환일
 		
-		return null;
+		String flight_Type = CmmUtil.nvl(request.getParameter("flight_Type"));	//여행구분
+		int adult = Integer.parseInt(CmmUtil.nvl(request.getParameter("adult")));	//성인
+		int teenager = Integer.parseInt(CmmUtil.nvl(request.getParameter("teenager")));	//청소년
+		int child = Integer.parseInt(CmmUtil.nvl(request.getParameter("child")));	//어린이
+		int baby = Integer.parseInt(CmmUtil.nvl(request.getParameter("baby")));	//유아
+		String class_Type = CmmUtil.nvl(request.getParameter("class_Type"));	//좌석
+		
+		TicketDTO pDTO = new TicketDTO(); //dto에 넣고 사용
+		pDTO.setDeparture_Place(departure_Place);
+		pDTO.setArrival_Place(arrival_Place);
+		pDTO.setDeparture_Date(departure_Date);
+		pDTO.setArrival_Date(arrival_Date);
+		     
+		pDTO.setFlight_Type(flight_Type);
+		pDTO.setAdult(adult);
+		pDTO.setTeenager(teenager);
+		pDTO.setChild(child);
+		pDTO.setBaby(baby);
+		pDTO.setClass_Type(class_Type);
+		
+		ArrayList<Map<String, String>> tiket_List = SeleniumService.getTicket(pDTO);
+		
+		if(tiket_List == null) {
+			tiket_List = new ArrayList<Map<String,String>>();
+		}
+		
+		return tiket_List;
 	}
 	
 }

@@ -18,7 +18,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 
 import poly.persistance.mongo.IMongoMapper;
-import poly.persistance.mongo.comm.AbstractMongoDBComon;
+import poly.persistance.comm.AbstractMongoDBComon;
 
 @Component("MongoMapper")
 public class MongoMapper extends AbstractMongoDBComon implements IMongoMapper {

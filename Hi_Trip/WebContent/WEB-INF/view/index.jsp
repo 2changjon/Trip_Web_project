@@ -122,12 +122,12 @@
 				<div class="start_time">Departure Date<input type="date" id="departure_Date"></input></div>
 				<div class="end_time">Arrival Date<input type="date" id="arrival_Date"></input></div>
 				<button class="ticket_option">Ticket Option</button>
-				<input type="hidden" id="flightType" value="RT"></input>
+				<input type="hidden" id="flight_Type" value="RT"></input>
 				<input type="hidden" id="adult" value="1"></input>
 				<input type="hidden" id="teenager" value="0"></input>
 				<input type="hidden" id="child" value="0"></input>
 				<input type="hidden" id="baby" value="0"></input>
-				<input type="hidden" id="classty" value="Normal"></input>
+				<input type="hidden" id="class_Type" value="Normal"></input>
 				<div class="serch_btn"><button id="serch_bt">검색</button></div>
 				<div class="serch_ticket"></div>
 			</div>			

@@ -14,12 +14,12 @@ window.addEventListener('load', function ticket_option() {
 	}
 	
 	$('.ticket_option').click(function(){
-		var flightType_kr = flightType_change(document.getElementById('flightType').value);
+		var flight_Type_kr = flight_Type_change(document.getElementById('flight_Type').value);
 		var adult = document.getElementById('adult').value;
 		var teenager = document.getElementById('teenager').value;
 		var child = document.getElementById('child').value;
 		var baby = document.getElementById('baby').value;
-		var classty_kr = classty_change(document.getElementById('classty').value);
+		var class_Type_kr = class_Type_change(document.getElementById('class_Type').value);
 		
 		var sum_minority = parseInt(teenager)+parseInt(child)+parseInt(baby); //미성년
 		var max_minority = 7-sum_minority //남은 탑승 가능 미성년 수 
@@ -27,14 +27,14 @@ window.addEventListener('load', function ticket_option() {
 		var max_mem = 16-sum_mem; 
 		swal.fire({
 			title: '현재 티켓 옵션',
-  			html: "여행구분 : "+flightType_kr
+  			html: "여행구분 : "+flight_Type_kr
 			+"<br>"+"-----탑승인원-----"
 			+"<br>"+"성인 : "+adult+"명"
 			+"<br>"+"청소년 : "+teenager+"명"
 			+"<br>"+"어린이 : "+child+"명"
 			+"<br>"+"유아 : "+baby+"명"
 			+"<br>"+"--- 총 인원 "+sum_mem+"명---"
-			+"<br>"+"좌석등급 : "+classty_kr,
+			+"<br>"+"좌석등급 : "+class_Type_kr,
 			confirmButtonColor: '#3085d6',
 			confirmButtonText: "변경",
 			showCancelButton : true,
@@ -64,9 +64,9 @@ window.addEventListener('load', function ticket_option() {
 									'OW':'편도',
 									'RT':'왕복'
 								},
-								inputValue: document.getElementById('flightType').value,
+								inputValue: document.getElementById('flight_Type').value,
 								inputValidator: function (value) {
-									document.getElementById('flightType').value = value;
+									document.getElementById('flight_Type').value = value;
 									if(value === "OW"){
 										$(".end_time").addClass("none");
 									}else{
@@ -150,9 +150,9 @@ window.addEventListener('load', function ticket_option() {
 									"business" : "비지니스",
 									"first" : "퍼스트"
 								},
-								inputValue: document.getElementById('classty').value,
+								inputValue: document.getElementById('class_Type').value,
 								inputValidator: function (value) {
-									document.getElementById('classty').value = value;
+									document.getElementById('class_Type').value = value;
 								}
 							})
 						}
@@ -164,28 +164,28 @@ window.addEventListener('load', function ticket_option() {
 		
 	})//Ticket_options
 	
-	function flightType_change(flightType){
+	function flight_Type_change(flight_Type){
 		
-		if(flightType === "OW"){
-			flightType = "편도";
-		}else if(flightType === "RT"){
-			flightType = "왕복";
+		if(flight_Type === "OW"){
+			flight_Type = "편도";
+		}else if(flight_Type === "RT"){
+			flight_Type = "왕복";
 		}
 		
-		return flightType;
+		return flight_Type;
 	}
-	function classty_change(classty){
+	function class_Type_change(class_Type){
 		
-		if(classty === "Normal"){
-			classty = "이코노미";
-		}else if(classty === "premium"){
-			classty = "프리미엄 이코노미";
-		}else if(classty === "business"){
-			classty = "비지니스";
-		}else if(classty === "first"){
-			classty = "퍼스트";
+		if(class_Type === "Normal"){
+			class_Type = "이코노미";
+		}else if(class_Type === "premium"){
+			class_Type = "프리미엄 이코노미";
+		}else if(class_Type === "business"){
+			class_Type = "비지니스";
+		}else if(class_Type === "first"){
+			class_Type = "퍼스트";
 		}
-		return classty;
+		return class_Type;
 	}
 
 })//window.addEventListener('load', function ticket_option() {

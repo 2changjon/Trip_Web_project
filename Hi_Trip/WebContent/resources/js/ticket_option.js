@@ -7,10 +7,10 @@ window.addEventListener('load', function ticket_option() {
 		//0부터 1월
 		var mm =  today.getMonth()+1 > 9 ? today.getMonth()+1 : '0' + (today.getMonth()+1);
 		var dd =  today.getDate() > 9 ? today.getDate() : '0' + today.getDate();
-		document.getElementById('Departure_Date').value = yyyy+"-"+mm+"-"+dd;
-		document.getElementById('Departure_Date').min = yyyy+"-"+mm+"-"+dd;
-		document.getElementById('Arrival_Date').value = yyyy+"-"+mm+"-"+(dd+3);
-		document.getElementById('Arrival_Date').min = yyyy+"-"+mm+"-"+dd;
+		document.getElementById('departure_Date').value = yyyy+"-"+mm+"-"+dd;
+		document.getElementById('departure_Date').min = yyyy+"-"+mm+"-"+dd;
+		document.getElementById('arrival_Date').value = yyyy+"-"+mm+"-"+dd;
+		document.getElementById('arrival_Date').min = yyyy+"-"+mm+"-"+dd;
 	}
 	
 	$('.ticket_option').click(function(){

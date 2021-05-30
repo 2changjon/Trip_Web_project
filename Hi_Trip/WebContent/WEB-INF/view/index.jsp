@@ -29,8 +29,10 @@
 <link rel="stylesheet" type="" href="/resources/css/side_bar.css">
 <!-- 상세메뉴 클릭시 데이터 삽입 -->
 <script type="text/javascript" src="/resources/js/news_maun.js"></script>
-<!-- 티켓 검색 -->
+<!-- 티켓 옵션 변경 -->
 <script type="text/javascript" src="/resources/js/ticket_option.js"></script>
+<!-- 티켓 검색 -->
+<script type="text/javascript" src="/resources/js/ticket_serch.js"></script>
 <!-- d3 이미지 생성 및 작동 스크립트 적용 -->
 <script type="text/javascript" src="/resources/js/map_start.js"></script>
 <!-- 화면 크기 변경에 따른 자바스크립트 -->
@@ -117,6 +119,7 @@
 				<div class="next_btn">버튼 공간</div>
 			</div>
 			<div class="ticket_area">
+				<img class="loading" alt="이미지 없음" src="/resources/img/loading.gif">
 				<div class="start_area">Departure Place<input type="text" id="departure_Place"></input></div>
 				<div class="end_area">Arrival Place<input type="text" id="arrival_Place"></input></div>
 				<div class="start_time">Departure Date<input type="date" id="departure_Date"></input></div>
@@ -128,7 +131,7 @@
 				<input type="hidden" id="child" value="0"></input>
 				<input type="hidden" id="baby" value="0"></input>
 				<input type="hidden" id="class_Type" value="Normal"></input>
-				<div class="serch_btn"><button id="serch_bt">검색</button></div>
+				<button class="serch_btn" id="serch_bt">검색</button>
 				<div class="serch_ticket"></div>
 			</div>			
 		</div>

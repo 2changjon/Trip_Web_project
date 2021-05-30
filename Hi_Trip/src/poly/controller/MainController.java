@@ -90,11 +90,13 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value = "/getTicket", method = RequestMethod.GET)
 	public ArrayList<Map<String, String>> getTicket(HttpServletRequest request){
+		log.info(this.getClass()+".getTicket Start");
+		
 		String departure_Place = CmmUtil.nvl(request.getParameter("departure_Place"));	//출발지
 		String arrival_Place = CmmUtil.nvl(request.getParameter("arrival_Place"));	//도착지
 		String departure_Date = CmmUtil.nvl(request.getParameter("departure_Date"));	//출발일
 		String arrival_Date = CmmUtil.nvl(request.getParameter("arrival_Date"));	//반환일
-		
+
 		String flight_Type = CmmUtil.nvl(request.getParameter("flight_Type"));	//여행구분
 		int adult = Integer.parseInt(CmmUtil.nvl(request.getParameter("adult")));	//성인
 		int teenager = Integer.parseInt(CmmUtil.nvl(request.getParameter("teenager")));	//청소년
@@ -117,10 +119,13 @@ public class MainController {
 		
 		ArrayList<Map<String, String>> tiket_List = SeleniumService.getTicket(pDTO);
 		
+		log.info(tiket_List);
+		
 		if(tiket_List == null) {
 			tiket_List = new ArrayList<Map<String,String>>();
 		}
 		
+		log.info(this.getClass()+".getTicket end");
 		return tiket_List;
 	}
 	

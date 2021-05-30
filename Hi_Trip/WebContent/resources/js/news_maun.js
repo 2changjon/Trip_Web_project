@@ -1,5 +1,5 @@
 //상세 메뉴눌렀을시 안에 들어갈 데이터
-window.addEventListener('load', function() {
+window.addEventListener('load', function news_data() {
 
 	/*console.log("accident_type_news"+JSON.stringify(country_datas["accident_type_news"]));
 	console.log(country_datas["dangerous_News"].length+" "+"dangerous_News"+country_datas["dangerous_News"]);

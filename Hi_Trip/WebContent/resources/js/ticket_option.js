@@ -36,6 +36,7 @@ window.addEventListener('load', function ticket_option() {
 		firstDay:1,//주시작일 - 일요일:0 월요일:1
 		prevText: '이전 달',
 		nextText: '다음 달',
+		minDate: 0, // 오늘부터:0
 		showMonthAfterYear :true, //년도 - 월 순서
 		yearRange: yyyy+':'+(yyyy+1), //년도 제한
 		yearSuffix: '년', //년 글자 입력

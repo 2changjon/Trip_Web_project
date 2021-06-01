@@ -6,7 +6,7 @@ window.addEventListener('load', function ticket_serch() {
 		if(departure_Place === "" && arrival_Place === ""){
 			swal.fire("도착지, 출발지 미입력");
 		}else{
-			console.clear;
+			console.clear();
 			var departure_Date = document.getElementById('departure_Date').value;	//	출발일
 			var arrival_Date = document.getElementById('arrival_Date').value;	//	반환일
 	
@@ -24,7 +24,7 @@ window.addEventListener('load', function ticket_serch() {
 				url : "/getTicket.do",
 				type : "get",
 				dataType : "json",
-				timeout : 60000,
+				timeout : 180000,
 				error : function(err) {
 					console.log(err); 
 					swal.fire("검색중 오류가 발생했습니다");

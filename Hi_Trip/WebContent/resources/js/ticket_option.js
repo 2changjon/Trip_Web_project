@@ -1,17 +1,49 @@
 window.addEventListener('load', function ticket_option() {
 	
-	setToday();
-	function setToday(){
-		var today = new Date();
-		var yyyy =  today.getFullYear();
-		//0부터 1월
-		var mm =  today.getMonth()+1 > 9 ? today.getMonth()+1 : '0' + (today.getMonth()+1);
-		var dd =  today.getDate() > 9 ? today.getDate() : '0' + today.getDate();
-		document.getElementById('departure_Date').value = yyyy+"-"+mm+"-"+dd;
-		document.getElementById('departure_Date').min = yyyy+"-"+mm+"-"+dd;
-		document.getElementById('arrival_Date').value = yyyy+"-"+mm+"-"+dd;
-		document.getElementById('arrival_Date').min = yyyy+"-"+mm+"-"+dd;
-	}
+	var orderDate = "";
+	var today = new Date();
+	var yyyy =  today.getFullYear();
+	//0부터 1월
+	var mm =  today.getMonth()+1 > 9 ? today.getMonth()+1 : '0' + (today.getMonth()+1);
+	var dd =  today.getDate() > 9 ? today.getDate() : '0' + today.getDate();
+	document.getElementById('departure_Date').value = yyyy+"-"+mm+"-"+dd;
+	document.getElementById('arrival_Date').value = yyyy+"-"+mm+"-"+dd;
+	
+	/*출발 달력*/
+	$('#departure_Date').datepicker({
+		numberOfMonths: 1, //출력 월 개수
+		dateFormat:"yy-mm-dd",
+		dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+		monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+		firstDay:1, //주시작일 - 일요일:0 월요일:1
+		prevText: '이전 달',
+		nextText: '다음 달',
+		minDate: 0, // 오늘부터:0
+		showMonthAfterYear :true, //년도 - 월 순서
+		yearRange: yyyy+':'+(yyyy+1), //년도 제한
+		yearSuffix: '년', //년 글자 입력
+		onSelect : function(date){
+			$("#departure_Date").val(date);
+			$('#arrival_Date').datepicker("option", "minDate", date);
+		}
+	})
+	/*도착 달력*/
+	$('#arrival_Date').datepicker({
+		numberOfMonths: 1,
+		dateFormat:"yy-mm-dd",
+		dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+		monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+		firstDay:1,//주시작일 - 일요일:0 월요일:1
+		prevText: '이전 달',
+		nextText: '다음 달',
+		showMonthAfterYear :true, //년도 - 월 순서
+		yearRange: yyyy+':'+(yyyy+1), //년도 제한
+		yearSuffix: '년', //년 글자 입력
+		onSelect : function(date){ //날짜 클릭시 
+			$("#arrival_Date").val(date);
+			$("#departure_Date").datepicker( "option", "maxDate", date );
+		}
+	})
 	
 	$('.ticket_option').click(function(){
 		var flight_Type_kr = flight_Type_change(document.getElementById('flight_Type').value);

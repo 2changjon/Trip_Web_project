@@ -36,12 +36,14 @@ public class SeleniumService  implements ISeleniumService  {
 			arrival_Date = ""; //반환일 삭제
 		}
 		//일반 좌석일 경우 
-		if(class_Type.equals("Normal")) {
+		if(class_Type.equals("/Normal")) {
 			class_Type = ""; //좌석 삭제
 		}
 		
 		url = url + arrival_Date + class_Type + adult + children +"?sort=bestflight_a";
-		
+		System.out.println("-----------------------------------------------");
+		System.out.println(url);
+		System.out.println("-----------------------------------------------");
 		ArrayList<Map<String, String>> tiket_List = seleniumMapper.getTicket(url);
 		
 		if(tiket_List == null) {

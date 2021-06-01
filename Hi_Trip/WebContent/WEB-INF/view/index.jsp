@@ -33,6 +33,10 @@
 <script type="text/javascript" src="/resources/js/ticket_option.js"></script>
 <!-- 티켓 검색 -->
 <script type="text/javascript" src="/resources/js/ticket_serch.js"></script>
+<!-- Date picker 사용을 위해 -->
+<script type="text/javascript" src="/resources/js/jquery-ui.min.js"></script>
+<!-- Date picker 스타일적용 -->
+<link rel="stylesheet" href="/resources/css/jquery-ui.css">
 <!-- d3 이미지 생성 및 작동 스크립트 적용 -->
 <script type="text/javascript" src="/resources/js/map_start.js"></script>
 <!-- 화면 크기 변경에 따른 자바스크립트 -->
@@ -86,25 +90,25 @@
 			<div class="basic">Welcome <br>&nbsp;&nbsp;&nbsp;Earth&nbsp;&nbsp;&nbsp;</div>
 			<div class="manual">
 				<div class="manual_dangerous">
-					<b class="go_Dangerous" title="클릭시 Dangerous로 이동">Dangerous</b>
+					<b>Dangerous</b>
 					<br>
 					<br>
 					해당 국가에 대하여 외교부에서 지정하는 여행 유의, 자제, 제한 등 해외 여행경보에 관련된 상세정보가 담긴 기사를 제공하는 게시판 입니다. 
 				</div>
 				<div class="manual_safety">
-					<b class="go_Safety" title="클릭시 Safety로 이동">Safety</b>
+					<b>Safety</b>
 					<br>
 					<br>
 					해당 국가에 대하여 최신 안전공지에 대한 정보를 제공하는 게시판 입니다.
 				</div>
 				<div class="manual_accident">
-					<b class="go_Accident" title="클릭시 Accident로 이동">Accident</b>
+					<b>Accident</b>
 					<br>
 					<br>
 					해당 국가에 대하여 사건 사고가 발생한  발생년도, 사건사고 유형 및 사고 내용에 대한 상세 정보를 제공하는 게시판 입니다.
 				</div>
 				<div class="manual_contact">
-					<b class="go_Contact" title="클릭시 Contact로 이동">Contact</b>
+					<b>Contact</b>
 					<br>
 					<br>
 					해당 국가에 대하여 여권 분실 등 해외 여행 중 도움이 필요한 경우 해외 국가의 현지 대사관 연락처 등 연락처 목록 및 상세정보를 제공하는 게시판 입니다.
@@ -118,12 +122,24 @@
 				<div class="content"></div>
 				<div class="next_btn">버튼 공간</div>
 			</div>
+			<div class="loading"></div>
 			<div class="ticket_area">
-				<img class="loading" alt="이미지 없음" src="/resources/img/loading.gif">
-				<div class="start_area">Departure Place<input type="text" id="departure_Place"></input></div>
-				<div class="end_area">Arrival Place<input type="text" id="arrival_Place"></input></div>
-				<div class="start_time">Departure Date<input type="date" id="departure_Date"></input></div>
-				<div class="end_time">Arrival Date<input type="date" id="arrival_Date"></input></div>
+				<div class="start_area">
+					Departure Place
+					<input type="text" id="departure_Place" required></input>
+				</div>
+				<div class="end_area">
+					Arrival Place
+					<input type="text" id="arrival_Place" required></input>
+				</div>
+				<div class="start_time">
+					Departure Date
+					<input type="text" id="departure_Date" readonly></input>
+				</div>
+				<div class="end_time">
+					Arrival Date
+					<input type="text" id="arrival_Date" readonly></input>
+				</div>
 				<button class="ticket_option">Ticket Option</button>
 				<input type="hidden" id="flight_Type" value="RT"></input>
 				<input type="hidden" id="adult" value="1"></input>
@@ -132,7 +148,24 @@
 				<input type="hidden" id="baby" value="0"></input>
 				<input type="hidden" id="class_Type" value="Normal"></input>
 				<button class="serch_btn" id="serch_bt">검색</button>
-				<div class="serch_ticket"></div>
+				<div class="ticket_results">
+					<div class="result_info_area">
+						<div class="flights">
+							<div class="start_flight">
+								<div class="air_port">
+									<div class="info_top">09:20 - 18:05</div>
+									<div class="info_bottom">HKG 홍콩 국제공항 - ICN 인천 국제 공항</div>
+								</div>
+							</div>
+							<div class="end_flight">
+							
+							</div>
+						</div>
+					</div>
+					<div class="result_price_area">
+						
+					</div>
+				</div>
 			</div>			
 		</div>
 	</nav>

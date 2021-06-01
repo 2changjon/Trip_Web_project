@@ -1,12 +1,20 @@
 package poly.persistance.selenium.impl;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,7 +49,9 @@ public class SeleniumMapper extends AbstractSeleniumComm implements ISeleniumMap
 		// 2. WebDriver 옵션 설정
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 		ChromeOptions options = new ChromeOptions();
-		options.addArguments("headless");
+		options.addArguments("--headless");
+		options.addArguments("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win32; x32) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.24 Safari/537.36");
+		options.addArguments("--no-sandbox");
 		options.addArguments("--start-maximized");
 		options.addArguments("--disable-popup-blocking");
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
@@ -55,9 +65,10 @@ public class SeleniumMapper extends AbstractSeleniumComm implements ISeleniumMap
 		try {
 			
 			driver.get(url);
+			Thread.sleep(15000); // 3. 페이지 로딩 대기 시간 15초간 정지  15000
+			webTest3(url);
 			WebElement main_element = driver.findElement(By.xpath("(//html)[1]"));
 			
-			Thread.sleep(15000000); // 3. 페이지 로딩 대기 시간 15초간 정지  15000
 			
 			if(Pop_Up1(main_element)) { 
 				element = driver.findElement(By.xpath("//button[@class=\"Button-No-Standard-Style close inside darkIcon \"]"));
@@ -147,5 +158,56 @@ public class SeleniumMapper extends AbstractSeleniumComm implements ISeleniumMap
 		log.info(this.getClass()+".getTicket end");
 		return tiket_List;
 	}
-
+	
+	
+	public void webTest3(String url) {
+		
+		try {
+			Document doc = Jsoup.connect(url).get();
+			Elements element = doc.select("div.resultsContainer"); //검색된 항공권 결과
+			Iterator<Element> ticket_List = element.select("div.resultWrapper").select("div.inner-grid keel-grid").iterator();
+			int a=0;
+			String filepath ="C:\\Users\\2chan\\OneDrive\\바탕 화면\\새 폴더\\test13.txt";
+			// 파일 객체 생성
+	        File setfile = new File(filepath) ;
+	        // true 지정시 파일의 기존 내용에 이어서 작성
+	        BufferedWriter fw = new BufferedWriter(new FileWriter(setfile, true));
+			while (ticket_List.hasNext()) {
+				a+=1;
+				Element ticket = ticket_List.next(); // 티켓 하나
+				Iterator<Element> ticket_infos = ticket.getElementsByClass("container").iterator(); //티켓 정보
+				while (ticket_infos.hasNext()) {
+					Element ticket_info = ticket_infos.next(); //출발 관련 1개 도착 관련 1개
+					
+					String go_time;
+					String go_flight_Type;
+					String go_airport;
+					String go_stopover;
+					String go_addendum;
+					String go_flight_time;
+					
+					String bak_time;
+					String bak_flight_Type;
+					String bak_airport;
+					String bak_stopover;
+					String bak_addendum;
+					String bak_flight_time;
+					
+					
+				}
+				String price;
+				String total_price;
+				
+				String ticket_ting;
+			}
+			fw.write("");
+			fw.newLine();
+			fw.flush();
+			System.out.println(a);
+			fw.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

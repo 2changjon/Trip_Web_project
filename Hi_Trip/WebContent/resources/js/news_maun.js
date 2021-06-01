@@ -9,7 +9,7 @@ window.addEventListener('load', function news_data() {
 	console.log(country_datas["travel_alert"].length+" "+"travel_alert"+country_datas["travel_alert"]);
 	console.log(country_datas["travel_prohibited"].length+" "+"travel_prohibited"+country_datas["travel_prohibited"]);*/
 	news_title= "-뉴스 제목이 들어갈 공간-"
-	$('#dangerous').click(function(){
+	$('#dangerous').click(function go_dangerous(){
 		if(focused != false){
 		console.log(country_datas["dangerous_News"].length+" "+"dangerous_News"+country_datas["dangerous_News"]);
 			if(country_datas["dangerous_News"].length > 0){
@@ -26,7 +26,7 @@ window.addEventListener('load', function news_data() {
 		}
 	});
 	
-	$('#safety').click(function(){
+	$('#safety').click(function go_safety(){
 		if(focused != false){
 		console.log(country_datas["safety_notice_news"].length+" "+"safety_notice_news"+country_datas["safety_notice_news"]);
 			if(country_datas["safety_notice_news"].length > 0){	
@@ -43,7 +43,7 @@ window.addEventListener('load', function news_data() {
 		}
 	});
 	
-	$('#accident').click(function(){
+	$('#accident').click(function go_accident(){
 		if(focused != false){
 		console.log(country_datas["accident_type_news"].length+" "+"accident_type_news"+country_datas["accident_type_news"]);
 			if(country_datas["accident_type_news"].length > 0){	
@@ -60,7 +60,7 @@ window.addEventListener('load', function news_data() {
 		}
 	});
 	
-	$('#contact').click(function(){
+	$('#contact').click(function go_contact(){
 		if(focused != false){
 		console.log(country_datas["local_contact_news"].length+" "+"local_contact_news"+country_datas["local_contact_news"]);
 			if(country_datas["local_contact_news"].length > 0){

@@ -125,38 +125,4 @@ window.onload = function(){
 			}
 	    });
 		
-		/*바로가기 클릭시*/
-		$('.go_Dangerous').click(function(){
-			$('.sidebar .maun .select li ul li').siblings().removeClass("available");
-			$('#news_list').addClass("news-show");
-			$('#dangerous').addClass("available");
-			
-			$('#contents_area').removeClass().addClass("contents");
-			$('.contents').addClass("insert");
-		});
-		$('.go_Safety').click(function(){
-			$('.sidebar .maun .select li ul li').siblings().removeClass("available");
-			$('#news_list').addClass("news-show");
-			$('#safety').addClass("available");
-			
-			$('#contents_area').removeClass().addClass("contents");
-			$('.contents').addClass("insert");
-		});
-		$('.go_Accident').click(function(){
-			$('.sidebar .maun .select li ul li').siblings().removeClass("available");
-			$('#news_list').addClass("news-show");
-			$('#accident').addClass("available");
-			
-			$('#contents_area').removeClass().addClass("contents");
-			$('.contents').addClass("insert");
-		});
-		$('.go_Contact').click(function(){
-			$('.sidebar .maun .select li ul li').siblings().removeClass("available");
-			$('#news_list').addClass("news-show");
-			$('#contact').addClass("available");
-			
-			$('#contents_area').removeClass().addClass("contents");
-			$('.contents').addClass("insert");
-		});
-		
 }//window.onload

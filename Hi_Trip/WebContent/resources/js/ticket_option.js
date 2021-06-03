@@ -58,6 +58,9 @@ window.addEventListener('load', function ticket_option() {
 		var max_minority = 7-sum_minority //남은 탑승 가능 미성년 수 
 		var sum_mem = parseInt(adult)+parseInt(teenager)+parseInt(child)+parseInt(baby); //현재 탑승인원
 		var max_mem = 16-sum_mem; 
+		if(9 < max_mem){
+			max_mem = 9;
+		}
 		swal.fire({
 			title: '현재 티켓 옵션',
   			html: "여행구분 : "+flight_Type_kr

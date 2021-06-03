@@ -44,7 +44,12 @@ public class SeleniumService  implements ISeleniumService  {
 		System.out.println("-----------------------------------------------");
 		System.out.println(url);
 		System.out.println("-----------------------------------------------");
-		ArrayList<Map<String, String>> tiket_List = seleniumMapper.getTicket(url,pDTO.getFlight_Type());
+	
+		ArrayList<Map<String, String>> tiket_List = seleniumMapper.getTicket1(url);
+		
+		if(tiket_List == null) {
+			tiket_List = seleniumMapper.getTicket2(url, pDTO.getFlight_Type());
+		}
 		
 		if(tiket_List == null) {
 			tiket_List = new ArrayList<Map<String,String>>();

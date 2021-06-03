@@ -5,6 +5,9 @@ import java.util.Map;
 
 public interface ISeleniumMapper {
 
-	ArrayList<Map<String, String>> getTicket(String url, String Flight_Type);
+	ArrayList<Map<String, String>> getTicket1(String url);
+	
+	ArrayList<Map<String, String>> getTicket2(String url, String Flight_Type);
+
 
 }

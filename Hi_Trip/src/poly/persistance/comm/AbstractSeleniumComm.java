@@ -56,20 +56,30 @@ public abstract class AbstractSeleniumComm {
 		}
 	}
 	
-	// 경유지 가져오기(경유지 개수에 따라 입력값이 바뀜)
-	protected String wayPoint(WebElement area) {
+	// 경유지 가져오기(경유지 개수에 따라 입력값이 바뀜)  title:0 - text, 1- title 
+	protected String wayPoint(WebElement area, int title) {
 		if(wayPoint_Check(area)) {
 			List<WebElement> wayPoints = area.findElements(By.cssSelector(".js-layover"));
 			String wayPoint = "";
 			
 			int wayPoint_num = 1;
 			for(WebElement getwayPoint : wayPoints) {
-				if(wayPoint_num == 1) {
-					wayPoint = wayPoint + getwayPoint.getAttribute("title");
-					wayPoint_num++;
+				if(title == 0) {
+					if(wayPoint_num == 1) {
+						wayPoint = wayPoint + getwayPoint.getText();
+						wayPoint_num++;
+					}else {
+						wayPoint = wayPoint + "," + getwayPoint.getText();
+						wayPoint_num++;
+					}
 				}else {
-					wayPoint = wayPoint + "," + getwayPoint.getAttribute("title");
-					wayPoint_num++;
+					if(wayPoint_num == 1) {
+						wayPoint = wayPoint + getwayPoint.getAttribute("title");
+						wayPoint_num++;
+					}else {
+						wayPoint = wayPoint + "," + getwayPoint.getAttribute("title");
+						wayPoint_num++;
+					}
 				}
 			}
 			return wayPoint;
@@ -203,8 +213,8 @@ public abstract class AbstractSeleniumComm {
 		return flight_type;
 	}
 	
-	// 경유지 가져오기(경유지 개수에 따라 입력값이 바뀜)
-	protected String wayPoint2(Element element) {
+	// 경유지 가져오기(경유지 개수에 따라 입력값이 바뀜) title:0 - text, 1- title 
+	protected String wayPoint2(Element element, int title) {
 		String wayPoint_nm = "";
 		
 		Iterator<Element> wayPoints = element.getElementsByClass("js-layover").iterator();
@@ -212,12 +222,22 @@ public abstract class AbstractSeleniumComm {
 		int i =1;
 		while (wayPoints.hasNext()) {
 			Element wayPoint = wayPoints.next();
-			if(i == 1) {
-				wayPoint_nm = wayPoint_nm + wayPoint.attr("title");
-				i++;
+			if(title == 0) {
+				if(i == 1) {
+					wayPoint_nm = wayPoint_nm + wayPoint.text();
+					i++;
+				}else {
+					wayPoint_nm = wayPoint_nm + "," + wayPoint.text();
+					i++;
+				}
 			}else {
-				wayPoint_nm = wayPoint_nm + "," + wayPoint.attr("title");
-				i++;
+				if(i == 1) {
+					wayPoint_nm = wayPoint_nm + wayPoint.attr("title");
+					i++;
+				}else {
+					wayPoint_nm = wayPoint_nm + "," + wayPoint.attr("title");
+					i++;
+				}
 			}
 		}
 		

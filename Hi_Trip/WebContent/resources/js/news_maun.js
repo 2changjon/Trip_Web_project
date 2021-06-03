@@ -13,7 +13,7 @@ window.addEventListener('load', function news_data() {
 		if(focused != false){
 		console.log(country_datas["dangerous_News"].length+" "+"dangerous_News"+country_datas["dangerous_News"]);
 			if(country_datas["dangerous_News"].length > 0){
-				console.log(country_datas["dangerous_News"][0]);	
+				/*console.log(country_datas["dangerous_News"][0]);	*/
 				$('.title').text($('.available a').text());
 				$('.news_title').text(country_datas["dangerous_News"][0].title);
 				$('.content').html(country_datas["dangerous_News"][0].html_origin_cn);
@@ -30,7 +30,7 @@ window.addEventListener('load', function news_data() {
 		if(focused != false){
 		console.log(country_datas["safety_notice_news"].length+" "+"safety_notice_news"+country_datas["safety_notice_news"]);
 			if(country_datas["safety_notice_news"].length > 0){	
-				console.log(country_datas["safety_notice_news"][0]);
+				/*console.log(country_datas["safety_notice_news"][0]);*/
 				$('.title').text($('.available a').text());
 				$('.news_title').text(country_datas["safety_notice_news"][0].title);
 				$('.content').html(country_datas["safety_notice_news"][0].txt_origin_cn);
@@ -47,7 +47,7 @@ window.addEventListener('load', function news_data() {
 		if(focused != false){
 		console.log(country_datas["accident_type_news"].length+" "+"accident_type_news"+country_datas["accident_type_news"]);
 			if(country_datas["accident_type_news"].length > 0){	
-				console.log(country_datas["accident_type_news"][0]);		
+			/*	console.log(country_datas["accident_type_news"][0]);	*/	
 				$('.title').text($('.available a').text());
 				$('.news_title').text("");
 				$('.content').html(country_datas["accident_type_news"][0].news);
@@ -64,7 +64,7 @@ window.addEventListener('load', function news_data() {
 		if(focused != false){
 		console.log(country_datas["local_contact_news"].length+" "+"local_contact_news"+country_datas["local_contact_news"]);
 			if(country_datas["local_contact_news"].length > 0){
-				console.log(country_datas["local_contact_news"][0]);
+				/*console.log(country_datas["local_contact_news"][0]);*/
 				$('.title').text($('.available a').text());
 				$('.news_title').text("");
 				$('.content').html(country_datas["local_contact_news"][0].contact_remark);

@@ -46,6 +46,7 @@
 </head>
 <body>
 	<input type="hidden" id="country_number" value="+1">
+	<div class="loading_area"><div class="loading"></div></div>
 	<nav class="sidebar">
 		<div class="maun">
 			<div class="sidebar_logo"><b>Travel'News</b></div>
@@ -122,7 +123,6 @@
 				<div class="content"></div>
 				<div class="next_btn">버튼 공간</div>
 			</div>
-			<div class="loading"></div>
 			<div class="ticket_area">
 				<div class="start_area">
 					Departure Place
@@ -148,24 +148,6 @@
 				<input type="hidden" id="baby" value="0"></input>
 				<input type="hidden" id="class_Type" value="Normal"></input>
 				<button class="serch_btn" id="serch_bt">검색</button>
-				<div class="ticket_results">
-					<div class="result_info_area">
-						<div class="flights">
-							<div class="start_flight">
-								<div class="air_port">
-									<div class="info_top">09:20 - 18:05</div>
-									<div class="info_bottom">HKG 홍콩 국제공항 - ICN 인천 국제 공항</div>
-								</div>
-							</div>
-							<div class="end_flight">
-							
-							</div>
-						</div>
-					</div>
-					<div class="result_price_area">
-						
-					</div>
-				</div>
 			</div>			
 		</div>
 	</nav>

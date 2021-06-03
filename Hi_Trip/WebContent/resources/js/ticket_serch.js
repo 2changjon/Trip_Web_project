@@ -47,17 +47,74 @@ window.addEventListener('load', function ticket_serch() {
 						console.log("항공편 없음"+data.length);	
 						swal.fire("검색된 항공편 없음","다른 조건으로 검색을 시도해 주세요");
 					}else{
-						console.log(data);
 						$(".contents.ticket").addClass("result");
+						var ticket_tag = "";
+						for (var ticket of data) {
+							ticket_tag +=
+								'<div class="ticket_results">'+
+									'<div class="result_info_area">'+
+										'<div class="flights">'+
+											'<div class="start_flight">'+
+												'<div class="air_port">'+
+													'<div class="info_top">'+
+														'<span>'+ticket["go_time"]+'<span>'+
+														'<span class="adendum" title="다음날">'+ticket["go_addendum"]+'<span>'+
+													'</div>'+
+													'<div class="info_bottom">'+ticket["go_airport"]+'</div>'+
+												'</div>'+
+												'<div class="flight_Type">'+
+													'<div class="info_top">'+ticket["go_flight_Type"]+'</div>'+
+													'<div class="info_bottom" title="'+ticket["go_waypoint_title"]+'">'+ticket["go_waypoint"]+'</div>'+
+												'</div>'+
+												'<div class="flight_time">'+
+													'<div class="info_top">'+ticket["go_flight_time"]+'</div>'+
+												'</div>'+
+											'</div>'+
+											'<div class="end_flight">'+
+												'<div class="air_port">'+
+													'<div class="info_top">'+
+														'<span>'+ticket["bak_time"]+'<span>'+
+														'<span class="adendum" title="다음날">'+ticket["bak_addendum"]+'<span>'+
+													'</div>'+
+													'<div class="info_bottom">'+ticket["bak_airport"]+'</div>'+
+												'</div>'+
+												'<div class="flight_Type">'+
+													'<div class="info_top">'+ticket["bak_flight_Type"]+'</div>'+
+													'<div class="info_bottom" title="'+ticket["bak_waypoint_title"]+'">'+ticket["bak_waypoint"]+'</div>'+
+												'</div>'+
+												'<div class="flight_time">'+
+													'<div class="info_top">'+ticket["bak_flight_time"]+'</div>'+
+												'</div>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+									'<div class="result_price_area">'+
+											'<div class="price">'+
+												'<span>'+ticket["price"]+'<span>'+
+												'<span class="standard">/ 1인당<span>'+
+											'</div>'+
+											'<div class="total_price">'+ticket["total_price"]+'</div>'+
+											'<div class="ticket_link">'+
+												'<a href="'+ticket["ticket_ting"]+'">'+
+													'<div class="ticket_ting">상품 확인</div>'+
+												'</a>'+
+											'</div>'+
+									'</div>'+
+								'</div>';
+						}
+						$(".ticket_area").append(ticket_tag);
+						console.log(data);
 						console.log("끝");
 					}
 				},
 				beforeSend:function(){ //통신중
+					$(".loading_area").addClass("show");
 					$(".loading").addClass("show");
 					$(".contents.ticket").addClass("loading");
 					$(".ticket_area").addClass("drop");
 				},
 				complete:function(){ //통신 완료시
+					$(".loading_area").removeClass("show");
 					$(".loading").removeClass("show");
 					$(".contents.ticket").removeClass("loading");
 					$(".ticket_area").removeClass("drop");

@@ -67,14 +67,39 @@ html {
 input:focus {
 	outline:none;
 }
-input[type="date"]{
-	display: block;
-}
-/* icon 삭제 */
-input[type="date"]::-webkit-calendar-picker-indicator {
-	background: none;
-	display: none; 
-}
+	.loading_area{
+		display: none;
+	}
+	.loading_area.show{
+		display: block;
+		position: absolute;
+		z-index: 999;
+		width: 100vw;
+	    height: 100vh;
+	}
+
+	.loading_area .loading{
+		display: none;
+	}
+
+	.loading_area.show .loading.show{
+	  	background-image: url(/resources/img/loading.gif);
+	  	background-position: center;
+	    display: block;
+    	position: absolute;
+    	top: 50%;
+    	left: 60%;
+    	transform: translateX(-50%) translateY(-50%);
+    	width: 50vw;
+    	height: 50vh;
+ 
+	}
+
+	.sidebar .contents.ticket.loading {
+		background-color: white;
+	}
+
+
 
 @media screen and (min-width: 501px) {
 	.top {
@@ -82,8 +107,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		display : block;
 		font-size: 3rem;
 		background: rgba(224, 224, 224);
-		width: 100%;
-		height: 10%;
+		width: 100vw;
+		height: 10vh;
 	}
 	.top b{
 		z-index: 4;
@@ -104,8 +129,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		bottom: 0;
 		font-size: 1.3rem;
 		background: rgba(224, 224, 224);
-		width: 100%;
-		height: 10%;
+		width: 100vw;
+		height: 10vh;
 	}
 	.bottom span{
 		position: absolute;
@@ -126,13 +151,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     	display: inline-block;
     	top: 35%;
     	right: 7%;
-    	/* width: 30rem; */
-    	max-width: 200px;
-		/* position: absolute;
-		display: inline-block;
-		right: 7%;
-	    top: 35%; 
-	    all: unset !important;*/
+    	width: 20vw;
+    	max-width: 20vw;
 	}
 	#country_serch{
 		border: 0;
@@ -140,11 +160,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     	background-color: unset;
     	border-bottom: 1px solid;
     	outline: none;
-    	width: inherit;
-    	max-width: 200px;
-		/* height: 100%;
-		width: 20rem;
-		font-size: 1rem; */
+    	width: 20vw;
+    	max-width: 20vw;
 	}
 	/* 미리입력된값에 대한 css */
 	#country_serch::-webkit-input-placeholder {
@@ -154,8 +171,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		z-index: 6;
    	 	overflow: auto;
    		max-height: 15rem;
-   		width: inherit;
-   		max-width: 200px;
+   		width: 20vw;
+   		max-width: 20vw;
 	}
 	.serch_List{
 	    font-size: 1rem;
@@ -168,8 +185,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		display : block;
 		font-size: 3rem;
 		background: rgba(224, 224, 224);
-		width: 100%;
-		height: 10%;
+		width: 100vw;
+		height: 10vh;
 	}
 	.top b{
 		position: absolute;
@@ -186,8 +203,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		bottom: 0;
 		font-size: 1.3rem;
 		background: rgba(224, 224, 224);
-		width: 100%;
-		height: 10%;
+		width: 100vw;
+		height: 10vh;
 	}
 	.bottom span{
 		position: absolute;
@@ -207,7 +224,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		display: inline-block;
 	    right: 2%;
 	    top: 15%;
-	    width: 20rem;
+	    width: 20vw;
+	    max-width: 20vw;
 	}
 	#country_serch{
 		border: 0;
@@ -215,14 +233,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     	outline: none;
     	border-bottom: 1px solid;
     	font-size: 1.5rem;
-     	width: inherit;	
+     	width: 20vw;
+     	max-width: 20vw;
 	}
 	#country_serch::-webkit-input-placeholder {
    		text-align: center;
 	}
 	#serch_list_area{	
 		z-index: 6;
-		max-width: inherit;
+		width: 20vw;
+		max-width: 20vw;
 	    max-height: 15rem;
 	    overflow: auto;
 	}

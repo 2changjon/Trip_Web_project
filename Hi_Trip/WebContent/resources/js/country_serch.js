@@ -58,7 +58,7 @@ function map_change() {
 				console.log("data[travel_prohibited].length ::"+data["travel_prohibited"].length);
 				if(data["travel_prohibited"].length > 0){
 					if(data["travel_prohibited"][0].hasOwnProperty('banPartial')){
-						console.log("travel_prohibited if :"+data["travel_prohibited"][0].banPartial);
+						/*console.log("travel_prohibited if :"+data["travel_prohibited"][0].banPartial);*/
 						swal.fire({
 							title: "<b style="+"color:red"+">"+data["travel_prohibited"][0].banPartial+"</b>", 
 							text: data["travel_prohibited"][0].banNote,
@@ -68,7 +68,7 @@ function map_change() {
 							imageHeight: 300
 							});	
 					}else{
-						console.log("travel_prohibited else "+data["travel_prohibited"][0].ban);
+						/*console.log("travel_prohibited else "+data["travel_prohibited"][0].ban);*/
 						swal.fire({
 							title: "<b style="+"color:red"+">"+data["travel_prohibited"][0].ban+"</b>", 
 							text: data["travel_prohibited"][0].banNote,
@@ -79,20 +79,20 @@ function map_change() {
 						});
 					}
 				}
-				console.log("data[travel_alert].length ::"+data["travel_alert"].length);
+				/*console.log("data[travel_alert].length ::"+data["travel_alert"].length);*/
 				if(data["travel_alert"].length > 0){
 					if(data["travel_alert"][0].hasOwnProperty('limitaPartial')){
-						console.log("travel_alert if "+data["travel_alert"][0].limitaPartial);
+						/*console.log("travel_alert if "+data["travel_alert"][0].limitaPartial);*/
 						swal.fire("<b style="+"color:red"+">"+data["travel_alert"][0].limitaPartial+"</b>", data["travel_alert"][0].limitaNote,"error");
 					}
 				}
-				console.log("data[special_travel].length ::"+data["special_travel"].length);
+				/*console.log("data[special_travel].length ::"+data["special_travel"].length);*/
 				if(data["special_travel"].length > 0){
 					if(data["special_travel"][0].hasOwnProperty('splimit')){
-						console.log("special_travel if "+data["special_travel"][0].splimit);
+						/*console.log("special_travel if "+data["special_travel"][0].splimit);*/
 						swal.fire("<b style="+"color:red"+">"+data["special_travel"][0].splimit+"</b>", data["special_travel"][0].splimitNote,"error");
 					}else{
-						console.log("special_travel else "+data["special_travel"][0].splimitPartial);
+						/*console.log("special_travel else "+data["special_travel"][0].splimitPartial);*/
 						swal.fire("<b style="+"color:red"+">"+data["special_travel"][0].splimitPartial+"</b>", data["special_travel"][0].splimitNote,"error");
 					}
 				}
@@ -106,7 +106,7 @@ function map_change() {
 					
 					console.log(country_datas["local_contact_news"].length+" "+"dddd"+JSON.stringify(country_datas["local_contact_news"]));*/
 				country_datas = data;
-				console.log("map_change 끝");
+				/*console.log("map_change 끝");*/
 			}
 		})
 	
@@ -116,8 +116,8 @@ function map_change() {
 		for (var key in countryById) {
 			
 			if(country_nm.toUpperCase() === countryById[key].toUpperCase()){	
-				console.log("동일 국 있음");
-				console.log("key "+key);	
+				/*console.log("동일 국 있음");
+				console.log("key "+key);	*/
 				    g.selectAll(".focused").classed("focused", false);
 				    d3.select("[id='"+key+"']").classed("focused", focused = key);
 	
@@ -140,16 +140,16 @@ function map_change() {
 						if(height < 600){
 							projectionMap = d3.geo.equirectangular().scale(width*0.16) 
 							.translate([width * 0.5, (height*0.8) * 0.5]) ;
-							console.log("height ///if height < 600 // projectionMap scale:"+width*0.16);
+							/*console.log("height ///if height < 600 // projectionMap scale:"+width*0.16);*/
 						}else{
 							projectionMap = d3.geo.equirectangular().scale(Math.min((width*0.8)/ Math.PI, (height*0.8)/ Math.PI)) 
 							.translate([width * 0.5, height * 0.498046875]) ;
-							console.log("height /// else // projectionMap scale:"+Math.min((width*0.8)/ Math.PI, (height*0.8)/ Math.PI));
+							/*console.log("height /// else // projectionMap scale:"+Math.min((width*0.8)/ Math.PI, (height*0.8)/ Math.PI));*/
 						}
 					}else{
 						$("#globeSvg").attr("width", width);
 						$("#globeSvg").attr("height", height);
-						console.log(" 평면지도로 변환 width :"+width);
+						/*console.log(" 평면지도로 변환 width :"+width);*/
 					}
 	
 					//평면지도 css 적용을 위해 id 수정
@@ -167,8 +167,8 @@ function map_change() {
 		for (var key in koreanById) {
 			
 			if(country_nm === koreanById[key]){	
-				console.log("동일 국가 있음");
-				console.log("key "+key);	
+				/*console.log("동일 국가 있음");
+				console.log("key "+key);	*/
 				    g.selectAll(".focused").classed("focused", false);
 				    d3.select("[id='"+key+"']").classed("focused", focused = key);
 	
@@ -187,20 +187,20 @@ function map_change() {
 					if( height > width ){
 						$("#globeSvg").attr("width", width);
 						$("#globeSvg").attr("height", height*0.8);
-						console.log(" 평면지도로 변환 height :"+height);
+						/*console.log(" 평면지도로 변환 height :"+height);*/
 						if(height < 600){
 							projectionMap = d3.geo.equirectangular().scale(width*0.16) 
 							.translate([width * 0.5, (height*0.8) * 0.5]) ;
-							console.log("height ///if height < 600 // projectionMap scale:"+width*0.16);
+							/*console.log("height ///if height < 600 // projectionMap scale:"+width*0.16);*/
 						}else{
 							projectionMap = d3.geo.equirectangular().scale(Math.min((width*0.8)/ Math.PI, (height*0.8)/ Math.PI)) 
 							.translate([width * 0.5, height * 0.498046875]) ;
-							console.log("height /// else // projectionMap scale:"+Math.min((width*0.8)/ Math.PI, (height*0.8)/ Math.PI));
+							/*console.log("height /// else // projectionMap scale:"+Math.min((width*0.8)/ Math.PI, (height*0.8)/ Math.PI));*/
 						}
 					}else{
 						$("#globeSvg").attr("width", width);
 						$("#globeSvg").attr("height", height);
-						console.log(" 평면지도로 변환 width :"+width);
+						/*console.log(" 평면지도로 변환 width :"+width);*/
 					}
 	
 					//평면지도 css 적용을 위해 id 수정

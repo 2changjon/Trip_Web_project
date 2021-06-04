@@ -30,7 +30,7 @@ public class MainService implements IMainService {
 	
 	//api 키 가져오기
 	ApiKeys apiKeys = new ApiKeys();
-	
+	//국가 검색
 	@Override
 	public ArrayList<String> getserch_list(String keyWord) throws Exception {
 //		log.info(this.getClass()+"getserch_list start");
@@ -76,56 +76,6 @@ public class MainService implements IMainService {
 //		log.info(this.getClass()+"getserch_list end");
 		
 		return serch_list;
-	}
-	
-	@Override
-	public ArrayList<String> getplace_List(String country_nm) {
-		
-		ArrayList<String> place_List = new ArrayList<String>();
-		
-		try {
-			Unirest.setTimeouts(0, 0);
-			HttpResponse<String> response = Unirest.get("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+country_nm)
-					.header("x-rapidapi-key", apiKeys.rapidapi_key)
-					.header("x-rapidapi-host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
-					.asString();
-			//null 체크
-			if(response == null) {
-				response = new HttpResponse<String>(null, null);
-			}
-			
-			JSONParser jsonParse = new JSONParser();
-			
-			JSONObject jsonObj = (JSONObject) jsonParse.parse(response.getBody().toString());
-			JSONArray personArray = (JSONArray) jsonObj.get("Places");
-
-			//null 체크
-			if(personArray == null) {
-				personArray = new JSONArray();
-				log.info("personArray null");
-			}
-			
-			for(int i=0; i < personArray.size(); i++) { 
-				JSONObject personObject = (JSONObject) personArray.get(i);
-				//국가, 도시 검색 제한
-				if(!personObject.get("PlaceId").equals(personObject.get("CountryId")) && !personObject.get("PlaceId").equals(personObject.get("CityId"))) {
-					place_List.add(personObject.get("PlaceName").toString()+" ("+personObject.get("PlaceId").toString().replace("-sky", "")+")");
-				}
-				personObject = null;
-			}
-			
-			// 사용이 완료된 객체는 메모리에서 강제로 비우기
-			response = null;
-			jsonParse = null;
-			jsonObj = null;
-			personArray = null;
-			
-			return place_List;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return place_List;
 	}
 	
 }

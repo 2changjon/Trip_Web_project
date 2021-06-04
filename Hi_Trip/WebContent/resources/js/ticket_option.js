@@ -45,7 +45,8 @@ window.addEventListener('load', function ticket_option() {
 			$("#departure_Date").datepicker( "option", "maxDate", date );
 		}
 	})
-	
+
+	//상세 옵션
 	$('.ticket_option').click(function(){
 		var flight_Type_kr = flight_Type_change(document.getElementById('flight_Type').value);
 		var adult = document.getElementById('adult').value;
@@ -225,3 +226,24 @@ window.addEventListener('load', function ticket_option() {
 	}
 
 })//window.addEventListener('load', function ticket_option() {
+	
+		//공항 검색
+	function getair_port(value){
+		$.ajax({
+			url : "/getair_port.do",
+			type : "get",
+			dataType : "json",
+			error : function(err) { 
+				console.log("실행중 오류가 발생하였습니다."); 
+			},
+			data : {
+				"keyWord" : value
+			},
+			success : function(data) {
+				
+				console.log("결과 갯수 : "+data.length);
+				console.log("첫번째 결과 : "+data[0]);
+				console.log("결과 : "+data);				
+			}
+		})
+	}

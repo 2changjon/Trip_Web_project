@@ -126,11 +126,11 @@
 			<div class="ticket_area">
 				<div class="start_area">
 					Departure Place
-					<input type="text" id="departure_Place" required></input>
+					<input type="text" id="departure_Place" onkeyup="getair_port(this.value)" required></input>
 				</div>
 				<div class="end_area">
 					Arrival Place
-					<input type="text" id="arrival_Place" required></input>
+					<input type="text" id="arrival_Place" onkeyup="getair_port(this.value)" required></input>
 				</div>
 				<div class="start_time">
 					Departure Date

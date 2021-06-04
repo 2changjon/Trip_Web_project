@@ -39,7 +39,7 @@
     		<artifactId>selenium-java</artifactId>
     		<version>3.141.59</version>
 		</dependency>
-		
+		<!-- 셀레니움을 위해 selenium-chrome 추가-->
 		<dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>

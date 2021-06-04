@@ -104,5 +104,18 @@ public class MongoService implements IMongoService {
 		
 		return country_data;
 	}
+
+	//공항 리스트
+	@Override
+	public ArrayList<Map<String, String>> getair_port(String keyWord) {
+		
+		 String eng = "^[a-zA-Z]*$"; //영어를 찾아내는 정규식 boolean check =
+		 boolean check = Pattern.matches(eng, keyWord); // 입력값에 영어가 있으면 영문 리스트에서 찾기
+		  
+		 if(check) { keyWord= keyWord.toUpperCase(); }
+		 
+		
+		return mongoMapper.getair_port(keyWord);
+	}
 	
 }

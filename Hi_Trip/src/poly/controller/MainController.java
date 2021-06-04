@@ -57,6 +57,9 @@ public class MainController {
 		
 		ArrayList<String> serch_list = mainService.getserch_list(keyWord);
 		
+		if(serch_list == null) {
+			serch_list = new ArrayList<String>();
+		}
 //		log.info(this.getClass()+".serch_list end");
 		
 		return serch_list;
@@ -75,16 +78,23 @@ public class MainController {
 		log.info(this.getClass()+".country_Data_Select end");
 		return country_data;
 	}
-	
+	//공항찾기
 	@ResponseBody
-	@RequestMapping(value = "/getplace_List", method = RequestMethod.GET)
-	public ArrayList<String> getplace_List(HttpServletRequest request){
+	@RequestMapping(value = "/getair_port", method = RequestMethod.GET)
+	public ArrayList<Map<String, String>> getair_port(HttpServletRequest request) throws Exception {
+		log.info(this.getClass()+".getair_port start");
 		
-		String country_nm = CmmUtil.nvl(request.getParameter("country_nm"));
+		String keyWord = CmmUtil.nvl(request.getParameter("keyWord"));
 		
-		ArrayList<String> place_List = mainService.getplace_List(country_nm);
+		ArrayList<Map<String, String>> getair_port = mongoService.getair_port(keyWord);
 		
-	return place_List;
+		if(getair_port == null) {
+			getair_port = new ArrayList<Map<String,String>>();
+		}
+		
+		log.info(getair_port);
+		log.info(this.getClass()+".getair_port end");
+		return getair_port;
 	}
 	
 	@ResponseBody

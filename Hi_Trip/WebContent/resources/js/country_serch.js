@@ -57,7 +57,7 @@ function map_change() {
 				}*/
 				console.log("data[travel_prohibited].length ::"+data["travel_prohibited"].length);
 				if(data["travel_prohibited"].length > 0){
-					if(data["travel_prohibited"][0].hasOwnProperty('banPartial')){
+					if(data["travel_prohibited"][0].hasOwnProperty('banPartial')){//값유무 확인
 						/*console.log("travel_prohibited if :"+data["travel_prohibited"][0].banPartial);*/
 						swal.fire({
 							title: "<b style="+"color:red"+">"+data["travel_prohibited"][0].banPartial+"</b>", 

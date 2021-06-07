@@ -96,7 +96,7 @@ public class MainController {
 		log.info(this.getClass()+".getair_port end");
 		return getair_port;
 	}
-	
+	//티켓 검색
 	@ResponseBody
 	@RequestMapping(value = "/getTicket", method = RequestMethod.GET)
 	public ArrayList<Map<String, String>> getTicket(HttpServletRequest request){

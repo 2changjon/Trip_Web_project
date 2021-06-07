@@ -427,6 +427,31 @@
     	border-radius: 20px;
     	font-size: 2rem;
 	}
+	.sidebar .contents.ticket .ticket_area .serch_air_port_area{
+	    position: absolute;
+		display: none;
+	    font-size: 1rem;
+	    list-style: none;
+	    font-weight: normal;
+	    text-align: left;
+	    width: 27%;
+	    max-width: 27%;
+	    max-height: 25%;
+	    overflow-y: auto;
+	    border: 2px solid;
+	    border-radius: 10px;
+	    background-color: white;
+	}
+		.sidebar .contents.ticket .ticket_area .air_port_list_contry{
+		    font-size: 1.5rem;
+		}
+		.sidebar .contents.ticket .ticket_area .air_port_list_area{
+			font-size: 1.3rem;
+			padding-left: 15%;
+		}
+		.sidebar .contents.ticket .ticket_area .air_port_list{
+			padding-left: 35%;
+		}
 	.sidebar .contents.ticket .ticket_area #arrival_Place{
 		text-align: center;
 		margin: auto;
@@ -434,6 +459,12 @@
     	width: 100%;
     	border-radius: 20px;
     	font-size: 2rem;
+	}
+	.sidebar .contents.ticket .ticket_area .air_port_list{
+		background-color: white;
+	}
+	.sidebar .contents.ticket .ticket_area .air_port_list:hover{
+		background-color: blue;
 	}
 	.sidebar .contents.ticket .ticket_area #departure_Date{
     	text-align: center;

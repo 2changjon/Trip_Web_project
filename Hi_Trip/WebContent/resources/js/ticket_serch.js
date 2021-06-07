@@ -1,3 +1,4 @@
+var place_ck = /^[a-zA-Z]{3}$/;
 window.addEventListener('load', function ticket_serch() {
 	$('#serch_bt').click(function(){
 		var departure_Place = document.getElementById('departure_Place').value;	//	출발지
@@ -5,6 +6,20 @@ window.addEventListener('load', function ticket_serch() {
 		
 		if(departure_Place === "" && arrival_Place === ""){
 			swal.fire("도착지, 출발지 미입력");
+		/*출발*/
+		}else if(!place_ck.test(departure_Place)){
+			if(departure_Place === ""){
+				swal.fire("출발지를 입력해주세요")
+			}else{
+				swal.fire("출발지를 제대로 입력해주세요")
+			}
+		/*도착*/
+		}else if(!place_ck.test(arrival_Place)){
+			if(arrival_Place === ""){
+				swal.fire("도착지를 입력해주세요");
+			}else{
+				swal.fire("도착지를 제대로 입력해주세요");
+			}
 		}else{
 			console.clear();
 			var departure_Date = document.getElementById('departure_Date').value;	//	출발일

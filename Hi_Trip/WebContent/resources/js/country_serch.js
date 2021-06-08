@@ -16,7 +16,7 @@ function country_serch_focus(){
 			type : "get",
 			dataType : "json",
 			error : function(err) { 
-				console.log("실행중 오류가 발생하였습니다."); 
+				console.log("실행중 오류가 발생하였습니다.");
 			},
 			data : {
 				"keyWord" : country_serch.value
@@ -55,7 +55,7 @@ function map_change() {
 				/*for (var i in data) {
 					console.log(i);	
 				}*/
-				console.log("data[travel_prohibited].length ::"+data["travel_prohibited"].length);
+				/*console.log("data[travel_prohibited].length ::"+data["travel_prohibited"].length);*/
 				if(data["travel_prohibited"].length > 0){
 					if(data["travel_prohibited"][0].hasOwnProperty('banPartial')){//값유무 확인
 						/*console.log("travel_prohibited if :"+data["travel_prohibited"][0].banPartial);*/

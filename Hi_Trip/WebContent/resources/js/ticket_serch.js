@@ -8,24 +8,31 @@ window.addEventListener('load', function ticket_serch() {
 			swal.fire("도착지, 출발지 미입력");
 		/*출발*/
 		}else if(!place_ck.test(departure_Place)){
+			
 			if(departure_Place === ""){
 				swal.fire("출발지를 입력해주세요")
 			}else{
 				swal.fire("출발지를 제대로 입력해주세요")
 			}
+			
 		/*도착*/
 		}else if(!place_ck.test(arrival_Place)){
+			
 			if(arrival_Place === ""){
 				swal.fire("도착지를 입력해주세요");
 			}else{
 				swal.fire("도착지를 제대로 입력해주세요");
 			}
+			
 		}else{
 			console.clear();
 			var departure_Date = document.getElementById('departure_Date').value;	//	출발일
 			var arrival_Date = document.getElementById('arrival_Date').value;	//	반환일
 	
+			console.log(departure_Place);
 			console.log(departure_Date);
+			
+			console.log(arrival_Place);
 			console.log(arrival_Date);
 			
 			var flight_Type = document.getElementById('flight_Type').value;	//	여행구분
@@ -58,13 +65,14 @@ window.addEventListener('load', function ticket_serch() {
 					"class_Type" : class_Type,
 				},
 				success : function(data) {
+					ticket_serch_ck = true;
 					if(data.length === 0){
-						console.log("항공편 없음"+data.length);	
 						swal.fire("검색된 항공편 없음","다른 조건으로 검색을 시도해 주세요");
 					}else{
 						$(".contents.ticket").addClass("result");
 						var ticket_tag = "";
 						for (var ticket of data) {
+						/*console.log(ticket);*/
 							ticket_tag +=
 								'<div class="ticket_results">'+
 									'<div class="result_info_area">'+
@@ -118,8 +126,6 @@ window.addEventListener('load', function ticket_serch() {
 								'</div>';
 						}
 						$(".ticket_area").append(ticket_tag);
-						console.log(data);
-						console.log("끝");
 					}
 				},
 				beforeSend:function(){ //통신중
@@ -136,5 +142,5 @@ window.addEventListener('load', function ticket_serch() {
 				}
 			})//ajax
 		}//else
-	})//$('#serch_bt').click(function(){
-})//window.addEventListener('load', function ticket_serch() {
+	})//$('#serch_bt').click(function()
+})//window.addEventListener('load', function ticket_serch() 

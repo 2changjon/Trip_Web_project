@@ -1,11 +1,5 @@
 window.addEventListener('load', function ticket_option() {
 	
-	var orderDate = "";
-	var today = new Date();
-	var yyyy =  today.getFullYear();
-	//0부터 1월
-	var mm =  today.getMonth()+1 > 9 ? today.getMonth()+1 : '0' + (today.getMonth()+1);
-	var dd =  today.getDate() > 9 ? today.getDate() : '0' + today.getDate();
 	document.getElementById('departure_Date').value = yyyy+"-"+mm+"-"+dd;
 	document.getElementById('arrival_Date').value = yyyy+"-"+mm+"-"+dd;
 	
@@ -225,6 +219,16 @@ window.addEventListener('load', function ticket_option() {
 		return class_Type;
 	}
 
+	$("#departure_Place").focusout(function(){
+		$("#st_serch_air_port *").remove();//내부요소 삭제
+		$("#st_serch_air_port").css("display", "none");
+	})
+	
+	$("#arrival_Place").focusout(function(){
+		$("#ed_serch_air_port *").remove();//내부요소 삭제
+		$("#ed_serch_air_port").css("display", "none");
+	})
+
 })//window.addEventListener('load', function ticket_option() {
 	
 //공항 검색
@@ -244,93 +248,94 @@ function getair_port(a){
 			"keyWord" : value
 		},
 		success : function(data) {
-			
 			var contry_nm;
 			var area;
 			var li_insert = "";
 			var k = 0;
-			/*값을 하나씩 가져움*/
-			for(i in data){					
-				/*맨 처음은 동일*/
-				if(k == 0){
-				li_insert+= 
-				'<li class="air_port_list_contry">'+'<b>['+data[i].contry_nm+']</b>'+'</li>'+
-				'<li class="air_port_list_area">'+'<b>('+data[i].area+')</b>'+'</li>'+
-				'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" onclick="select_air_port(this)">'+data[i].airport+'</li>';
-				
-				contry_nm = data[i].contry_nm; 
-				area = data[i].area;           
-				}else{
-					/*국가명이 같은 경우*/
-					if(contry_nm === data[i].contry_nm){
-						/*지역명이 같은 경우*/
-						if(area === data[i].area ){
-							li_insert+=
-							'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" onclick="select_air_port(this)">'+data[i].airport+'</li>';
-						/*지역명이 다른 경우*/
-						}else{
-							li_insert+=
-							'<li class="air_port_list_area">'+'<b>('+data[i].area+')</b>'+'</li>'+
-							'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" onclick="select_air_port(this)">'+data[i].airport+'</li>';
-							area = data[i].area;
-						}
-					/*국가명이 다른경우*/
-					}else{
-						li_insert+=
-						'<li class="air_port_list_contry">'+'<b>['+data[i].contry_nm+']</b>'+'</li>'+
-						'<li class="air_port_list_area">'+'<b>('+data[i].area+')</b>'+'</li>'+
-						'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" onclick="select_air_port(this)">'+data[i].airport+'</li>';
-						contry_nm = data[i].contry_nm;
-						area = data[i].area;		
-					}
-				}//if(k == 0)
-				k++;
-			}//for(i in data)
 			
-			/*1: 출발 2:도착*/
-			if(name === "1"){
-				$("#st_serch_air_port *").remove();
-				$("#st_serch_air_port").append(li_insert);
-				if(0 < data.length){
-					$("#st_serch_air_port").css("display", "block");
+			if(data.length === 0){
+				if(name === "A"){
+					$("#st_serch_air_port").css("display", "none");
+					$("#st_serch_air_port *").remove();//내부요소 삭제
+				}else{
+					$("#ed_serch_air_port").css("display", "none");
+					$("#ed_serch_air_port *").remove();//내부요소 삭제
 				}
 			}else{
-				$("#ed_serch_air_port *").remove();//내부요소 삭제
-				$("#ed_serch_air_port").append(li_insert);
-				if(0 < data.length){
-					$("#ed_serch_air_port").css("display", "block");
-				}
-			}
-			console.log("결과 갯수 : "+data.length);
-		}
+			
+				/*값을 하나씩 가져움*/
+				for(i in data){					
+					/*맨 처음은 동일*/
+					if(k == 0){
+					li_insert+= 
+					'<li class="air_port_list_contry">'+'<b>['+data[i].contry_nm+']</b>'+'</li>'+
+					'<li class="air_port_list_area">'+'<b>('+data[i].area+')</b>'+'</li>'+
+					'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" onmousedown="select_air_port(this)">'+data[i].airport+'</li>';
+					
+					contry_nm = data[i].contry_nm; 
+					area = data[i].area;           
+					}else{
+						/*국가명이 같은 경우*/
+						if(contry_nm === data[i].contry_nm){
+							/*지역명이 같은 경우*/
+							if(area === data[i].area ){
+								li_insert+=
+								'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" onmousedown="select_air_port(this)">'+data[i].airport+'</li>';
+							/*지역명이 다른 경우*/
+							}else{
+								li_insert+=
+								'<li class="air_port_list_area">'+'<b>('+data[i].area+')</b>'+'</li>'+
+								'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" onmousedown="select_air_port(this)">'+data[i].airport+'</li>';
+								area = data[i].area;
+							}
+						/*국가명이 다른경우*/
+						}else{
+							li_insert+=
+							'<li class="air_port_list_contry">'+'<b>['+data[i].contry_nm+']</b>'+'</li>'+
+							'<li class="air_port_list_area">'+'<b>('+data[i].area+')</b>'+'</li>'+
+							'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" onmousedown="select_air_port(this)">'+data[i].airport+'</li>';
+							contry_nm = data[i].contry_nm;
+							area = data[i].area;		
+						}
+					}//if(k == 0)
+					k++;
+				}//for(i in data)
+				
+				/*1: 출발 2:도착*/
+				if(name === "A"){
+					$("#st_serch_air_port *").remove();
+					$("#st_serch_air_port").append(li_insert);
+					if(0 < data.length){
+						$("#st_serch_air_port").css("display", "block");
+					}
+				}else{
+					$("#ed_serch_air_port *").remove();//내부요소 삭제
+					$("#ed_serch_air_port").append(li_insert);
+					if(0 < data.length){
+						$("#ed_serch_air_port").css("display", "block");
+					}
+				}//if(name === "1")else
+			}//if(data.length === 0)else
+		}//success : function(data)
 	})
-	
-	
-	$("#departure_Place").focusout(function(){
-		$("#st_serch_air_port *").remove();//내부요소 삭제
-		$("#st_serch_air_port").css("display", "none");
-	})
-	
-	$("#arrival_Place").focusout(function(){
-		$("#ed_serch_air_port *").remove();//내부요소 삭제
-		$("#st_serch_air_port").css("display", "none");
-	})
-	
 }//function getair_port(a)
+
 
 function select_air_port(a){
 	var value = a.getAttribute("value");
 	var name = a.getAttribute("name").substring(0,1);
 	var text = a.innerText;
 	/*1: 출발 2:도착*/
-	if(name === "1"){
+	if(name === "A"){
+		console.log(name);
 		$("#departure_Place").val(value);
 		$("#st_serch_air_port *").remove();//내부요소 삭제
 		$("#st_serch_air_port").css("display", "none");
 	}else{
 		$("#arrival_Place").val(value);
 		$("#ed_serch_air_port *").remove();//내부요소 삭제
-		$("#st_serch_air_port").css("display", "none");
+		$("#ed_serch_air_port").css("display", "none");
 	}
+	
 }//function select_air_port(a)
 

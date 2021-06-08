@@ -1,3 +1,11 @@
+var ticket_serch_ck = false; //티켓 검색하기전 
+
+var orderDate = "";
+var today = new Date();
+var yyyy =  today.getFullYear();
+	//0부터 1월
+var mm =  today.getMonth()+1 > 9 ? today.getMonth()+1 : '0' + (today.getMonth()+1);
+var dd =  today.getDate() > 9 ? today.getDate() : '0' + today.getDate();
 window.onload = function(){
 	
 	var sidebar_btn = document.querySelector(".sidebar_btn"),
@@ -50,6 +58,22 @@ window.onload = function(){
 	
 		/* 티켓 클릭시 뉴스-상세 리스트 해제 및 상세 클릭 해제 */
 		$('.ticket_maum').click(function(){
+			/*입력값이 있었으면 초기화*/
+			if(ticket_serch_ck){
+				$('#departure_Place').val("");
+				$('#departure_Date').val(yyyy+"-"+mm+"-"+dd);
+				$('#arrival_Place').val("");
+				$('#arrival_Date').val(yyyy+"-"+mm+"-"+dd);
+				
+				$('#flight_Type').val("RT");
+				$('#adult').val("1");
+				$('#teenager').val("0");
+				$('#child').val("0");
+				$('#baby').val("0");
+				$('#class_Type').val("Normal");
+				$(".ticket_results").remove();//삭제
+				ticket_serch_ck = false;
+			}			
 			$('#ticket_list').toggleClass("ticket-show");
 			$('#news_list').removeClass("news-show");
 			$('.sidebar .maun .select li ul li').removeClass("available");
@@ -78,6 +102,8 @@ window.onload = function(){
 	
 		/* 로코 클릭시 전체 해제 */
 		$('.sidebar_logo').click(function(){
+			$("#serch_list_area *").remove();//내부요소 삭제
+			$("#country_serch").val(""); //초기화
 			$('#ticket_list').removeClass("ticket-show");
 			$('#news_list').removeClass("news-show");
 			$('.sidebar .maun .select li').siblings().removeClass("active");
@@ -94,6 +120,8 @@ window.onload = function(){
 		
 		/* top 로코 클릭시 전체 해제 */
 		$('.top_logo').click(function(){
+			$("#serch_list_area *").remove();//내부요소 삭제
+			$("#country_serch").val(""); //초기화
 			$('#ticket_list').removeClass("ticket-show");
 			$('#news_list').removeClass("news-show");
 			$('.sidebar .maun .select li').siblings().removeClass("active");

@@ -5,7 +5,7 @@
 <head>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1" />
-<title>Insert title here</title>
+<title>Travel'News</title>
 
 <!-- 기본 -->
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.min.js"></script>
@@ -43,11 +43,14 @@
 <script type="text/javascript" src="/resources/js/reSize.js"></script>
 <!-- 이쁜 경고창 가져오기 -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- 폰트 가져오기 -->
+<link rel = "preconnect"href = "https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Kaushan+Script&family=Dancing+Script&family=Mate+SC&display=swap" rel="stylesheet">
 </head>
 <body>
 	<input type="hidden" id="country_number" value="+1">
 	<div class="loading_area"><div class="loading"></div></div>
-	<nav class="sidebar">
+	<nav class="sidebar" id="side">
 		<div class="maun">
 			<div class="sidebar_logo"><b>Travel'News</b></div>
 			<ul class="select">
@@ -66,9 +69,9 @@
 						<li><a>Ticketing</a></li>
 					</ul> -->
 				</li>
-				<li>
+<!-- 				<li>
 					<a id="community">Community</a>
-				</li>
+				</li> -->
 			</ul>
 			<ul class="time">
 				<li>
@@ -121,17 +124,17 @@
 			</div>
 			<div class="content_area">
 				<div class="content"></div>
-				<div class="next_btn">버튼 공간</div>
+				<div class="list_btn_area"></div>
 			</div>
 			<div class="ticket_area">
 				<div class="start_area">
 					Departure Place
-					<input type="text" id="departure_Place" name="1" onkeyup="getair_port(this)" required></input>
+					<input type="text" id="departure_Place" name="A" onkeyup="getair_port(this)" required autocomplete='off'></input>
 					<ul class="serch_air_port_area" id="st_serch_air_port"></ul>
 				</div>
 				<div class="end_area">
 					Arrival Place
-					<input type="text" id="arrival_Place" name="2" onkeyup="getair_port(this)" required></input>
+					<input type="text" id="arrival_Place" name="B" onkeyup="getair_port(this)" required autocomplete='off'></input>
 					<ul class="serch_air_port_area" id="ed_serch_air_port"></ul>
 				</div>
 				<div class="start_time">
@@ -164,7 +167,7 @@
 		</div>
 	</div>
 	<div class="bottom">
-		<span><b>[공지]</b>&nbsp;&nbsp;로컬에서 서비스중</span>
+		<span><b>[공지]</b>&nbsp;&nbsp;임시 서비스중</span>
 	</div>
 	<div id="map"></div>
 </body>

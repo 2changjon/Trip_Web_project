@@ -28,6 +28,7 @@ var countryById = {}, //영문 국가명
 	
 $(document).ready(function() { 
 	console.clear();
+	
 	//$('#map').css('')로 브라우저 화면에 맞는 %에 대한 크기를 가져온 뒤 parseInt로 정수로 변환한다
 	width = parseInt(window.innerWidth);
 	height = parseInt(window.innerHeight);
@@ -144,7 +145,7 @@ $(document).ready(function() {
 		      	.style("top", (d3.event.pageY - 15) + "px");
 	  	})
 	  	.on("click", function(d) {
-		    if (focused === d)return reset();
+		    /*if (focused === d)return reset();*/
 			    g.selectAll(".focused").classed("focused", false);
 			    d3.select(this).classed("focused", focused = d);
 	      	    
@@ -221,12 +222,11 @@ function endall(transition, callback) {
 	
 //지도 재설정
 function reset() {
-	$(".basic_time").removeClass("show");
+	$(".basic_time").removeClass("show");//시간
 	var	country_serch = document.getElementById('country_serch');
 	country_serch.value = "";
 	country_datas = null;
 	
-	$('.serch_List').remove();
 	contents_basic.innerHTML = "Welcome"+'<br>&nbsp;&nbsp;&nbsp;'+"Earth"+'&nbsp;&nbsp;&nbsp;';
 	//지구본용 svg 공간 원으로 변경
 	if( height > width ){
@@ -244,8 +244,8 @@ function reset() {
    	g.selectAll(".focused").classed("focused", focused = false);
    	infoLabel.style("display", "none");
    	zoneTooltip.style("display", "none");
-	contents_country_name.style.display = 'none';
-   	select_country.style.display = 'none';
+	contents_country_name.style.display = 'none'; //이름
+   	select_country.style.display = 'none'; //시간
 	$("#country_serch").val("");
 	
 	//평면지도를 지구본으로 변환

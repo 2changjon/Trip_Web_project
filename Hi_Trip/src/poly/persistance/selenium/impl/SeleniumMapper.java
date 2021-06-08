@@ -35,8 +35,9 @@ public class SeleniumMapper extends AbstractSeleniumComm implements ISeleniumMap
 	//Properties 설정
 	// 1. 드라이버 설치 경로
 	public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
-	public static String WEB_DRIVER_PATH = "./src/poly/data/chromedriver.exe";
-
+	public static String WEB_DRIVER_PATH = "/usr/bin/chromedriver";
+	/* ./src/poly/data/chromedriver */
+	
 	//셀레니움 + jsoup
 	@Override
 	public ArrayList<Map<String, String>> getTicket1(String url) {
@@ -47,7 +48,7 @@ public class SeleniumMapper extends AbstractSeleniumComm implements ISeleniumMap
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("headless");
-		options.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win32; x32) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.24 Safari/537.36");
+		options.addArguments("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.19 Safari/537.36");
 		options.addArguments("no-sandbox");
 		options.addArguments("start-maximized");
 		options.addArguments("disable-popup-blocking");
@@ -164,6 +165,7 @@ public class SeleniumMapper extends AbstractSeleniumComm implements ISeleniumMap
 			}//while (ticket_List.hasNext())
 			
 		} catch (Exception e) {
+			log.info("------------------------------err--------------------------------");
 			e.printStackTrace();
 		}
 		log.info(this.getClass()+".getTicket2 end");
@@ -180,7 +182,7 @@ public class SeleniumMapper extends AbstractSeleniumComm implements ISeleniumMap
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("headless");
-		options.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win32; x32) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.24 Safari/537.36");
+		options.addArguments("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.19 Safari/537.36");
 		options.addArguments("no-sandbox");
 		options.addArguments("start-maximized");
 		options.addArguments("disable-popup-blocking");
@@ -293,6 +295,7 @@ public class SeleniumMapper extends AbstractSeleniumComm implements ISeleniumMap
 			}//if(ticket_Check())
 			
 		}catch (Exception e) {
+			log.info("------------------------------err--------------------------------");
 			e.printStackTrace();
 		} finally {
 //			driver.close(); // 5. 브라우저 종료

@@ -39,7 +39,7 @@ public class SchedulController {
 	ArrayList<String> country_En_List = new ArrayList<String>();
 	
 	@ResponseBody
-	@Scheduled(cron="0 0 5 * * ?")  
+	@Scheduled(cron="0 1 * * * ?")  
 	public void run() throws Exception {
 		Map<String, Map<String, ArrayList<Map<String, String>>>> api_Data = new HashMap<>();
 		Map<String, ArrayList<Map<String, String>>> country_Datas = new HashMap<>();

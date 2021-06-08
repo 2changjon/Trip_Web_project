@@ -177,7 +177,7 @@ public class MongoMapper extends AbstractMongoDBComon implements IMongoMapper {
 			e.printStackTrace();
 		}
 		
-		log.info(air_port_list+"dd"+air_port_list.size()+"dd"+air_port_list.toString());
+		log.info(air_port_list.toString());
 		
 		log.info(this.getClass().getName() + ".getserch_list2 End!");
 		return air_port_list;

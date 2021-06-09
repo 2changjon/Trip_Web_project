@@ -147,6 +147,8 @@
 				</div>
 				<button class="ticket_option">Ticket Option</button>
 				<input type="hidden" id="flight_Type" value="RT"></input>
+				<input type="hidden" id="air_cn" value=""></input>
+				<input type="hidden" id="area_id" value=""></input>
 				<input type="hidden" id="adult" value="1"></input>
 				<input type="hidden" id="teenager" value="0"></input>
 				<input type="hidden" id="child" value="0"></input>

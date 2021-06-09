@@ -108,7 +108,7 @@ public class SeleniumMapper extends AbstractSeleniumComm implements ISeleniumMap
 							String go_time = Time2(ticket_info);
 							String go_flight_Type = Flight_Type2(ticket_info);
 							String go_airport = Airport2(ticket_info);
-							String go_waypoint = wayPoint2(ticket_info, 0);
+							String go_waypoint = wayPoint2(ticket_info, 0); // wayPoint:0 wayPoint_title:1 
 							String go_waypoint_title = wayPoint2(ticket_info, 1);
 							String go_addendum = Addendum2(ticket_info);
 							String go_flight_time = Flight_time2(ticket_info);
@@ -118,7 +118,7 @@ public class SeleniumMapper extends AbstractSeleniumComm implements ISeleniumMap
 							set_Tiket_Map.put("go_flight_Type", go_flight_Type);
 							set_Tiket_Map.put("go_airport", go_airport);        
 							set_Tiket_Map.put("go_waypoint", go_waypoint);
-							set_Tiket_Map.put("go_waypoint_title", go_waypoint_title);   
+							set_Tiket_Map.put("go_waypoint_title", go_waypoint_title.replaceAll("<b>", "").replaceAll("</b>", ""));   
 							set_Tiket_Map.put("go_addendum", go_addendum);      
 							set_Tiket_Map.put("go_flight_time", go_flight_time);
 							
@@ -137,7 +137,7 @@ public class SeleniumMapper extends AbstractSeleniumComm implements ISeleniumMap
 							set_Tiket_Map.put("bak_flight_Type", bak_flight_Type); 
 							set_Tiket_Map.put("bak_airport", bak_airport);         
 							set_Tiket_Map.put("bak_waypoint", bak_waypoint);
-							set_Tiket_Map.put("bak_waypoint_title", bak_waypoint_title);  
+							set_Tiket_Map.put("bak_waypoint_title", bak_waypoint_title.replaceAll("<b>", "").replaceAll("</b>", ""));  
 							set_Tiket_Map.put("bak_addendum", bak_addendum);       
 							set_Tiket_Map.put("bak_flight_time", bak_flight_time); 
 							
@@ -248,7 +248,7 @@ public class SeleniumMapper extends AbstractSeleniumComm implements ISeleniumMap
 						set_Tiket_Map.put("go_flight_Type", go_flight_Type);
 						set_Tiket_Map.put("go_airport", go_airport);
 						set_Tiket_Map.put("go_waypoint", go_waypoint);
-						set_Tiket_Map.put("go_waypoint_title", go_waypoint_title);
+						set_Tiket_Map.put("go_waypoint_title", go_waypoint_title.replaceAll("<b>", "").replaceAll("</b>", ""));
 						set_Tiket_Map.put("go_addendum", go_addendum);
 						set_Tiket_Map.put("go_flight_time", go_flight_time);
 						
@@ -267,7 +267,7 @@ public class SeleniumMapper extends AbstractSeleniumComm implements ISeleniumMap
 							set_Tiket_Map.put("bak_flight_Type", bak_flight_Type); 
 							set_Tiket_Map.put("bak_airport", bak_airport);     
 							set_Tiket_Map.put("bak_waypoint", bak_waypoint);
-							set_Tiket_Map.put("bak_waypoint_title", bak_waypoint_title);  
+							set_Tiket_Map.put("bak_waypoint_title", bak_waypoint_title.replaceAll("<b>", "").replaceAll("</b>", ""));  
 							set_Tiket_Map.put("bak_addendum", bak_addendum);    
 							set_Tiket_Map.put("bak_flight_time", bak_flight_time); 
 						}

@@ -24,20 +24,6 @@ public class ApiParser {
 	//api 키 가져오기
 	ApiKeys apiKeys = new ApiKeys();
 	
-	//	Côte D'Ivoire	코트디부아르 조심	
-//	public static void main(String[] args) {
-//		ApiParser api = new ApiParser();
-//		System.out.println("Dangerous_News "+api.Dangerous_News("프랑스"));
-//		System.out.println("Safety_Notice_News "+api.Safety_Notice_News("남극"));
-//		System.out.println("Accident_Type_News "+api.Accident_Type_News("프랑스"));
-//		System.out.println("Local_Contact_News "+api.Local_Contact_News("프랑스"));
-		
-		//xml
-//		System.out.println("Special_Travel_Alert "+api.Special_Travel_Alert("남극"));
-//		System.out.println("Travel_Alert "+api.Travel_Alert("리비아"));
-//		System.out.println("Travel_Prohibited"+api.Travel_Prohibited("리비아"));
-//	}
-//	
 	//위험 경보 뉴스	
 	public ArrayList<Map<String, String>> Dangerous_News(String country_nm) {
 		

@@ -84,6 +84,7 @@ input:focus {
 
 	.loading_area.show .loading.show{
 	  	background-image: url(/resources/img/loading.gif);
+	  	background-repeat: no-repeat;
 	  	background-position: center;
 	    display: block;
     	position: absolute;
@@ -224,10 +225,10 @@ input:focus {
 		z-index: 6;
 		position: absolute;
 		display: inline-block;
-	    right: 2%;
+	    right: 5%;
 	    top: 15%;
-	    width: 20vw;
-	    max-width: 20vw;
+	    width: 30vw;
+	    max-width: 30vw;
 	}
 	#country_serch{
 		border: 0;
@@ -235,8 +236,8 @@ input:focus {
     	outline: none;
     	border-bottom: 1px solid;
     	font-size: 1.5rem;
-     	width: 20vw;
-     	max-width: 20vw;
+     	width: 30vw;
+     	max-width: 30vw;
 	}
 	#country_serch::-webkit-input-placeholder {
    		text-align: center;

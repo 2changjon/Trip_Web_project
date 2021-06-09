@@ -25,7 +25,7 @@ init();
 	function getCountryTime() {
 		var country_utc_time = parseFloat(document.getElementById("country_number").value);
 	
-		console.log(country_utc_time);
+		//console.log(country_utc_time);
 		
 		const days = document.getElementById("country_day");
 		const times = document.getElementById("country_time");

@@ -1,6 +1,7 @@
 package poly.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -40,13 +41,6 @@ public class MainController {
 		return "/index";
 	}
 	
-	@RequestMapping(value="test")
-	public String Test() {
-		log.info(this.getClass());
-		
-		return "/test";
-	}
-	
 	//연관 검색
 	@ResponseBody
 	@RequestMapping(value = "/serch_List", method = RequestMethod.GET)
@@ -69,13 +63,13 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value = "/getcountry_Data", method = RequestMethod.GET)
 	public Object getcountry_Data(HttpServletRequest request) throws Exception {
-		log.info(this.getClass()+".country_Data_Select start");
+		log.info(this.getClass()+".getcountry_Data start");
 		
 		String country_nm = CmmUtil.nvl(request.getParameter("country_nm"));
 		
 		JSONObject country_data = mongoService.getcountry_data(country_nm);
 		
-		log.info(this.getClass()+".country_Data_Select end");
+		log.info(this.getClass()+".getcountry_Data end");
 		return country_data;
 	}
 	//공항찾기
@@ -138,5 +132,85 @@ public class MainController {
 		log.info(this.getClass()+".getTicket end");
 		return tiket_List;
 	}
+	//티켓 검색 저장
+	@ResponseBody
+	@RequestMapping(value = "/insert_ticket_serch", method = RequestMethod.GET)
+	public boolean insert_ticket_serch(HttpServletRequest request){
+		log.info(this.getClass()+".insert_ticket_serch start");
+		String air_cn = CmmUtil.nvl(request.getParameter("air_cn"));	//공항 국가
+		
+		boolean success = mainService.insert_ticket_serch(air_cn);
+		
+//		try {
+//			
+//			if(success) {
+//				File ticket_Serch_Data = ResourceUtils.getFile("classpath:/poly/data/ticket_Serch_Data.txt");
+//				//파일 읽기 객체 생성
+//		        FileReader filereader = new FileReader(ticket_Serch_Data);
+//		        //입력 버퍼 생성
+//		        BufferedReader bufReader = new BufferedReader(filereader); //첫번째 줄은 언제나 날짜
+//		        String line = "";
+//		        log.info("------------------------------------------------");
+//		        //국가 검색 파일 한줄씩 읽기
+//		        while((line = bufReader.readLine()) != null){
+//		        	log.info(line);
+//		        }
+//		        bufReader.close();
+//		        log.info("------------------------------------------------");
+//			}
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+		log.info(this.getClass()+".insert_ticket_serch end");
+		return success;
+	}
 	
+	//공항 검색 저장
+	@ResponseBody
+	@RequestMapping(value = "/insert_country_serch", method = RequestMethod.GET)
+	public boolean insert_country_serch(HttpServletRequest request){
+		log.info(this.getClass()+".insert_country_serch start");
+		String country_nm = CmmUtil.nvl(request.getParameter("country_nm"));	//공항 국가
+		
+		boolean success = mainService.insert_country_serch(country_nm);
+		
+//		try {
+//			
+//			if(success) {
+//				File country_Serch_Data = ResourceUtils.getFile("classpath:/poly/data/country_Serch_Data.txt");
+//				//파일 읽기 객체 생성
+//		        FileReader filereader = new FileReader(country_Serch_Data);
+//		        //입력 버퍼 생성
+//		        BufferedReader bufReader = new BufferedReader(filereader); //첫번째 줄은 언제나 날짜
+//		        String line = "";
+//		        log.info("------------------------------------------------");
+//		        //국가 검색 파일 한줄씩 읽기
+//		        while((line = bufReader.readLine()) != null){
+//		        	log.info(line);
+//		        }
+//		        bufReader.close();
+//		        log.info("------------------------------------------------");
+//			}
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+		log.info(this.getClass()+".insert_country_serch end");
+		return success;
+	}
+	
+	//도착지 현재 날씨
+	@ResponseBody
+	@RequestMapping(value = "/findWeather", method = RequestMethod.GET)
+	public Map<String, String> findWeather(HttpServletRequest request){
+		String area_id = CmmUtil.nvl(request.getParameter("area_id")); // 국가 수도 id
+		
+		Map<String, String> weather_Map = mainService.findWeather(area_id);
+		
+		if(weather_Map == null) {
+			weather_Map = new HashMap<String, String>();
+		}
+		
+		return weather_Map;
+	}
+		
 }

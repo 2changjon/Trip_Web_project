@@ -36,7 +36,7 @@ public class MongoService implements IMongoService {
 		log.info(this.getClass().getName() + ".insertMongo start!");
 		// 생성할 컬렉션명
 		String colNm = "country_datas";
-		String collectTime = DateUtil.getDateTime("yyyyMMddhhmmss");
+		String collectTime = DateUtil.getDateTime("yyyyMMddHHmmss");
 		// MongoDB에 데이터저장하기
 		boolean success;
 		
@@ -116,6 +116,11 @@ public class MongoService implements IMongoService {
 		 
 		
 		return mongoMapper.getair_port(keyWord);
+	}
+
+	@Override
+	public boolean insert_serch(String colNm, String collectTime, ArrayList<Map<String, String>> country_List) {
+		return mongoMapper.insert_serch(colNm, collectTime, country_List);
 	}
 	
 }

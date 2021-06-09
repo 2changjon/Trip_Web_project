@@ -12,6 +12,8 @@ public interface IMongoMapper {
 	public JSONObject getcountry_data(String country_nm);
 	//공항 리스트 조회
 	public ArrayList<Map<String, String>> getair_port(String keyWord);
+	//주에 한번 db에 컬렉션 생성 국가검색과 티켓검색 
+	public boolean insert_serch(String colNm, String collectTime, ArrayList<Map<String, String>> country_List);
 
 }
 

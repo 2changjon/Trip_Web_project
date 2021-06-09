@@ -1,8 +1,11 @@
 var place_ck = /^[a-zA-Z]{3}$/;
 window.addEventListener('load', function ticket_serch() {
 	$('#serch_bt').click(function(){
-		var departure_Place = document.getElementById('departure_Place').value;	//	출발지
-		var arrival_Place = document.getElementById('arrival_Place').value;	//	도착지
+		var departure_Place = document.getElementById('departure_Place').value;	//출발지 공항
+		var arrival_Place = document.getElementById('arrival_Place').value;	//도착지 공항
+		
+		var air_cn = document.getElementById('air_cn').value;	//도착지 국가
+		var area_id = document.getElementById('area_id').value;	//도착지 국가 수도 id
 		
 		if(departure_Place === "" && arrival_Place === ""){
 			swal.fire("도착지, 출발지 미입력");
@@ -42,6 +45,83 @@ window.addEventListener('load', function ticket_serch() {
 			var baby = document.getElementById('baby').value;	//	유아
 			var class_Type = document.getElementById('class_Type').value;	//	좌석
 			
+			if(air_cn != ""){
+				console.log(air_cn);
+				$.ajax({
+					url : "/insert_ticket_serch.do",
+					type : "get",
+					dataType : "json",
+					timeout : 60000,
+					error : function(err) {
+						console.log(err); 
+					},
+					data : {
+						air_cn : air_cn
+					},
+					success : function(data) {
+						if(data){
+							console.log("완료");
+						}else{
+							console.log("실패");
+						}
+					}
+				})	
+			}
+			
+			if(area_id != ""){
+				console.log(area_id);
+					//날씨 가져오기
+					$.ajax({
+						url : "/findWeather.do",
+						type : "get",
+						dataType : "json",
+						timeout : 60000,
+						error : function(err) {
+							console.log(err); 
+						},
+						data : {
+							area_id :area_id
+						},
+						success : function(data) {
+	
+							if(JSON.stringify(data) === '{}'){
+								swal.fire("도착지 날씨 데이터 없음");
+							}else{
+								if(data["en_weather"] === "Clear"){
+									swal.fire({
+										title: "도착지 날씨", 
+										text: data["kr_weather"],
+										width: 500,
+										imageUrl: "/resources/img/Clear.png",
+										imageWidth: 250,
+										imageHeight: 250
+									});
+								}else if(data["en_weather"] === "Clouds"){
+									swal.fire({
+										title: "도착지 날씨", 
+										text: data["kr_weather"],
+										width: 500,
+										imageUrl: "/resources/img/Clouds.png",
+										imageWidth: 250,
+										imageHeight: 250
+									});
+								}else if(data["en_weather"] === "Rain"){
+									swal.fire({
+										title: "도착지 날씨", 
+										text: data["kr_weather"],
+										width: 500,
+										imageUrl: "/resources/img/Rain.png",
+										imageWidth: 250,
+										imageHeight: 250
+									});
+								}else{
+									swal.fire("도착지 날씨", data["en_weather"]+"  "+ data["kr_weather"]);
+								}
+							}//JSON.stringify(data) === '{}' else
+						}//success
+					})//$.ajax
+			}
+			
 			$.ajax({
 				url : "/getTicket.do",
 				type : "get",
@@ -62,10 +142,10 @@ window.addEventListener('load', function ticket_serch() {
 					"teenager" : teenager,
 					"child" : child,
 					"baby" : baby,
-					"class_Type" : class_Type,
+					"class_Type" : class_Type
 				},
 				success : function(data) {
-					ticket_serch_ck = true;
+					ticket_serch_ck = true; //resize 제한
 					if(data.length === 0){
 						swal.fire("검색된 항공편 없음","다른 조건으로 검색을 시도해 주세요");
 					}else{
@@ -90,7 +170,7 @@ window.addEventListener('load', function ticket_serch() {
 													'<div class="info_bottom" title="'+ticket["go_waypoint_title"]+'">'+ticket["go_waypoint"]+'</div>'+
 												'</div>'+
 												'<div class="flight_time">'+
-													'<div class="info_top">'+ticket["go_flight_time"]+'</div>'+
+													'<div class="info_time">'+ticket["go_flight_time"]+'</div>'+
 												'</div>'+
 											'</div>'+
 											'<div class="end_flight">'+
@@ -106,7 +186,7 @@ window.addEventListener('load', function ticket_serch() {
 													'<div class="info_bottom" title="'+ticket["bak_waypoint_title"]+'">'+ticket["bak_waypoint"]+'</div>'+
 												'</div>'+
 												'<div class="flight_time">'+
-													'<div class="info_top">'+ticket["bak_flight_time"]+'</div>'+
+													'<div class="info_time">'+ticket["bak_flight_time"]+'</div>'+
 												'</div>'+
 											'</div>'+
 										'</div>'+

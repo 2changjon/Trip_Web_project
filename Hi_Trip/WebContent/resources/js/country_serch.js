@@ -6,11 +6,11 @@ function country_serch_focus(){
 	var serch_list_area = document.getElementById("serch_list_area");
 
 	if( !country_serch.value ){
-		console.log("country_serch : null check");
+/*		console.log("country_serch : null check");*/
 		$('.serch_List').remove();
 	}else{
-		console.log("country_serch : "+country_serch.value);
-		console.log("keyup");
+/*		console.log("country_serch : "+country_serch.value);
+		console.log("keyup");*/
 		$.ajax({
 			url : "/serch_List.do",
 			type : "get",
@@ -23,8 +23,8 @@ function country_serch_focus(){
 			},
 			success : function(data) {
 				$('.serch_List').remove();
-				console.log("결과 갯수 : "+data.length);
-				console.log("첫번째 결과 : "+data[0]);
+/*				console.log("결과 갯수 : "+data.length);
+				console.log("첫번째 결과 : "+data[0]);*/
 				/*for-of 문을 사용해 arraylist의 요소값을 하나 하나 가져온다*/
 				for(var i of data){
 					var li = document.createElement("li");
@@ -32,7 +32,7 @@ function country_serch_focus(){
 					li.appendChild(document.createTextNode(i));
 					serch_list_area.appendChild(li);
 				}
-				console.log("끝");
+/*				console.log("끝");*/
 			}
 		})
 	}
@@ -55,60 +55,84 @@ function map_change() {
 				/*for (var i in data) {
 					console.log(i);	
 				}*/
-				/*console.log("data[travel_prohibited].length ::"+data["travel_prohibited"].length);*/
-				if(data["travel_prohibited"].length > 0){
-					if(data["travel_prohibited"][0].hasOwnProperty('banPartial')){//값유무 확인
-						/*console.log("travel_prohibited if :"+data["travel_prohibited"][0].banPartial);*/
-						swal.fire({
-							title: "<b style="+"color:red"+">"+data["travel_prohibited"][0].banPartial+"</b>", 
-							text: data["travel_prohibited"][0].banNote,
-							width: 600,
-							imageUrl: data["travel_prohibited"][0].imgUrl2,
-							imageWidth: 600,
-							imageHeight: 300
-							});	
-					}else{
-						/*console.log("travel_prohibited else "+data["travel_prohibited"][0].ban);*/
-						swal.fire({
-							title: "<b style="+"color:red"+">"+data["travel_prohibited"][0].ban+"</b>", 
-							text: data["travel_prohibited"][0].banNote,
-							width: 600,
-							imageUrl: data["travel_prohibited"][0].imgUrl2,
-							imageWidth: 600,
-							imageHeight: 300
-						});
+				if(JSON.stringify(data) === '{}'){
+					swal.fire("<b style="+"color:red"+">"+"검색한 국가"+"</b>"+"는 없습니다");
+				}else{
+					if(data["travel_prohibited"].length > 0){
+						if(data["travel_prohibited"][0].hasOwnProperty('banPartial')){//값유무 확인
+							/*console.log("travel_prohibited if :"+data["travel_prohibited"][0].banPartial);*/
+							swal.fire({
+								title: "<b style="+"color:red"+">"+data["travel_prohibited"][0].banPartial+"</b>", 
+								text: data["travel_prohibited"][0].banNote,
+								width: 600,
+								imageUrl: data["travel_prohibited"][0].imgUrl2,
+								imageWidth: 600,
+								imageHeight: 300
+								});	
+						}else{
+							/*console.log("travel_prohibited else "+data["travel_prohibited"][0].ban);*/
+							swal.fire({
+								title: "<b style="+"color:red"+">"+data["travel_prohibited"][0].ban+"</b>", 
+								text: data["travel_prohibited"][0].banNote,
+								width: 600,
+								imageUrl: data["travel_prohibited"][0].imgUrl2,
+								imageWidth: 600,
+								imageHeight: 300
+							});
+						}
 					}
-				}
-				/*console.log("data[travel_alert].length ::"+data["travel_alert"].length);*/
-				if(data["travel_alert"].length > 0){
-					if(data["travel_alert"][0].hasOwnProperty('limitaPartial')){
-						/*console.log("travel_alert if "+data["travel_alert"][0].limitaPartial);*/
-						swal.fire("<b style="+"color:red"+">"+data["travel_alert"][0].limitaPartial+"</b>", data["travel_alert"][0].limitaNote,"error");
+					/*console.log("data[travel_alert].length ::"+data["travel_alert"].length);*/
+					if(data["travel_alert"].length > 0){
+						if(data["travel_alert"][0].hasOwnProperty('limitaPartial')){
+							/*console.log("travel_alert if "+data["travel_alert"][0].limitaPartial);*/
+							swal.fire("<b style="+"color:red"+">"+data["travel_alert"][0].limitaPartial+"</b>", data["travel_alert"][0].limitaNote,"error");
+						}
 					}
-				}
-				/*console.log("data[special_travel].length ::"+data["special_travel"].length);*/
-				if(data["special_travel"].length > 0){
-					if(data["special_travel"][0].hasOwnProperty('splimit')){
-						/*console.log("special_travel if "+data["special_travel"][0].splimit);*/
-						swal.fire("<b style="+"color:red"+">"+data["special_travel"][0].splimit+"</b>", data["special_travel"][0].splimitNote,"error");
-					}else{
-						/*console.log("special_travel else "+data["special_travel"][0].splimitPartial);*/
-						swal.fire("<b style="+"color:red"+">"+data["special_travel"][0].splimitPartial+"</b>", data["special_travel"][0].splimitNote,"error");
+					/*console.log("data[special_travel].length ::"+data["special_travel"].length);*/
+					if(data["special_travel"].length > 0){
+						if(data["special_travel"][0].hasOwnProperty('splimit')){
+							/*console.log("special_travel if "+data["special_travel"][0].splimit);*/
+							swal.fire("<b style="+"color:red"+">"+data["special_travel"][0].splimit+"</b>", data["special_travel"][0].splimitNote,"error");
+						}else{
+							/*console.log("special_travel else "+data["special_travel"][0].splimitPartial);*/
+							swal.fire("<b style="+"color:red"+">"+data["special_travel"][0].splimitPartial+"</b>", data["special_travel"][0].splimitNote,"error");
+						}
 					}
-				}
-					/*console.log("accident_type_news"+JSON.stringify(data["accident_type_news"]));*/
-					/*console.log(data["dangerous_News"].length+" "+"dangerous_News"+data["dangerous_News"]);
-					console.log(data["local_contact_news"].length+" "+"local_contact_news"+data["local_contact_news"]);
-					console.log(data["safety_notice_news"].length+" "+"safety_notice_news"+data["safety_notice_news"]);
-					console.log(data["special_travel"].length+" "+"special_travel"+data["special_travel"]);
-					console.log(data["travel_alert"].length+" "+"travel_alert"+data["travel_alert"]);
-					console.log(data["travel_prohibited"].length+" "+"travel_prohibited"+data["travel_prohibited"]);
-					
-					console.log(country_datas["local_contact_news"].length+" "+"dddd"+JSON.stringify(country_datas["local_contact_news"]));*/
-				country_datas = data;
-				/*console.log("map_change 끝");*/
+						/*console.log("accident_type_news"+JSON.stringify(data["accident_type_news"]));*/
+						/*console.log(data["dangerous_News"].length+" "+"dangerous_News"+data["dangerous_News"]);
+						console.log(data["local_contact_news"].length+" "+"local_contact_news"+data["local_contact_news"]);
+						console.log(data["safety_notice_news"].length+" "+"safety_notice_news"+data["safety_notice_news"]);
+						console.log(data["special_travel"].length+" "+"special_travel"+data["special_travel"]);
+						console.log(data["travel_alert"].length+" "+"travel_alert"+data["travel_alert"]);
+						console.log(data["travel_prohibited"].length+" "+"travel_prohibited"+data["travel_prohibited"]);
+						
+						console.log(country_datas["local_contact_news"].length+" "+"dddd"+JSON.stringify(country_datas["local_contact_news"]));*/
+					country_datas = data;
+					/*console.log("map_change 끝");*/
+					$.ajax({
+						url : "/insert_country_serch.do",
+						type : "get",
+						dataType : "json",
+						timeout : 60000,
+						error : function(err) {
+							console.log(err); 
+						},
+						data : {
+							country_nm :country_nm
+						},
+						success : function(data) {
+							if(data){
+								console.log("완료");
+							}else{
+								console.log("실패");
+							}	
+						}	
+					})//url : "/insert_country_serch.do"
+				}//if(JSON.stringify(data) === '{}') else
 			}
-		})
+		})//url : "/getcountry_Data.do"
+		
+		
 	
 	/*	Javascript의 for-in문을 사용해 key를 뽑아낼 수 있다.
     	key 변수에는 obj가 가진 key가 하나씩 들어온다. */

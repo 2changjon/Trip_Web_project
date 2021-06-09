@@ -39,6 +39,7 @@ public class MongoMapper extends AbstractMongoDBComon implements IMongoMapper {
 		if(api_Data == null){
 			api_Data = new HashMap<String, Map<String,ArrayList<Map<String,String>>>>();
 		}
+		
 		// 데이터를 저장할 컬렉션 생성
 		try {
 			super.createCollection(colNm, "collectTime");
@@ -66,7 +67,7 @@ public class MongoMapper extends AbstractMongoDBComon implements IMongoMapper {
 		log.info(this.getClass().getName() + ".insertSong End!");
 		return success;
 	}
-	//조회
+	//국가 조회
 	@Override
 	public JSONObject getcountry_data(String country_nm) {
 		log.info(this.getClass().getName() + ".getcountr_data Start!");
@@ -115,7 +116,7 @@ public class MongoMapper extends AbstractMongoDBComon implements IMongoMapper {
 		log.info(this.getClass().getName() + ".getcountr_data End!");
 		return country_data;
 	}
-
+	//공항 조회
 	@Override
 	public ArrayList<Map<String, String>> getair_port(String keyWord) {
 		log.info(this.getClass().getName() + ".getserch_list2 Start!");
@@ -134,6 +135,7 @@ public class MongoMapper extends AbstractMongoDBComon implements IMongoMapper {
             Document projection = new Document();            
             projection.append("contry_nm", "$contry_nm");
             projection.append("area", "$area");
+            projection.append("area_id", "$area_id");
             projection.append("airport", "$airport");
             projection.append("iata", "$iata");
             projection.append("_id", 0);//id조회 불필요
@@ -152,6 +154,7 @@ public class MongoMapper extends AbstractMongoDBComon implements IMongoMapper {
     			
     			rMap.put("contry_nm", CmmUtil.nvl(doc.getString("contry_nm")));
     			rMap.put("area", CmmUtil.nvl(doc.getString("area")));
+    			rMap.put("area_id", CmmUtil.nvl(doc.getString("area_id")));
     			rMap.put("airport", CmmUtil.nvl(doc.getString("airport")));
     			rMap.put("iata", CmmUtil.nvl(doc.getString("iata")));
     			
@@ -181,6 +184,48 @@ public class MongoMapper extends AbstractMongoDBComon implements IMongoMapper {
 		
 		log.info(this.getClass().getName() + ".getserch_list2 End!");
 		return air_port_list;
+	}
+	@Override
+	public boolean insert_serch(String colNm, String collectTime, ArrayList<Map<String, String>> country_List) {
+		log.info(this.getClass().getName() + ".insert_serch Start!");
+		boolean success = false;
+			// 데이터를 저장할 컬렉션 생성
+			try {
+				super.createCollection(colNm, "collectTime");
+				
+				// 저장할 컬렉션 객체 생성
+				MongoCollection<Document> col = mongodb.getCollection(colNm);
+				
+				Iterator<Map<String, String>> it = country_List.iterator();
+
+				// 2.xx 버전의 MongoDB 저장은 Document 단위로 구성됨
+				Document doc = new Document();
+				doc.append("collectTime", CmmUtil.nvl(collectTime));					
+				
+				int i = 0;
+				while(it.hasNext()) {
+					Map<String, String> rMap = it.next();
+					
+					if(rMap == null) {
+						rMap = new HashMap<String, String>();
+					}
+					
+					String serch = rMap.get("serch");
+
+					doc.append("serch-"+i, serch);
+					
+					// 레코드 한개씩 저장하기
+					col.insertOne(doc);
+					doc=null;
+					i++;
+				}
+				success = true;
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		log.info(this.getClass().getName() + ".insert_serch End!");
+		return success;
 	}
 
 

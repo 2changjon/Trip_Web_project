@@ -1,8 +1,14 @@
 package poly.data;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -15,12 +21,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
 
 import poly.service.IMongoService;
+import poly.util.DateUtil;
 
 @Configuration
 @EnableScheduling
@@ -38,14 +44,14 @@ public class SchedulController {
 	ArrayList<String> country_List = new ArrayList<String>();
 	ArrayList<String> country_En_List = new ArrayList<String>();
 	
-	@ResponseBody
-	@Scheduled(cron="0 1 * * * ?")  
+	@Scheduled(cron="0 0 5 * * ?")  
 	public void run() throws Exception {
 		Map<String, Map<String, ArrayList<Map<String, String>>>> api_Data = new HashMap<>();
 		Map<String, ArrayList<Map<String, String>>> country_Datas = new HashMap<>();
 		
 		log.info("Mongo Insert Start");
-		
+
+		//country_List 빈값인지
 		if(country_List.isEmpty()) {
 			
 			File readFile = ResourceUtils.getFile("classpath:/poly/data/world_country_data.tsv");
@@ -108,5 +114,137 @@ public class SchedulController {
 			log.info("Mongo Insert Error");
 		}
 	}
+	
+	@Scheduled(cron="0 40 13 * * Thu") 
+	public void reset_txt() {
+		log.info("Mongo Insert reset_txt Start");
+		//날짜
+        SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+        
+        BufferedWriter fw;//쓰기
+        
+        //국가검색
+        try {
+        	//국가검색
+			Map<String, String> country_Map;
+			ArrayList<Map<String, String>> country_List = new ArrayList<Map<String,String>>(); 
+
+			//파일 객체
+			File readFile_Country = ResourceUtils.getFile("classpath:/poly/data/country_Serch_Data.txt");//국가
+			
+			//파일 읽기 객체 생성
+	        FileReader filereader_Country = new FileReader(readFile_Country);
+	        
+	        //읽기 버퍼 생성
+	        BufferedReader bufReader_Country = new BufferedReader(filereader_Country); //첫번째 줄은 언제나 날짜
+	        
+	        //처음 날짜는 두 파일 다 동일 시작일부터 월요일전까지
+	        String days = bufReader_Country.readLine();
+	        
+	        String line = "";
+	        int i =0;
+	        log.info("--------------------------");
+	        //국가 검색 파일 한줄씩 읽기
+	        while((line = bufReader_Country.readLine()) != null){
+	        	if(0<i) {
+	        		country_Map = new HashMap<String, String>();
+	        		country_Map.put("serch", line);
+	        		country_List.add(country_Map);
+	        		log.info(country_List);
+	        		country_Map = null;
+	        	}
+	        	i++;
+	        }	
+	        log.info("--------------------------");
+	        
+	        bufReader_Country.close();
+	        
+	        boolean success = mongoService.insert_serch("serch_country_"+days, days+" ~ "+DateUtil.getDateTime("yyyyMMdd"), country_List);
+	        
+	        country_List = null;
+	        
+	        if(success) {
+				log.info("Mongo serch_country Insert End");
+			}else {
+				log.info("Mongo serch_country Insert Error");
+			}
+	        
+
+        	Date eveday  = date.parse(bufReader_Country.readLine());//이전 날짜
+        	Date today = date.parse(DateUtil.getDateTime("yyyyMMdd"));//오늘
+	        //시,분,초,밀리초        	
+        	long difference = Math.abs( (eveday.getTime()/(24*60*60*1000))-(today.getTime()/(24*60*60*1000))); //차이
+        	
+        	//월요일로 초기화
+			if(7 <= difference) {
+				fw = new BufferedWriter(new FileWriter(readFile_Country));
+				fw.write(DateUtil.getDateTime("yyyyMMdd").toString());
+				fw.newLine();
+				fw.flush();
+				fw.close();
+			}
+		} catch (Exception e) {
+			log.info("serch_country_ERR = "+e);
+		}
+        
+        //티켓검색
+        try {
+        	//티켓검색
+			Map<String, String> ticket_Map =new HashMap<String, String>();
+			ArrayList<Map<String, String>> ticket_List = new ArrayList<Map<String,String>>();
+			
+			File readFile_Ticket = ResourceUtils.getFile("classpath:/poly/data/ticket_Serch_Data.txt");//티켓
+			
+			FileReader filereader_Ticket = new FileReader(readFile_Ticket);
+			
+			BufferedReader bufReader_Ticket = new BufferedReader(filereader_Ticket); //첫번째 줄은 언제나 날짜
+			
+			//처음 날짜는 두 파일 다 동일 시작일부터 월요일전까지
+	        String days = bufReader_Ticket.readLine();
+	        
+	        log.info("--------------------------");
+			String line = "";
+	        //티켓 검색 파일 한줄씩 읽기
+			int i= 0;
+	        while((line = bufReader_Ticket.readLine()) != null){
+	        	if(0<i) {
+		        	ticket_Map = new HashMap<String, String>();
+		        	ticket_Map.put("serch", line);
+		        	ticket_List.add(ticket_Map);
+		        	log.info(ticket_List);
+		        	ticket_Map = null;
+	        	}
+	        	i++;
+	        }
+	        log.info("--------------------------");
+	        bufReader_Ticket.close();
+	        boolean success2 = mongoService.insert_serch("serch_ticket_"+days, days+" ~ "+DateUtil.getDateTime("yyyyMMdd"), ticket_List);
+	        
+	        if(success2) {
+				log.info("Mongo serch_ticket Insert End");
+			}else {
+				log.info("Mongo serch_ticket Insert Error");
+			}
+	        
+	        Date eveday  = date.parse(bufReader_Ticket.readLine());//이전 날짜
+        	Date today = date.parse(DateUtil.getDateTime("yyyyMMdd"));//오늘
+	        //시,분,초,밀리초        	
+        	long difference = Math.abs( (eveday.getTime()/(24*60*60*1000))-(today.getTime()/(24*60*60*1000))); //차이
+	        
+	        //월요일로 초기화
+			if(7 <= difference) {
+				fw = new BufferedWriter(new FileWriter(readFile_Ticket));
+				fw.write(DateUtil.getDateTime("yyyyMMdd").toString());
+				fw.newLine();
+				fw.flush();
+				fw.close();
+			}
+		} catch (Exception e) {
+			log.info("serch_ticket_ERR = "+e);
+		}
+	
+		log.info("Mongo Insert reset_txt End");
+	}
+	
 	
 }

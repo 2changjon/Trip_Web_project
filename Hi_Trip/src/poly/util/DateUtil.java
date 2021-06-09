@@ -29,4 +29,8 @@ public class DateUtil {
 		return getDateTime("yyyy.MM.dd");
 		
 	}
+	/*
+	 * public static Date toDay(String fm) { Date today = new Date();
+	 * SimpleDateFormat date = new SimpleDateFormat(fm); return Date.parse(date); }
+	 */
 }

@@ -270,7 +270,7 @@ function getair_port(a){
 					li_insert+= 
 					'<li class="air_port_list_contry">'+'<b>['+data[i].contry_nm+']</b>'+'</li>'+
 					'<li class="air_port_list_area">'+'<b>('+data[i].area+')</b>'+'</li>'+
-					'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" onmousedown="select_air_port(this)">'+data[i].airport+'</li>';
+					'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" data-cn="'+data[i].contry_nm+'" data-areaId="'+data[i].area_id+'" onmousedown="select_air_port(this)">'+data[i].airport+'</li>';
 					
 					contry_nm = data[i].contry_nm; 
 					area = data[i].area;           
@@ -280,12 +280,12 @@ function getair_port(a){
 							/*지역명이 같은 경우*/
 							if(area === data[i].area ){
 								li_insert+=
-								'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" onmousedown="select_air_port(this)">'+data[i].airport+'</li>';
+								'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" data-cn="'+data[i].contry_nm+'" data-areaId="'+data[i].area_id+'" onmousedown="select_air_port(this)">'+data[i].airport+'</li>';
 							/*지역명이 다른 경우*/
 							}else{
 								li_insert+=
 								'<li class="air_port_list_area">'+'<b>('+data[i].area+')</b>'+'</li>'+
-								'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" onmousedown="select_air_port(this)">'+data[i].airport+'</li>';
+								'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" data-cn="'+data[i].contry_nm+'" data-areaId="'+data[i].area_id+'" onmousedown="select_air_port(this)">'+data[i].airport+'</li>';
 								area = data[i].area;
 							}
 						/*국가명이 다른경우*/
@@ -293,7 +293,7 @@ function getair_port(a){
 							li_insert+=
 							'<li class="air_port_list_contry">'+'<b>['+data[i].contry_nm+']</b>'+'</li>'+
 							'<li class="air_port_list_area">'+'<b>('+data[i].area+')</b>'+'</li>'+
-							'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" onmousedown="select_air_port(this)">'+data[i].airport+'</li>';
+							'<li class="air_port_list" value="'+data[i].iata+'" name="'+name+"-"+k+'" data-cn="'+data[i].contry_nm+'" data-areaId="'+data[i].area_id+'" onmousedown="select_air_port(this)">'+data[i].airport+'</li>';
 							contry_nm = data[i].contry_nm;
 							area = data[i].area;		
 						}
@@ -322,9 +322,11 @@ function getair_port(a){
 
 
 function select_air_port(a){
-	var value = a.getAttribute("value");
-	var name = a.getAttribute("name").substring(0,1);
-	var text = a.innerText;
+	var value = a.getAttribute("value"); //iata코드
+	var name = a.getAttribute("name").substring(0,1);//출발,도착 유무
+	//var text = a.innerText; //공항명
+	var air_cn =  a.getAttribute("data-cn");//공항이 있는 국가 명 도착지만있음
+	var area_id = a.getAttribute("data-areaId"); // 날씨를 위한 수도 id값 도착지에만 있음
 	/*1: 출발 2:도착*/
 	if(name === "A"){
 		console.log(name);
@@ -333,9 +335,31 @@ function select_air_port(a){
 		$("#st_serch_air_port").css("display", "none");
 	}else{
 		$("#arrival_Place").val(value);
+		$("#area_id").val(area_id);
+		$("#air_cn").val(air_cn);
 		$("#ed_serch_air_port *").remove();//내부요소 삭제
 		$("#ed_serch_air_port").css("display", "none");
 	}
 	
+	$.ajax({
+		url : "/insert_ticket_serch.do",
+		type : "get",
+		dataType : "json",
+		timeout : 60000,
+		error : function(err) {
+			console.log(err); 
+		},
+		data : {
+			serch_air_cn :air_cn
+		},
+		success : function(data) {
+			if(data){
+				console.log("완료");
+			}else{
+				console.log("실패");
+			}
+		}
+	})
+					
 }//function select_air_port(a)
 

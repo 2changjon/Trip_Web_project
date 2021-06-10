@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
@@ -44,6 +45,7 @@ public class SchedulController {
 	ArrayList<String> country_List = new ArrayList<String>();
 	ArrayList<String> country_En_List = new ArrayList<String>();
 	
+	@ResponseBody
 	@Scheduled(cron="0 0 5 * * ?")  
 	public void run() throws Exception {
 		Map<String, Map<String, ArrayList<Map<String, String>>>> api_Data = new HashMap<>();
@@ -115,7 +117,7 @@ public class SchedulController {
 		}
 	}
 	
-	@Scheduled(cron="0 40 13 * * Thu") 
+	@Scheduled(cron="0 0 0 * * ?") 
 	public void reset_txt() {
 		log.info("Mongo Insert reset_txt Start");
 		//날짜
@@ -123,6 +125,8 @@ public class SchedulController {
         
         BufferedWriter fw;//쓰기
         
+        //숫자 검사
+        String num_ch = "^[0-9]*$";
         //국가검색
         try {
         	//국가검색
@@ -141,34 +145,35 @@ public class SchedulController {
 	        //처음 날짜는 두 파일 다 동일 시작일부터 월요일전까지
 	        String days = bufReader_Country.readLine();
 	        
-	        String line = "";
-	        int i =0;
-	        log.info("--------------------------");
-	        //국가 검색 파일 한줄씩 읽기
-	        while((line = bufReader_Country.readLine()) != null){
-	        	if(0<i) {
-	        		country_Map = new HashMap<String, String>();
-	        		country_Map.put("serch", line);
-	        		country_List.add(country_Map);
-	        		log.info(country_List);
-	        		country_Map = null;
-	        	}
-	        	i++;
-	        }	
-	        log.info("--------------------------");
-	        
-	        bufReader_Country.close();
-	        
-	        boolean success = mongoService.insert_serch("serch_country_"+days, days+" ~ "+DateUtil.getDateTime("yyyyMMdd"), country_List);
-	        
-	        country_List = null;
-	        
-	        if(success) {
-				log.info("Mongo serch_country Insert End");
-			}else {
-				log.info("Mongo serch_country Insert Error");
-			}
-	        
+	        if(days.matches(num_ch)) {
+		        String line = "";
+		        int i =0;
+		        log.info("--------------------------");
+		        //국가 검색 파일 한줄씩 읽기
+		        while((line = bufReader_Country.readLine()) != null){
+		        	if(0<i) {
+		        		country_Map = new HashMap<String, String>();
+		        		country_Map.put("serch", line);
+		        		country_List.add(country_Map);
+		        		log.info(country_List);
+		        		country_Map = null;
+		        	}
+		        	i++;
+		        }	
+		        log.info("--------------------------");
+		        
+		        bufReader_Country.close();
+		        
+		        boolean success = mongoService.insert_serch("serch_country_"+days, days+" ~ "+DateUtil.getDateTime("yyyyMMdd"), country_List);
+		        
+		        country_List = null;
+		        
+		        if(success) {
+					log.info("Mongo serch_country Insert End");
+				}else {
+					log.info("Mongo serch_country Insert Error");
+				}
+	        }
 
         	Date eveday  = date.parse(bufReader_Country.readLine());//이전 날짜
         	Date today = date.parse(DateUtil.getDateTime("yyyyMMdd"));//오늘
@@ -176,7 +181,7 @@ public class SchedulController {
         	long difference = Math.abs( (eveday.getTime()/(24*60*60*1000))-(today.getTime()/(24*60*60*1000))); //차이
         	
         	//월요일로 초기화
-			if(7 <= difference) {
+			if(1 == difference || !days.matches(num_ch)) {
 				fw = new BufferedWriter(new FileWriter(readFile_Country));
 				fw.write(DateUtil.getDateTime("yyyyMMdd").toString());
 				fw.newLine();
@@ -202,37 +207,38 @@ public class SchedulController {
 			//처음 날짜는 두 파일 다 동일 시작일부터 월요일전까지
 	        String days = bufReader_Ticket.readLine();
 	        
-	        log.info("--------------------------");
-			String line = "";
-	        //티켓 검색 파일 한줄씩 읽기
-			int i= 0;
-	        while((line = bufReader_Ticket.readLine()) != null){
-	        	if(0<i) {
-		        	ticket_Map = new HashMap<String, String>();
-		        	ticket_Map.put("serch", line);
-		        	ticket_List.add(ticket_Map);
-		        	log.info(ticket_List);
-		        	ticket_Map = null;
-	        	}
-	        	i++;
+	        if(days.matches(num_ch)) {
+		        log.info("--------------------------");
+				String line = "";
+		        //티켓 검색 파일 한줄씩 읽기
+				int i= 0;
+		        while((line = bufReader_Ticket.readLine()) != null){
+		        	if(0<i) {
+			        	ticket_Map = new HashMap<String, String>();
+			        	ticket_Map.put("serch", line);
+			        	ticket_List.add(ticket_Map);
+			        	log.info(ticket_List);
+			        	ticket_Map = null;
+		        	}
+		        	i++;
+		        }
+		        log.info("--------------------------");
+		        bufReader_Ticket.close();
+		        boolean success2 = mongoService.insert_serch("serch_ticket_"+days, days+" ~ "+DateUtil.getDateTime("yyyyMMdd"), ticket_List);
+		        
+		        if(success2) {
+					log.info("Mongo serch_ticket Insert End");
+				}else {
+					log.info("Mongo serch_ticket Insert Error");
+				}
 	        }
-	        log.info("--------------------------");
-	        bufReader_Ticket.close();
-	        boolean success2 = mongoService.insert_serch("serch_ticket_"+days, days+" ~ "+DateUtil.getDateTime("yyyyMMdd"), ticket_List);
-	        
-	        if(success2) {
-				log.info("Mongo serch_ticket Insert End");
-			}else {
-				log.info("Mongo serch_ticket Insert Error");
-			}
-	        
 	        Date eveday  = date.parse(bufReader_Ticket.readLine());//이전 날짜
         	Date today = date.parse(DateUtil.getDateTime("yyyyMMdd"));//오늘
 	        //시,분,초,밀리초        	
         	long difference = Math.abs( (eveday.getTime()/(24*60*60*1000))-(today.getTime()/(24*60*60*1000))); //차이
 	        
 	        //월요일로 초기화
-			if(7 <= difference) {
+			if(1 == difference || !days.matches(num_ch)) {
 				fw = new BufferedWriter(new FileWriter(readFile_Ticket));
 				fw.write(DateUtil.getDateTime("yyyyMMdd").toString());
 				fw.newLine();

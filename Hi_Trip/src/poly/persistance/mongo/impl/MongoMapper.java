@@ -47,15 +47,17 @@ public class MongoMapper extends AbstractMongoDBComon implements IMongoMapper {
 			// 저장할 컬렉션 객체 생성
 			MongoCollection<Document> col = mongodb.getCollection(colNm);
 			// 2.xx 버전의 MongoDB 저장은 Document 단위로 구성됨
-			Document doc = new Document();
-			doc.append("collectTime", collectTime);
 			
 			for(String country : api_Data.keySet()) {			
+				Document doc = new Document();
+
+				doc.append("collectTime", collectTime);
 				doc.append(country, api_Data.get(country));	
+				
+				// 레코드 한개씩 저장하기
+				col.insertOne(doc);
+				doc = null;
 			}			
-			// 레코드 한개씩 저장하기
-			col.insertOne(doc);
-			doc = null;
 			col = null;
 			success = true;
 			

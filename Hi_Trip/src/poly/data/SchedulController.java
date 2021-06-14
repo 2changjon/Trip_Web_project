@@ -27,6 +27,7 @@ import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
 
 import poly.service.IMongoService;
+import poly.util.CmmUtil;
 import poly.util.DateUtil;
 
 @Configuration
@@ -117,16 +118,15 @@ public class SchedulController {
 		}
 	}
 	
-	@Scheduled(cron="0 0 0 * * ?") 
+	@Scheduled(cron="0 0 0 * * MON") 
 	public void reset_txt() {
 		log.info("Mongo Insert reset_txt Start");
 		//날짜
         SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
-        
-        BufferedWriter fw;//쓰기
-        
+
         //숫자 검사
         String num_ch = "^[0-9]*$";
+        
         //국가검색
         try {
         	//국가검색
@@ -143,12 +143,14 @@ public class SchedulController {
 	        BufferedReader bufReader_Country = new BufferedReader(filereader_Country); //첫번째 줄은 언제나 날짜
 	        
 	        //처음 날짜는 두 파일 다 동일 시작일부터 월요일전까지
-	        String days = bufReader_Country.readLine();
-	        
-	        if(days.matches(num_ch)) {
+	        String days = CmmUtil.nvl(bufReader_Country.readLine());
+	        log.info(days);
+	        long difference = 0;
+	        if(days.matches(num_ch) && days != "") {
+	        	log.info("Mongo serch_country Insert Start");
 		        String line = "";
 		        int i =0;
-		        log.info("--------------------------");
+		        
 		        //국가 검색 파일 한줄씩 읽기
 		        while((line = bufReader_Country.readLine()) != null){
 		        	if(0<i) {
@@ -160,7 +162,6 @@ public class SchedulController {
 		        	}
 		        	i++;
 		        }	
-		        log.info("--------------------------");
 		        
 		        bufReader_Country.close();
 		        
@@ -168,29 +169,31 @@ public class SchedulController {
 		        
 		        country_List = null;
 		        
+		        Date eveday  = date.parse(days);//이전 날짜
+	        	Date today = date.parse(DateUtil.getDateTime("yyyyMMdd"));//오늘
+		        //시,분,초,밀리초        	
+	        	difference = Math.abs( (eveday.getTime()/(24*60*60*1000))-(today.getTime()/(24*60*60*1000))); //차이
+		        
 		        if(success) {
 					log.info("Mongo serch_country Insert End");
 				}else {
 					log.info("Mongo serch_country Insert Error");
 				}
 	        }
-
-        	Date eveday  = date.parse(bufReader_Country.readLine());//이전 날짜
-        	Date today = date.parse(DateUtil.getDateTime("yyyyMMdd"));//오늘
-	        //시,분,초,밀리초        	
-        	long difference = Math.abs( (eveday.getTime()/(24*60*60*1000))-(today.getTime()/(24*60*60*1000))); //차이
-        	
+  
         	//월요일로 초기화
-			if(1 == difference || !days.matches(num_ch)) {
-				fw = new BufferedWriter(new FileWriter(readFile_Country));
-				fw.write(DateUtil.getDateTime("yyyyMMdd").toString());
-				fw.newLine();
-				fw.flush();
-				fw.close();
+			if(1 == difference || !days.matches(num_ch) || days == "") {
+				BufferedWriter fw_1 = new BufferedWriter(new FileWriter(readFile_Country));
+				fw_1.write(DateUtil.getDateTime("yyyyMMdd").toString());
+				fw_1.newLine();
+				fw_1.flush();
+				fw_1.close();
 			}
 		} catch (Exception e) {
 			log.info("serch_country_ERR = "+e);
 		}
+        
+        
         
         //티켓검색
         try {
@@ -205,10 +208,12 @@ public class SchedulController {
 			BufferedReader bufReader_Ticket = new BufferedReader(filereader_Ticket); //첫번째 줄은 언제나 날짜
 			
 			//처음 날짜는 두 파일 다 동일 시작일부터 월요일전까지
-	        String days = bufReader_Ticket.readLine();
+	        String days = CmmUtil.nvl(bufReader_Ticket.readLine());
+	        log.info(days);
+	        long difference = 0;
 	        
-	        if(days.matches(num_ch)) {
-		        log.info("--------------------------");
+	        if(days.matches(num_ch) && days != "") {
+	        	log.info("Mongo serch_ticket Insert Start");
 				String line = "";
 		        //티켓 검색 파일 한줄씩 읽기
 				int i= 0;
@@ -222,9 +227,13 @@ public class SchedulController {
 		        	}
 		        	i++;
 		        }
-		        log.info("--------------------------");
 		        bufReader_Ticket.close();
 		        boolean success2 = mongoService.insert_serch("serch_ticket_"+days, days+" ~ "+DateUtil.getDateTime("yyyyMMdd"), ticket_List);
+		        
+		        Date eveday  = date.parse(days);//이전 날짜
+	        	Date today = date.parse(DateUtil.getDateTime("yyyyMMdd"));//오늘
+		        //시,분,초,밀리초        	
+	        	difference = Math.abs( (eveday.getTime()/(24*60*60*1000))-(today.getTime()/(24*60*60*1000))); //차이
 		        
 		        if(success2) {
 					log.info("Mongo serch_ticket Insert End");
@@ -232,18 +241,15 @@ public class SchedulController {
 					log.info("Mongo serch_ticket Insert Error");
 				}
 	        }
-	        Date eveday  = date.parse(bufReader_Ticket.readLine());//이전 날짜
-        	Date today = date.parse(DateUtil.getDateTime("yyyyMMdd"));//오늘
-	        //시,분,초,밀리초        	
-        	long difference = Math.abs( (eveday.getTime()/(24*60*60*1000))-(today.getTime()/(24*60*60*1000))); //차이
+	   
 	        
 	        //월요일로 초기화
-			if(1 == difference || !days.matches(num_ch)) {
-				fw = new BufferedWriter(new FileWriter(readFile_Ticket));
-				fw.write(DateUtil.getDateTime("yyyyMMdd").toString());
-				fw.newLine();
-				fw.flush();
-				fw.close();
+			if(1 == difference || !days.matches(num_ch) || days == "") {
+				BufferedWriter fw_2 = new BufferedWriter(new FileWriter(readFile_Ticket));
+				fw_2.write(DateUtil.getDateTime("yyyyMMdd").toString());
+				fw_2.newLine();
+				fw_2.flush();
+				fw_2.close();
 			}
 		} catch (Exception e) {
 			log.info("serch_ticket_ERR = "+e);

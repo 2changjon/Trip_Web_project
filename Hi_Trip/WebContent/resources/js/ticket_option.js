@@ -123,12 +123,12 @@ window.addEventListener('load', function ticket_option() {
 							})
 						
 						//청소년 인원
-						}else if(value==2){
+						}else if(value==3){
 							swal.fire({
 								title:"청소년(만 12~17세) 탑승인원",
 								input: "range",
 								inputAttributes: {
-    								min: 1,
+    								min: 0,
     								max: max_minority,
     								step: 1
   								},

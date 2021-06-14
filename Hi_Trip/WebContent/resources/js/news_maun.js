@@ -25,7 +25,7 @@ window.addEventListener('load', function news_data() {
 				/*console.log(country_datas["dangerous_News"][0]);	*/
 				$('.title').text($('.available a').text());
 				$('.news_title').text(country_datas["dangerous_News"][0].title);
-				$('.content').html(country_datas["dangerous_News"][0].html_origin_cn.replaceAll("font-size:",""));
+				$('.content').html(country_datas["dangerous_News"][0].html_origin_cn.replace(/font-size:/gi,"").replace(/line-height:/gi,"").replace(/https:\/\/www.0404.go.kr/gi,"").replace(/src="/gi,'src="https://www.0404.go.kr').replace(/href="/gi,'href="https://www.0404.go.kr'));
 				
 				var list_btn='<div class="list_btn" onmousedown="list_btn_click(this)" data-value="0">&#9679;</div>';
 								
@@ -55,7 +55,7 @@ window.addEventListener('load', function news_data() {
 				/*console.log(country_datas["safety_notice_news"][0]);*/
 				$('.title').text($('.available a').text());
 				$('.news_title').text(country_datas["safety_notice_news"][0].title);
-				$('.content').html(country_datas["safety_notice_news"][0].txt_origin_cn.replaceAll("font-size:",""));
+				$('.content').html(country_datas["safety_notice_news"][0].txt_origin_cn.replace(/font-size:/gi,"").replace(/line-height:/gi,"").replace(/https:\/\/www.0404.go.kr/gi,"").replace(/src="/gi,'src="https://www.0404.go.kr').replace(/href="/gi,'href="https://www.0404.go.kr'));
 				
 				var list_btn='<div class="list_btn" onmousedown="list_btn_click(this)" data-value="0">&#9679;</div>';
 								
@@ -85,7 +85,7 @@ window.addEventListener('load', function news_data() {
 			/*	console.log(country_datas["accident_type_news"][0]);	*/	
 				$('.title').text($('.available a').text());
 				$('.news_title').text("");
-				$('.content').html(country_datas["accident_type_news"][0].news.replaceAll("font-size:",""));
+				$('.content').html(country_datas["accident_type_news"][0].news.replace(/font-size:/gi,"").replace(/line-height:/gi,"").replace(/https:\/\/www.0404.go.kr/gi,"").replace(/src="/gi,'src="https://www.0404.go.kr').replace(/href="/gi,'href="https://www.0404.go.kr'));
 				
 				var list_btn='<div class="list_btn" onmousedown="list_btn_click(this)" data-value="0">&#9679;</div>';
 								
@@ -115,7 +115,7 @@ window.addEventListener('load', function news_data() {
 				/*console.log(country_datas["local_contact_news"][0]);*/
 				$('.title').text($('.available a').text());
 				$('.news_title').text("");
-				$('.content').html(country_datas["local_contact_news"][0].contact_remark.replaceAll("font-size:",""));
+				$('.content').html(country_datas["local_contact_news"][0].contact_remark.replace(/font-size:/gi,"").replace(/line-height:/gi,"").replace(/https:\/\/www.0404.go.kr/gi,"").replace(/src="/gi,'src="https://www.0404.go.kr').replace(/href="/gi,'href="https://www.0404.go.kr'));
 				
 				
 				var list_btn='<div class="list_btn" onmousedown="list_btn_click(this)" data-value="0">&#9679;</div>';
@@ -138,7 +138,7 @@ window.addEventListener('load', function news_data() {
 	
 });//window.addEventListener('load', function news_data()
 
-/*뉴스 버튼*/
+/*뉴스 내용 변경 버튼*/
 function list_btn_click(a){
 	
 	var value = parseInt(a.getAttribute("data-value"));
@@ -157,7 +157,7 @@ function list_btn_click(a){
 		}
 		
 		$('.news_title').text(country_datas["dangerous_News"][value].title);
-		$('.content').html(country_datas["dangerous_News"][value].html_origin_cn.replaceAll("font-size:",""));
+		$('.content').html(country_datas["dangerous_News"][value].html_origin_cn.replace(/font-size:/gi,"").replace(/line-height:/gi,"").replace(/https:\/\/www.0404.go.kr/gi,"").replace(/src="/gi,'src="https://www.0404.go.kr').replace(/href="/gi,'href="https://www.0404.go.kr'));
 	
 	/*safety*/
 	}else if(manual_btn === 2){
@@ -171,7 +171,7 @@ function list_btn_click(a){
 		}
 		
 		$('.news_title').text(country_datas["safety_notice_news"][value].title);
-		$('.content').html(country_datas["safety_notice_news"][value].txt_origin_cn.replaceAll("font-size:",""));
+		$('.content').html(country_datas["safety_notice_news"][value].txt_origin_cn.replace(/font-size:/gi,"").replace(/line-height:/gi,"").replace(/https:\/\/www.0404.go.kr/gi,"").replace(/src="/gi,'src="https://www.0404.go.kr').replace(/href="/gi,'href="https://www.0404.go.kr'));
 	
 	/*accident*/
 	}else if(manual_btn === 3){
@@ -184,7 +184,7 @@ function list_btn_click(a){
 			}
 		}
 		
-		$('.content').html(country_datas["accident_type_news"][value].news.replaceAll("font-size:",""));
+		$('.content').html(country_datas["accident_type_news"][value].news.replace(/font-size:/gi,"").replace(/line-height:/gi,"").replace(/https:\/\/www.0404.go.kr/gi,"").replace(/src="/gi,'src="https://www.0404.go.kr').replace(/href="/gi,'href="https://www.0404.go.kr'));
 	
 	/*contact*/
 	}else if(manual_btn === 4){
@@ -197,6 +197,6 @@ function list_btn_click(a){
 			}
 		}
 		
-		$('.content').html(country_datas["local_contact_news"][value].contact_remark.replaceAll("font-size:",""));
+		$('.content').html(country_datas["local_contact_news"][value].contact_remark.replace(/font-size:/gi,"").replace(/line-height:/gi,"").replace(/https:\/\/www.0404.go.kr/gi,"").replace(/src="/gi,'src="https://www.0404.go.kr').replace(/href="/gi,'href="https://www.0404.go.kr'));
 	}
 }

@@ -94,14 +94,15 @@ public class MongoMapper extends AbstractMongoDBComon implements IMongoMapper {
             while (cursor.hasNext()) {
     			Document doc = cursor.next();
     			
-    			if (doc == null) {
+    			if (doc.isEmpty()) {
     				doc = new Document();
+    			}else {
+    				//json으로 만듬
+    				country_data = (JSONObject) jsonParse.parse(doc.toJson());
+    				log.info(country_data);
+    				doc = null;
+    				break;
     			}
-    			//json으로 만듬
-    			country_data = (JSONObject) jsonParse.parse(doc.toJson());
-    			log.info(country_data);
-    			
-    			doc = null;
             }
             
             // 사용이 완료된 객체는 메모리에서 강제로 비우기
